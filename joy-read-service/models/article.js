@@ -1,5 +1,5 @@
-'use strict';
-import { Model } from "sequelize";  
+'use strict'
+import { Model } from 'sequelize'
 
 export default (sequelize, DataTypes) => {
   class Article extends Model {
@@ -12,13 +12,16 @@ export default (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Article.init({
-    title: DataTypes.STRING,
-    content: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'Article',
-  });
-  
-  return Article;
+  Article.init(
+    {
+      title: DataTypes.STRING,
+      content: DataTypes.TEXT,
+    },
+    {
+      sequelize,
+      modelName: 'Article',
+    },
+  )
+
+  return Article
 }

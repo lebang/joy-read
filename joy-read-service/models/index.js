@@ -28,10 +28,7 @@ const files = fs.readdirSync(path.dirname(__filename)).filter((file) => {
 })
 
 for (const file of files) {
-  const model = (await import(`./${file}`)).default(
-    sequelize,
-    Sequelize.DataTypes,
-  )
+  const model = (await import(`./${file}`)).default(sequelize, Sequelize.DataTypes)
   db[model.name] = model
 }
 

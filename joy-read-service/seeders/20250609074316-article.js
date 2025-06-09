@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 
 export default {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -12,7 +12,7 @@ export default {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
 
     const articles = []
     const counts = 100
@@ -29,10 +29,9 @@ export default {
     }
 
     await queryInterface.bulkInsert('Articles', articles, {})
-
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -40,6 +39,5 @@ export default {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('Articles', null, {})
-  }
-
+  },
 }
