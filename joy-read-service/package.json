@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./bin/www",
-    "format": "prettier --write \"**/*.{js,json,md}\""
+    "format": "prettier --write \"**/*.{js,json,md}\"",
+    "sequlize-cli": "./node_modules/.bin/sequelize-cli"
   },
   "dependencies": {
     "cookie-parser": "~1.4.7",
@@ -21,6 +22,10 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "sequelize-cli": "^6.6.3"
+  },
+  "engines": {
+    "node": "22.16.0"
   }
 }
