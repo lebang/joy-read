@@ -7,7 +7,7 @@
 #
 # 主机: 127.0.0.1 (MySQL 8.4.5)
 # 数据库: joy_read_basis
-# 生成时间: 2025-06-10 13:30:03 +0000
+# 生成时间: 2025-06-10 13:38:56 +0000
 # ************************************************************
 
 
@@ -235,6 +235,34 @@ CREATE TABLE `Likes` (
   KEY `likes_user_id` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+
+# 转储表 SequelizeMeta
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `SequelizeMeta`;
+
+CREATE TABLE `SequelizeMeta` (
+  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+LOCK TABLES `SequelizeMeta` WRITE;
+/*!40000 ALTER TABLE `SequelizeMeta` DISABLE KEYS */;
+
+INSERT INTO `SequelizeMeta` (`name`)
+VALUES
+	('20250609065324-create-article.js'),
+	('20250610110224-create-category.js'),
+	('20250610110452-create-user.js'),
+	('20250610111043-create-course.js'),
+	('20250610111848-create-chapter.js'),
+	('20250610112056-create-like.js'),
+	('20250610112254-create-setting.js');
+
+/*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # 转储表 Settings
