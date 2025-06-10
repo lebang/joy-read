@@ -27,7 +27,7 @@ const getArticle = async (req) => {
  * @param req
  * @returns {{title, content: (string|string|DocumentFragment|*)}}
  */
-const filterBody = async (req) => {
+const filterBody = (req) => {
   const { title, content } = req?.body || {}
   return {
     title,
@@ -92,8 +92,8 @@ router.post('/', async (req, res) => {
  * update
  */
 router.put('/:id', async (req, res) => {
-  const article = await getArticle(req)
   const body = filterBody(req)
+  const article = await getArticle(req)
 
   await article.update(body)
   success(res, '更新成功', { article })
@@ -104,7 +104,7 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const article = await getArticle(req)
-  await article.destory()
+  await article.destroy()
   success(res, '删除成功', { article })
 })
 

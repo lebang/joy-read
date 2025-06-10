@@ -14,7 +14,22 @@ export default (sequelize, DataTypes) => {
   }
   Article.init(
     {
-      title: DataTypes.STRING,
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: '标题不能为空1',
+          },
+          notEmpty: {
+            msg: '标题不能为空2',
+          },
+          len: {
+            args: [2, 45],
+            msg: '标题长度在2~45个字符之间',
+          },
+        },
+      },
       content: DataTypes.TEXT,
     },
     {
