@@ -14,8 +14,31 @@ export default (sequelize, DataTypes) => {
   }
   Category.init(
     {
-      name: DataTypes.STRING,
-      rank: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: { msg: '名称已经存在' },
+        validate: {
+          notNull: { msg: 'empty' },
+          notEmpty: { msg: 'empty' },
+          len: {
+            args: [2, 45],
+            msg: '2-45 length',
+          },
+        },
+      },
+      rank: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: 'empty' },
+          notEmpty: { msg: 'empty' },
+          isInt: { msg: 'int required' },
+          isPositive(value) {
+            if (value <= 0) throw new Error('int error')
+          },
+        },
+      },
     },
     {
       sequelize,

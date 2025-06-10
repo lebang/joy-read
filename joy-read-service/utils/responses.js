@@ -6,6 +6,7 @@ import createHttpError from 'http-errors'
 function success(res, message, data = {}, code = 200) {
   res.status(code).json({
     status: true,
+    code,
     message,
     data,
   })
@@ -42,6 +43,7 @@ function failure(res, err) {
 
   res.status(statusCode).json({
     status: false,
+    code: statusCode,
     message: `请求失败: ${err.name}`,
     errors: Array.isArray(errors) ? errors : [errors],
   })

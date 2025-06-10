@@ -2,11 +2,15 @@ import express from 'express'
 import indexRouter from '../routes/index.js'
 import usersRouter from '../routes/users.js'
 import apiArticlesRouter from '../routes/api/articles.js'
+import apiCategoriesRouter from '../routes/api/categories.js'
+import apiSettingsRouter from '../routes/api/settings.js'
 
 const router = express.Router()
 
 router.use('/', indexRouter)
 router.use('/users', usersRouter)
 router.use('/api/articles', apiArticlesRouter)
+router.use('/api/categories', apiCategoriesRouter)
+router.use('/api/settings', apiSettingsRouter)
 
 export default router
