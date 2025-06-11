@@ -41,14 +41,13 @@ const filterBody = (req) => {
  * GET /api/settings/
  */
 router.get('/', async (req, res) => {
-  const setting = await getSetting(req)
-  // const cacheKey = 'setting'
-  // let setting = await getKey(cacheKey)
+  const cacheKey = 'setting'
+  let setting = await getKey(cacheKey)
 
-  // if(!setting) {
-  //   setting = await getSetting(req)
-  //   await setKey(cacheKey, setting)
-  // }
+  if (!setting) {
+    setting = await getSetting(req)
+    await setKey(cacheKey, setting)
+  }
   success(res, '查询成功', { setting })
 })
 

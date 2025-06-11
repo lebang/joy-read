@@ -48,5 +48,4 @@ const delKey = async (key) => {
   await client.del(key)
 }
 
-
 export { redisClient, setKey, getKey, delKey }

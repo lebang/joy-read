@@ -7,7 +7,7 @@
 #
 # 主机: 127.0.0.1 (MySQL 8.4.5)
 # 数据库: joy_read_basis
-# 生成时间: 2025-06-10 16:16:37 +0000
+# 生成时间: 2025-06-11 15:04:25 +0000
 # ************************************************************
 
 
@@ -259,7 +259,8 @@ VALUES
 	('20250610111043-create-course.js'),
 	('20250610111848-create-chapter.js'),
 	('20250610112056-create-like.js'),
-	('20250610112254-create-setting.js');
+	('20250610112254-create-setting.js'),
+	('20250611135616-add-avatar-to-user.js');
 
 /*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -309,12 +310,25 @@ CREATE TABLE `Users` (
   `role` tinyint unsigned NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `avator` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email` (`email`),
   UNIQUE KEY `users_username` (`username`),
   KEY `users_role` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+
+INSERT INTO `Users` (`id`, `email`, `username`, `password`, `nickname`, `gender`, `company`, `introduce`, `role`, `createdAt`, `updatedAt`, `avator`)
+VALUES
+	(1,'admin@lebang.cn','admin','$2b$10$5E9X0gLUGrMTNAarFb9wJOn38CL5A9A8vYELTc6nRW53Gv89xRwC2','管理员',1,NULL,NULL,100,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(2,'user1@lebang.cn','user1','$2b$10$FydPbZkduML5OJRUU6cLB.R1iM7Wx8fXtdkOce2uOwu5P8/XURSYS','普通用户1',0,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(3,'user2@lebang.cn','user2','$2b$10$0wX6MDc9qClm6H32avjdA.JcmEfa66i/CMoO/4/0mxoLsqdI7F2ta','普通用户2',0,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(4,'user3@lebang.cn','user3','$2b$10$0bTtiZfjusdXe9VE5qHaSOyzhIxVVfsF1nSnpjCn02UAZIvMLcKke','普通用户3',1,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL);
+
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 

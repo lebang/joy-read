@@ -22,15 +22,15 @@ const swaggerJSDocOptions = {
       version: '1.0.0',
     },
   },
-  apis: ['./swagger/front/*.yaml', './swagger/admin/*.yaml'], 
-};
-const swaggerSpec = swaggerJSDoc(swaggerJSDocOptions);
+  apis: ['./swagger/front/*.yaml', './swagger/admin/*.yaml'],
+}
+const swaggerSpec = swaggerJSDoc(swaggerJSDocOptions)
 
 const swaggerUiOptions = {
-  explorer: true
+  explorer: true,
 }
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
