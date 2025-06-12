@@ -20,9 +20,9 @@ const getCondition = () => {
       {
         model: Course,
         as: 'course',
-        attributes: ['id', 'name']
-      }
-    ]
+        attributes: ['id', 'name'],
+      },
+    ],
   }
 }
 
@@ -32,7 +32,7 @@ const getCondition = () => {
 const getChapter = async (req) => {
   const { id } = req?.params || ''
 
-  const condition = getCondition();
+  const condition = getCondition()
 
   const chapter = await Chapter.findByPk(id, condition)
   if (!chapter) {
@@ -48,14 +48,7 @@ const getChapter = async (req) => {
  */
 const filterBody = (req) => {
   const body = req?.body || {}
-  const allowedFields = [
-    'courseId',
-    'title',
-    'content',
-    'image',
-    'video',
-    'rank',
-  ]
+  const allowedFields = ['courseId', 'title', 'content', 'image', 'video', 'rank']
   return Object.fromEntries(Object.entries(body).filter(([key]) => allowedFields.includes(key)))
 }
 
@@ -67,29 +60,32 @@ router.get('/', async (req, res) => {
   const { currentPage, pageSize, offset } = getPagination(req)
   const { query } = req
   if (!query.courseId) {
-    throw new BadRequest('获取章节列表失败，课程ID不能为空。');
+    throw new BadRequest('获取章节列表失败，课程ID不能为空。')
   }
 
   const condition = {
     ...getCondition(),
     where: {},
-    order: [['rank', 'ASC'], ['id', 'ASC']],
+    order: [
+      ['rank', 'ASC'],
+      ['id', 'ASC'],
+    ],
     limit: pageSize,
     offset,
   }
 
   condition.where = {
     courseId: {
-      [Op.eq]: query.courseId
-    }
-  };
+      [Op.eq]: query.courseId,
+    },
+  }
 
   if (query.title) {
     condition.where = {
       title: {
-        [Op.like]: `%${ query.title }%`
-      }
-    };
+        [Op.like]: `%${query.title}%`,
+      },
+    }
   }
 
   const { rows, count: total } = await Chapter.findAndCountAll(condition)

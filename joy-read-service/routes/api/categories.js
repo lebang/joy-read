@@ -15,10 +15,12 @@ const { NotFound, BadRequest } = createHttpError
 const getCategory = async (req) => {
   const { id } = req?.params
   const condition = {
-    include: [{
+    include: [
+      {
         model: Course,
-        as: 'courses'
-      }]
+        as: 'courses',
+      },
+    ],
   }
   const category = await Category.findByPk(id, condition)
   if (!category) {
@@ -110,9 +112,9 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const category = await getCategory(req)
-  const count = await Course.count({where: { categoryId: req.params.id } })
-  
-  if(count > 0) throw new BadRequest('当前分类有课程，无法删除')
+  const count = await Course.count({ where: { categoryId: req.params.id } })
+
+  if (count > 0) throw new BadRequest('当前分类有课程，无法删除')
   await category.destroy()
   success(res, '删除成功', { category })
 })

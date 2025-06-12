@@ -20,14 +20,14 @@ const getCondition = () => {
       {
         model: Category,
         as: 'category',
-        attributes: ['id', 'name']
+        attributes: ['id', 'name'],
       },
       {
         model: User,
         as: 'user',
-        attributes: ['id', 'username', 'avatar']
-      }
-    ]
+        attributes: ['id', 'username', 'avatar'],
+      },
+    ],
   }
 }
 
@@ -37,7 +37,7 @@ const getCondition = () => {
 const getCourse = async (req) => {
   const { id } = req?.params || ''
 
-  const condition = getCondition();
+  const condition = getCondition()
 
   const course = await Course.findByPk(id, condition)
   if (!course) {
@@ -171,8 +171,8 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const course = await getCourse(req)
-  const count = await Chapter.count({where: {courseId: req.params.id }})
-  if(count > 0 ) throw new BadRequest('当前课程有章节，无法删除')
+  const count = await Chapter.count({ where: { courseId: req.params.id } })
+  if (count > 0) throw new BadRequest('当前课程有章节，无法删除')
   await course.destroy()
   success(res, '删除成功', { course })
 })

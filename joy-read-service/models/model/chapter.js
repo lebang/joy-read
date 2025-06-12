@@ -18,10 +18,10 @@ export default (sequelize, DataTypes) => {
           async isPresent(value) {
             const course = await sequelize.models.Course.findByPk(value)
             if (!course) {
-              throw new Error(`ID为：${ value } 的课程不存在。`);
+              throw new Error(`ID为：${value} 的课程不存在。`)
             }
-          }
-        }
+          },
+        },
       },
       title: {
         type: DataTypes.STRING,
@@ -29,15 +29,15 @@ export default (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: '标题必须填写。' },
           notEmpty: { msg: '标题不能为空。' },
-          len: { args: [2, 45], msg: '标题长度必须是2 ~ 45之间。' }
-        }
+          len: { args: [2, 45], msg: '标题长度必须是2 ~ 45之间。' },
+        },
       },
       content: DataTypes.TEXT,
       video: {
         type: DataTypes.STRING,
         validate: {
-          isUrl: { msg: '视频地址不正确。' }
-        }
+          isUrl: { msg: '视频地址不正确。' },
+        },
       },
       rank: {
         type: DataTypes.INTEGER,
@@ -48,10 +48,10 @@ export default (sequelize, DataTypes) => {
           isInt: { msg: '排序必须为整数。' },
           isPositive(value) {
             if (value <= 0) {
-              throw new Error('排序必须是正整数。');
+              throw new Error('排序必须是正整数。')
             }
-          }
-        }
+          },
+        },
       },
     },
     {
