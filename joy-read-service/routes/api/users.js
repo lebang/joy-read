@@ -27,7 +27,7 @@ const getUser = async (req) => {
  * @returns
  */
 const filterBody = (req) => {
-  const { email, username, password, nickname, gender, company, introduce, role, avator } =
+  const { email, username, password, nickname, gender, company, introduce, role, avatar } =
     req?.body || {}
   return {
     email,
@@ -38,7 +38,7 @@ const filterBody = (req) => {
     company,
     introduce,
     role,
-    avator,
+    avatar,
   }
 }
 

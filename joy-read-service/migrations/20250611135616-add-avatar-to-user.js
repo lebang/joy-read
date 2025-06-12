@@ -4,12 +4,12 @@
 
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('Users', 'avator', {
+    await queryInterface.addColumn('Users', 'avatar', {
       type: Sequelize.STRING,
     })
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn('Users', 'avator')
+    await queryInterface.removeColumn('Users', 'avatar')
   },
 }

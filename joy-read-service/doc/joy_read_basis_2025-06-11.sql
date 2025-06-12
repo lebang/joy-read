@@ -310,7 +310,7 @@ CREATE TABLE `Users` (
   `role` tinyint unsigned NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `avator` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email` (`email`),
   UNIQUE KEY `users_username` (`username`),
@@ -320,7 +320,7 @@ CREATE TABLE `Users` (
 LOCK TABLES `Users` WRITE;
 /*!40000 ALTER TABLE `Users` DISABLE KEYS */;
 
-INSERT INTO `Users` (`id`, `email`, `username`, `password`, `nickname`, `gender`, `company`, `introduce`, `role`, `createdAt`, `updatedAt`, `avator`)
+INSERT INTO `Users` (`id`, `email`, `username`, `password`, `nickname`, `gender`, `company`, `introduce`, `role`, `createdAt`, `updatedAt`, `avatar`)
 VALUES
 	(1,'admin@lebang.cn','admin','$2b$10$5E9X0gLUGrMTNAarFb9wJOn38CL5A9A8vYELTc6nRW53Gv89xRwC2','管理员',1,NULL,NULL,100,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
 	(2,'user1@lebang.cn','user1','$2b$10$FydPbZkduML5OJRUU6cLB.R1iM7Wx8fXtdkOce2uOwu5P8/XURSYS','普通用户1',0,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
