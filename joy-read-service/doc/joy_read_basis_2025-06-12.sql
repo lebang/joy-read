@@ -7,7 +7,7 @@
 #
 # 主机: 127.0.0.1 (MySQL 8.4.5)
 # 数据库: joy_read_basis
-# 生成时间: 2025-06-10 13:38:56 +0000
+# 生成时间: 2025-06-12 12:10:28 +0000
 # ************************************************************
 
 
@@ -27,8 +27,8 @@ DROP TABLE IF EXISTS `Articles`;
 
 CREATE TABLE `Articles` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `content` text COLLATE utf8mb4_general_ci,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -151,7 +151,7 @@ DROP TABLE IF EXISTS `Categories`;
 
 CREATE TABLE `Categories` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `rank` int unsigned NOT NULL DEFAULT '1',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
@@ -182,9 +182,9 @@ DROP TABLE IF EXISTS `Chapters`;
 CREATE TABLE `Chapters` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `courseId` int unsigned NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `content` text COLLATE utf8mb4_general_ci,
-  `video` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `video` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `rank` int unsigned NOT NULL DEFAULT '1',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
@@ -203,11 +203,11 @@ CREATE TABLE `Courses` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `categoryId` int unsigned NOT NULL,
   `userId` int unsigned NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `recommended` tinyint(1) NOT NULL DEFAULT '0',
   `introductory` tinyint(1) NOT NULL DEFAULT '0',
-  `content` text COLLATE utf8mb4_general_ci,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `likesCount` int unsigned NOT NULL DEFAULT '0',
   `chaptersCount` int unsigned NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL,
@@ -217,6 +217,17 @@ CREATE TABLE `Courses` (
   KEY `courses_user_id` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+LOCK TABLES `Courses` WRITE;
+/*!40000 ALTER TABLE `Courses` DISABLE KEYS */;
+
+INSERT INTO `Courses` (`id`, `categoryId`, `userId`, `name`, `image`, `recommended`, `introductory`, `content`, `likesCount`, `chaptersCount`, `createdAt`, `updatedAt`)
+VALUES
+	(1,1,1,'CSS 入门',NULL,1,1,NULL,0,0,'2025-06-12 19:41:53','2025-06-12 19:41:53'),
+	(2,2,1,'Node.js 项目实践',NULL,1,0,NULL,0,0,'2025-06-12 19:41:53','2025-06-12 19:41:53'),
+	(3,3,1,'HTML',NULL,1,0,NULL,0,0,'2025-06-12 19:41:53','2025-06-12 19:41:53');
+
+/*!40000 ALTER TABLE `Courses` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # 转储表 Likes
@@ -243,7 +254,7 @@ CREATE TABLE `Likes` (
 DROP TABLE IF EXISTS `SequelizeMeta`;
 
 CREATE TABLE `SequelizeMeta` (
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   PRIMARY KEY (`name`),
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
@@ -259,7 +270,8 @@ VALUES
 	('20250610111043-create-course.js'),
 	('20250610111848-create-chapter.js'),
 	('20250610112056-create-like.js'),
-	('20250610112254-create-setting.js');
+	('20250610112254-create-setting.js'),
+	('20250611135616-add-avatar-to-user.js');
 
 /*!40000 ALTER TABLE `SequelizeMeta` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -272,15 +284,24 @@ DROP TABLE IF EXISTS `Settings`;
 
 CREATE TABLE `Settings` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `icp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `copyright` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `extra` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `icp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `copyright` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `extra` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+LOCK TABLES `Settings` WRITE;
+/*!40000 ALTER TABLE `Settings` DISABLE KEYS */;
+
+INSERT INTO `Settings` (`id`, `name`, `icp`, `copyright`, `extra`, `createdAt`, `updatedAt`)
+VALUES
+	(1,'知悦','joy_read','© 2026 ZhiYue Inc. All Rights Reserved.',NULL,'2025-06-10 22:40:23','2025-06-10 22:40:23');
+
+/*!40000 ALTER TABLE `Settings` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # 转储表 Users
@@ -290,22 +311,35 @@ DROP TABLE IF EXISTS `Users`;
 
 CREATE TABLE `Users` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `nickname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `gender` tinyint unsigned NOT NULL DEFAULT '2',
-  `company` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `introduce` text COLLATE utf8mb4_general_ci,
+  `company` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `introduce` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `role` tinyint unsigned NOT NULL DEFAULT '0',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email` (`email`),
   UNIQUE KEY `users_username` (`username`),
   KEY `users_role` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+LOCK TABLES `Users` WRITE;
+/*!40000 ALTER TABLE `Users` DISABLE KEYS */;
+
+INSERT INTO `Users` (`id`, `email`, `username`, `password`, `nickname`, `gender`, `company`, `introduce`, `role`, `createdAt`, `updatedAt`, `avatar`)
+VALUES
+	(1,'admin@lebang.cn','admin','$2b$10$5E9X0gLUGrMTNAarFb9wJOn38CL5A9A8vYELTc6nRW53Gv89xRwC2','管理员',1,NULL,NULL,100,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(2,'user1@lebang.cn','user1','$2b$10$FydPbZkduML5OJRUU6cLB.R1iM7Wx8fXtdkOce2uOwu5P8/XURSYS','普通用户1',0,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(3,'user2@lebang.cn','user2','$2b$10$0wX6MDc9qClm6H32avjdA.JcmEfa66i/CMoO/4/0mxoLsqdI7F2ta','普通用户2',0,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL),
+	(4,'user3@lebang.cn','user3','$2b$10$0bTtiZfjusdXe9VE5qHaSOyzhIxVVfsF1nSnpjCn02UAZIvMLcKke','普通用户3',1,NULL,NULL,0,'2025-06-11 22:57:48','2025-06-11 22:57:48',NULL);
+
+/*!40000 ALTER TABLE `Users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 
