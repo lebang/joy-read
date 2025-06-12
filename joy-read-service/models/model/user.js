@@ -1,15 +1,10 @@
 'use strict'
 
-import { Model } from 'sequelize'
+import { BaseModel } from "../base-model.js"
 import bcrypt from 'bcryptjs'
 
 export default (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class User extends BaseModel {
     static associate(models) {
       // define association here
     }
@@ -56,17 +51,17 @@ export default (sequelize, DataTypes) => {
         },
         set(value) {
           if (!value) {
-            throw new Error('密码必须填写。');
+            throw new Error('密码必须填写。')
           }
-      
+
           // 检查长度
           if (value.length < 6 || value.length > 45) {
-            throw new Error('密码长度必须是6 ~ 45之间。');
+            throw new Error('密码长度必须是6 ~ 45之间。')
           }
-      
+
           // 如果通过所有验证，进行hash处理并设置值
-          this.setDataValue('password', bcrypt.hashSync(value, 10));
-        }
+          this.setDataValue('password', bcrypt.hashSync(value, 10))
+        },
       },
       nickname: {
         type: DataTypes.STRING,

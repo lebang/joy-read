@@ -27,19 +27,19 @@ const getUser = async (req) => {
  * @returns
  */
 const filterBody = (req) => {
-  const { email, username, password, nickname, gender, company, introduce, role, avatar } =
-    req?.body || {}
-  return {
-    email,
-    username,
-    password,
-    nickname,
-    gender,
-    company,
-    introduce,
-    role,
-    avatar,
-  }
+  const body = req?.body || {}
+  const allowedFields = [
+    'email',
+    'username',
+    'password',
+    'nickname',
+    'gender',
+    'company',
+    'introduce',
+    'role',
+    'avatar',
+  ]
+  return Object.fromEntries(Object.entries(body).filter(([key]) => allowedFields.includes(key)))
 }
 
 /**
@@ -57,18 +57,18 @@ router.get('/', async (req, res) => {
 
   const validFields = ['email', 'username', 'role']
   const whereConditions = {}
-  const { query } = req;
+  const { query } = req
 
   validFields.forEach((field) => {
     if (query[field]) {
-      whereConditions[field] = query[field];
+      whereConditions[field] = query[field]
     }
   })
 
   if (query.nickname) {
     whereConditions.nickname = {
-      [Op.like]: `%${ query.nickname }%`
-    };
+      [Op.like]: `%${query.nickname}%`,
+    }
   }
 
   condition.where = whereConditions

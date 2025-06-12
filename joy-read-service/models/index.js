@@ -5,11 +5,15 @@ import Sequelize from 'sequelize'
 import process from 'process'
 
 const __filename = fileURLToPath(import.meta.url)
-const basename = path.basename(__filename)
+// const basename = path.basename(__filename) // 当前文件名
 const env = process.env.NODE_ENV || 'development'
 const configPath = path.join(path.dirname(__filename), '../config/config.json')
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
+
 const db = {}
+const excludeFiles = ['index.js', 'base-model.js']
+const modelDir = 'model';
+const modelPath = path.join(path.dirname(__filename), modelDir)
 
 let sequelize
 if (config.use_env_variable) {
@@ -18,17 +22,17 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config)
 }
 
-const files = fs.readdirSync(path.dirname(__filename)).filter((file) => {
+const files = fs.readdirSync(modelPath).filter((file) => {
   return (
     file.indexOf('.') !== 0 &&
-    file !== basename &&
     file.slice(-3) === '.js' &&
-    file.indexOf('.test.js') === -1
+    file.indexOf('.test.js') === -1 &&
+    !excludeFiles.includes(file)
   )
 })
 
 for (const file of files) {
-  const model = (await import(`./${file}`)).default(sequelize, Sequelize.DataTypes)
+  const model = (await import(`./${modelDir}/${file}`)).default(sequelize, Sequelize.DataTypes)
   db[model.name] = model
 }
 

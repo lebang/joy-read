@@ -1,13 +1,8 @@
 'use strict'
 
-import { Model } from 'sequelize'
+import { BaseModel } from "../base-model.js"
 export default (sequelize, DataTypes) => {
-  class Category extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Category extends BaseModel {
     static associate(models) {
       // define association here
     }
