@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 export default (sequelize, DataTypes) => {
   class User extends BaseModel {
     static associate(models) {
-      // define association here
+      models.User.hasMany(models.Course, { as: 'courses' })
     }
   }
   User.init(

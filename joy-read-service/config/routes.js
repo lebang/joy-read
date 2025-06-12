@@ -6,6 +6,7 @@ import apiCategoriesRouter from '../routes/api/categories.js'
 import apiSettingsRouter from '../routes/api/settings.js'
 import apiUsersRouter from '../routes/api/users.js'
 import apiCoursesRouter from '../routes/api/courses.js'
+import apiChaptersRouter from '../routes/api/chapters.js'
 
 const router = express.Router()
 
@@ -16,5 +17,6 @@ router.use('/api/categories', apiCategoriesRouter)
 router.use('/api/settings', apiSettingsRouter)
 router.use('/api/users', apiUsersRouter)
 router.use('/api/courses', apiCoursesRouter)
+router.use('/api/chapters', apiChaptersRouter)
 
 export default router

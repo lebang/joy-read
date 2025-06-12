@@ -6,15 +6,40 @@ import getPagination from '../../utils/pagination.js'
 import { success } from '../../utils/responses.js'
 
 const router = express.Router()
-const { Course, Category, User } = db
-const { NotFound } = createHttpError
+const { Course, Category, User, Chapter } = db
+const { NotFound, BadRequest } = createHttpError
+
+/**
+ * 公共方法：关联分类、用户数据
+ * @returns {{include: [{as: string, model, attributes: string[]}], attributes: {exclude: string[]}}}
+ */
+const getCondition = () => {
+  return {
+    attributes: { exclude: ['CategoryId', 'UserId'] },
+    include: [
+      {
+        model: Category,
+        as: 'category',
+        attributes: ['id', 'name']
+      },
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'username', 'avatar']
+      }
+    ]
+  }
+}
 
 /**
  * 查询 by id
  */
 const getCourse = async (req) => {
-  const { id } = req?.params
-  const course = await Course.findByPk(id)
+  const { id } = req?.params || ''
+
+  const condition = getCondition();
+
+  const course = await Course.findByPk(id, condition)
   if (!course) {
     throw new NotFound(`ID:${id}未找到`)
   }
@@ -49,11 +74,7 @@ router.get('/', async (req, res) => {
   const { query } = req
 
   const condition = {
-    attributes: { exclude: ['CategoryId', 'UserId'] },
-    include: [
-      { model: Category, as: 'category', attributes: ['id', 'name'] },
-      { model: User, as: 'user', attributes: ['id', 'username', 'avatar'] },
-    ],
+    ...getCondition(),
     where: {},
     order: [['id', 'DESC']],
     limit: pageSize,
@@ -150,6 +171,8 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const course = await getCourse(req)
+  const count = await Chapter.count({where: {courseId: req.params.id }})
+  if(count > 0 ) throw new BadRequest('当前课程有章节，无法删除')
   await course.destroy()
   success(res, '删除成功', { course })
 })

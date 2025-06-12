@@ -4,7 +4,7 @@ import { BaseModel } from '../base-model.js'
 export default (sequelize, DataTypes) => {
   class Category extends BaseModel {
     static associate(models) {
-      // define association here
+      models.Category.hasMany(models.Course, { as: 'courses' })
     }
   }
   Category.init(

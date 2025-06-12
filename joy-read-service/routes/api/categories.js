@@ -6,15 +6,21 @@ import getPagination from '../../utils/pagination.js'
 import { success } from '../../utils/responses.js'
 
 const router = express.Router()
-const { Category } = db
-const { NotFound } = createHttpError
+const { Category, Course } = db
+const { NotFound, BadRequest } = createHttpError
 
 /**
  * 查询文章 by id
  */
 const getCategory = async (req) => {
   const { id } = req?.params
-  const category = await Category.findByPk(id)
+  const condition = {
+    include: [{
+        model: Course,
+        as: 'courses'
+      }]
+  }
+  const category = await Category.findByPk(id, condition)
   if (!category) {
     throw new NotFound(`ID:${id}未找到`)
   }
@@ -104,6 +110,9 @@ router.put('/:id', async (req, res) => {
  */
 router.delete('/:id', async (req, res) => {
   const category = await getCategory(req)
+  const count = await Course.count({where: { categoryId: req.params.id } })
+  
+  if(count > 0) throw new BadRequest('当前分类有课程，无法删除')
   await category.destroy()
   success(res, '删除成功', { category })
 })
