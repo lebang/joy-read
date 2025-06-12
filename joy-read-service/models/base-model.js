@@ -8,4 +8,4 @@ class BaseModel extends Model {
   }
 }
 
-export { BaseModel } 
+export { BaseModel }

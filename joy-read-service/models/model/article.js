@@ -1,6 +1,6 @@
 'use strict'
 
-import { BaseModel } from "../base-model.js"
+import { BaseModel } from '../base-model.js'
 
 export default (sequelize, DataTypes) => {
   class Article extends BaseModel {

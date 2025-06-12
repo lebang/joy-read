@@ -12,7 +12,7 @@ const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
 
 const db = {}
 const excludeFiles = ['index.js', 'base-model.js']
-const modelDir = 'model';
+const modelDir = 'model'
 const modelPath = path.join(path.dirname(__filename), modelDir)
 
 let sequelize

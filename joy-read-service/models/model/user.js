@@ -1,6 +1,6 @@
 'use strict'
 
-import { BaseModel } from "../base-model.js"
+import { BaseModel } from '../base-model.js'
 import bcrypt from 'bcryptjs'
 
 export default (sequelize, DataTypes) => {
