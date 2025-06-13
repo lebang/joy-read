@@ -36,7 +36,7 @@ const filterBody = (req) => {
 }
 
 /**
- * 查询文章列表
+ * list
  * GET /api/articles
  */
 router.get('/', async (req, res) => {
@@ -79,7 +79,7 @@ router.get('/:id', async (req, res) => {
 })
 
 /**
- * 创建文章
+ * create
  */
 router.post('/', async (req, res) => {
   const body = filterBody(req)

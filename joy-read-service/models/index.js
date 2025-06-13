@@ -2,11 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import Sequelize from 'sequelize'
-import process from 'process'
+import processEnv from '../utils/process-env.js'
 
 const __filename = fileURLToPath(import.meta.url)
 // const basename = path.basename(__filename) // 当前文件名
-const env = process.env.NODE_ENV || 'development'
+const env = processEnv.NODE_ENV || 'development'
 const configPath = path.join(path.dirname(__filename), '../config/config.json')
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
 
@@ -17,7 +17,7 @@ const modelPath = path.join(path.dirname(__filename), modelDir)
 
 let sequelize
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config)
+  sequelize = new Sequelize(processEnv[config.use_env_variable], config)
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config)
 }

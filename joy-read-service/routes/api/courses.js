@@ -55,7 +55,6 @@ const filterBody = (req) => {
   const body = req?.body || {}
   const allowedFields = [
     'categoryId',
-    'userId',
     'name',
     'image',
     'gender',
@@ -150,6 +149,7 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   const body = filterBody(req)
+  body.userId = req.user.id
 
   const course = await Course.create(body)
   success(res, '创建成功', { course }, 201)

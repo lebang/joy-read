@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 import createHttpError from 'http-errors'
 import db from '../models/index.js'
 import { success } from '../utils/responses.js'
+import processEnv from '../utils/process-env.js'
 
 const router = express.Router()
 const { User } = db
@@ -40,7 +41,7 @@ router.post('/sign_in', async (req, res) => {
     {
       userId: user.id,
     },
-    'joy-read',
+    processEnv.SECRET,
     { expiresIn: '7d' },
   )
   success(res, 'success', { token })

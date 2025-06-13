@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors'
+import processEnv from './process-env.js'
 
 /**
  *
@@ -22,7 +23,7 @@ function failure(res, err) {
   let errors = '服务器错误。'
 
   // 如果是开发环境，显示详细错误信息
-  if (process.env.NODE_ENV === 'development') {
+  if (processEnv.NODE_ENV === 'development') {
     console.log(err)
     errors = err.message
   }

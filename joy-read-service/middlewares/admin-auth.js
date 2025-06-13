@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import createHttpError from 'http-errors'
 import db from '../models/index.js'
 import { success, failure } from '../utils/responses.js'
+import processEnv from '../utils/process-env.js'
 
 const { User } = db
 const { Unauthorized } = createHttpError
@@ -11,7 +12,7 @@ export default async (req, res, next) => {
   if (!token) {
     throw new Unauthorized('当前接口需要认证才能访问。')
   }
-  const decoded = jwt.verify(token, 'joy-read')
+  const decoded = jwt.verify(token, processEnv.SECRET)
   const { userId } = decoded
 
   const user = await User.findByPk(userId)

@@ -6,31 +6,11 @@ import cors from 'cors'
 import logger from 'morgan'
 import 'dotenv/config'
 import createError from 'http-errors'
-import swaggerUi from 'swagger-ui-express'
-import swaggerJSDoc from 'swagger-jsdoc'
 import errorHandler from './middlewares/error-handler.js'
 import routes from './config/routes.js'
 
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-const swaggerJSDocOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'joy read',
-      version: '1.0.0',
-    },
-  },
-  apis: ['./swagger/front/*.yaml', './swagger/admin/*.yaml'],
-}
-const swaggerSpec = swaggerJSDoc(swaggerJSDocOptions)
-
-const swaggerUiOptions = {
-  explorer: true,
-}
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
