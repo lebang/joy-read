@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken'
 import createHttpError from 'http-errors'
 import db from '../models/index.js'
-import { success, failure } from '../utils/responses.js'
 import processEnv from '../utils/process-env.js'
 
 const { User } = db

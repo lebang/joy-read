@@ -53,14 +53,7 @@ const getCourse = async (req) => {
  */
 const filterBody = (req) => {
   const body = req?.body || {}
-  const allowedFields = [
-    'categoryId',
-    'name',
-    'image',
-    'gender',
-    'introductory',
-    'content',
-  ]
+  const allowedFields = ['categoryId', 'name', 'image', 'gender', 'introductory', 'content']
   return Object.fromEntries(Object.entries(body).filter(([key]) => allowedFields.includes(key)))
 }
 

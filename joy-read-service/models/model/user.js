@@ -47,7 +47,6 @@ export default (sequelize, DataTypes) => {
         validate: {
           notNull: { msg: '密码必须填写。' },
           notEmpty: { msg: '密码不能为空。' },
-          len: { args: [6, 45], msg: '密码长度必须是6 ~ 45之间。' },
         },
         set(value) {
           if (!value) {

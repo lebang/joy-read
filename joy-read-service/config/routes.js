@@ -1,7 +1,7 @@
 import express from 'express'
-import indexRouter from '../routes/index.js'
-// import usersRouter from '../routes/users.js'
+import indexRouter from '../routes/web/index.js'
 import apiAuthRouter from '../routes/api-auth.js'
+import registerRouter from '../routes/register.js'
 import adminAuth from '../middlewares/admin-auth.js'
 
 import apiArticlesRouter from '../routes/api/articles.js'
@@ -14,7 +14,7 @@ import apiChaptersRouter from '../routes/api/chapters.js'
 const router = express.Router()
 
 router.use('/', indexRouter)
-// router.use('/users', usersRouter)
+router.use('/api/register', registerRouter)
 router.use('/api/auth', apiAuthRouter)
 router.use('/api/articles', adminAuth, apiArticlesRouter)
 router.use('/api/categories', adminAuth, apiCategoriesRouter)
