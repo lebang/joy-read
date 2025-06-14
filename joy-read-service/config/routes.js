@@ -3,6 +3,7 @@ import indexRouter from '../routes/web/index.js'
 import apiAuthRouter from '../routes/api-auth.js'
 import registerRouter from '../routes/register.js'
 import adminAuth from '../middlewares/admin-auth.js'
+import webAuth from '../middlewares/web-auth.js'
 
 import apiArticlesRouter from '../routes/api/articles.js'
 import apiCategoriesRouter from '../routes/api/categories.js'
@@ -13,7 +14,7 @@ import apiChaptersRouter from '../routes/api/chapters.js'
 
 const router = express.Router()
 
-router.use('/', indexRouter)
+router.use('/api/index', indexRouter)
 router.use('/api/register', registerRouter)
 router.use('/api/auth', apiAuthRouter)
 router.use('/api/articles', adminAuth, apiArticlesRouter)
