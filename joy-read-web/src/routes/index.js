@@ -1,5 +1,5 @@
-import component from 'element-plus/es/components/tree-select/src/tree-select-option.mjs'
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { emitter } from '@utils/emitter'
 
 // const routes = [
 //   {
@@ -23,7 +23,7 @@ const comps = import.meta.glob('@views/**/index.vue')
 const routes = Object.entries(pages).map(([filePath, meta]) => {
   const componentPath = filePath.replace('page.js', 'index.vue')
   const routePath = filePath.replace(/\/src\/views|\/page\.js/g, '') || '/'
-  const name = filePath.split('/').filter(Boolean).join('-') || 'index'
+  const name = routePath.split('/').filter(Boolean).join('-') || 'index'
 
   return {
     path: routePath,
@@ -38,6 +38,12 @@ console.log('routes:', routes)
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+})
+
+emitter.on('router:login', () => {
+  router.push({
+    name: 'login',
+  })
 })
 
 export default router

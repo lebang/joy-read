@@ -1,5 +1,6 @@
 import { ElMessage } from 'element-plus'
 import { getCurrentInstance } from 'vue'
+import { emitter } from '@utils/emitter'
 
 // 全局提示函数集合
 const globalTips = {
@@ -26,8 +27,10 @@ export function initGlobalTips(app) {
   // 挂载全局提示函数
   Object.keys(globalTips).forEach((key) => {
     app.config.globalProperties[`$${key}`] = globalTips[key]
+    emitter.on(`tips:${key}`, (message) => {
+      globalTips[key](message)
+    })
   })
-  // 这里可以添加其他全局功能的挂载逻辑，方便后续扩展
 }
 
 // 组合式函数，用于获取全局提示方法

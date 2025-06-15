@@ -1,26 +1,13 @@
-import { customRef } from 'vue'
 import axios from 'axios'
+import { emitter } from '@utils/emitter'
+import { loading } from '@utils/request/loading'
 
 const { CancelToken } = axios
 
 const service = axios.create({
-  baseURL: 'http://127.0.0.1:3000',
+  baseURL: 'http://localhost:3000/api',
   timeout: 1000 * 5000,
   withCredentials: true,
-})
-
-export const loading = customRef((track, trigger) => {
-  let count = 0
-  return {
-    get() {
-      track()
-      return count > 0
-    },
-    set(value) {
-      count += value ? 1 : -1
-      trigger()
-    },
-  }
 })
 
 const beforeRequest = (config) => {
@@ -42,7 +29,13 @@ service.interceptors.request.use(beforeRequest, (error) => {
 
 const responseSuccess = (response) => {
   loading.value = false
-  return Promise.reject(response.data)
+
+  console.log('response:', response);
+  // console.log('header token:', response.headers);
+  if (response?.data?.code === 201 && response?.data?.token) {
+    localStorage.setItem('token', response?.data?.token)
+  }
+  return Promise.resolve(response.data)
 }
 
 const responseFailed = (error) => {
@@ -52,6 +45,7 @@ const responseFailed = (error) => {
   }
   const { response } = error
   if (response.status === 401) {
+    emitter.emit('router:login')
   }
   return Promise.reject(error)
 }

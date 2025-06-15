@@ -16,13 +16,13 @@ export default defineConfig({
     host: '',
     port: '3001',
     strictPort: false,
-    proxy: {
-      '/api': {
-        target: 'http:127.0.0.1:3000',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: 'http://127.0.0.1:3000',
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/api/, ''),
+    //   },
+    // },
   },
   resolve: {
     alias: {
@@ -32,7 +32,7 @@ export default defineConfig({
       '@routes': pathResolve('src/routes'),
       '@utils': pathResolve('src/utils'),
       '@apis': pathResolve('src/apis'),
-      '@models': pathResolve('src/models'),
+      '@store': pathResolve('src/store'),
     },
   },
   plugins: [
