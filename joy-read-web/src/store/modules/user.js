@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import { userLogin, getUser } from '@apis/user'
 
-
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref({
     username: '',
@@ -16,8 +15,10 @@ export const useUserStore = defineStore('user', () => {
 
   const loginIn = async (login) => {
     const res = await userLogin(login)
-    console.log('login user:', res);
-    setUserInfo(res)
+    const { user } = await getUser({ id: res.userId})
+    console.log('user:', user)
+    setUserInfo(user)
+    return true;
   }
 
   return {

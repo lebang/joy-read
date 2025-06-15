@@ -1,23 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { emitter } from '@utils/emitter'
-
-// const routes = [
-//   {
-//     path: '/',
-//     redirect: '/login'
-//   },
-//   {
-//     path: '/login',
-//     name: 'Login',
-//     component: () => import('@views/login/index.vue')
-//   },
-// ]
+import { emiter } from '@utils/emiter'
 
 const pages = import.meta.glob('@views/**/page.js', {
   eager: true,
   import: 'default',
 })
-
 const comps = import.meta.glob('@views/**/index.vue')
 
 const routes = Object.entries(pages).map(([filePath, meta]) => {
@@ -40,9 +27,13 @@ const router = createRouter({
   routes,
 })
 
-emitter.on('router:login', () => {
-  router.push({
-    name: 'login',
+const emitOnRoutes = ['login', 'admin'];
+
+emitOnRoutes.forEach(name => {
+  emiter.on(`router:${name}`, () => {
+    router.push({
+      name,
+    })
   })
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="common-layout">
+  <div class="layout">
     <el-container>
       <el-header></el-header>
       <el-main>
@@ -46,6 +46,7 @@
 <script setup>
   // import HelloWorld from '@components/HelloWorld.vue'
   import { reactive, ref } from 'vue'
+  import { emiter } from '@utils/emiter'
   import { useUserStore } from '@store/index'
 
   defineOptions({
@@ -86,7 +87,8 @@
 
   const userStore = useUserStore()
   const login = async () => {
-    return await userStore.loginIn(loginFormData)
+    const logined = await userStore.loginIn(loginFormData)
+    return logined;
   }
 
   const submitForm = async () => {
@@ -96,13 +98,9 @@
         console.log('login: ', v)
         return false
       }
-
-      // 通过验证，请求登陆
-      const flag = await await userStore.loginIn(loginFormData)
-
-
-      // 登陆成功
-      return true
+      const flag = await login()
+      if(!flag) return
+      emiter.emit('router:admin')
     })
   }
 
@@ -110,7 +108,7 @@
 
 <style lang="less" scoped>
   .login-form {
-    margin-top: 20%;
+    margin-top: 10%;
     margin-left: 50%;
     transform: translate(-50%, -50%);
   }

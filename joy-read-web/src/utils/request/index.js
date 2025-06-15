@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { emitter } from '@utils/emitter'
+import { emiter } from '@utils/emiter'
 import { loading } from '@utils/request/loading'
 
 const { CancelToken } = axios
@@ -31,11 +31,11 @@ const responseSuccess = (response) => {
   loading.value = false
 
   console.log('response:', response);
-  // console.log('header token:', response.headers);
-  if (response?.data?.code === 201 && response?.data?.token) {
-    localStorage.setItem('token', response?.data?.token)
+  const { data } = response
+  if (data?.code === 201 && data?.data?.token) {
+    localStorage.setItem('token', data?.data?.token)
   }
-  return Promise.resolve(response.data)
+  return Promise.resolve(data.data)
 }
 
 const responseFailed = (error) => {
@@ -45,7 +45,7 @@ const responseFailed = (error) => {
   }
   const { response } = error
   if (response.status === 401) {
-    emitter.emit('router:login')
+    emiter.emit('router:login')
   }
   return Promise.reject(error)
 }
@@ -53,8 +53,9 @@ const responseFailed = (error) => {
 service.interceptors.response.use(responseSuccess, responseFailed)
 
 const request = {
-  get(url, params = {}) {
-    return service.get(url, { params })
+  async get(url, params = {}) {
+    const [fetcher, cancel] = await withCancelToken(() => service.get(url, { params }));
+    return await fetcher();
   },
   post(url, data) {
     return service.post(url, data)
