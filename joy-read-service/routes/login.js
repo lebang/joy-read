@@ -12,9 +12,8 @@ const { BadRequest, NotFound, Unauthorized } = createHttpError
 const router = express.Router()
 
 /**
- * 注册
+ * 登录
  */
-
 router.post('/', async (req, res) => {
   const { login, password } = req.body
   if (!login) throw new BadRequest('username or email')
@@ -30,15 +29,17 @@ router.post('/', async (req, res) => {
   const passwordValid = bcrypt.compareSync(password, user.password)
   if (!passwordValid) throw new Unauthorized('error password')
 
+  const userId = user.id
   const token = jwt.sign(
     {
-      userId: user.id,
+      userId,
     },
     processEnv.SECRET,
-    { expriesIn: '7d' },
+    { expiresIn: '7d' },
   )
 
-  success(res, 'success', { token }, 201)
+  // res.set('token', token)
+  success(res, 'success', { token, userId }, 201)
 })
 
 export default router

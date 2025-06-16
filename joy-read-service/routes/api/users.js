@@ -15,6 +15,7 @@ const { NotFound } = createHttpError
 const getUser = async (req) => {
   const { id } = req?.params
   const user = await User.findByPk(id)
+  delete user.dataValues.password
   if (!user) {
     throw new NotFound(`ID:${id}未找到`)
   }

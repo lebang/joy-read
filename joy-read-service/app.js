@@ -12,6 +12,15 @@ import routes from './config/routes.js'
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
+const corsOptions = {
+  origin: [
+    'http://localhost:3001',
+    'http://localhost:3000'
+  ],
+  optionsSuccessStatus: 200,
+  credentials: true,
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -20,7 +29,8 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(cors())
+// app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes
