@@ -28,6 +28,13 @@ export default defineConfig({
   build: {
     target: ['es2015', 'chrome52'],
     minify: 'terser',
+    terserOptions: {
+      compress: {
+          drop_console: true, // 删除所有 console
+          // pure_funcs: ['console.log'], // 只删除 console.log 
+          drop_debugger: true,// 删除 debugger
+      }
+    }
   },
   resolve: {
     alias: {
@@ -42,11 +49,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    legacy({
-      targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
-      modernPolyfills: true,
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-    }),
+    // legacy({
+    //   targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
+    //   modernPolyfills: true,
+    //   additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+    // }),
     devtoolsJosn(),
   ],
   css: {

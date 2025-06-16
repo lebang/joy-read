@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
       userId: user.id,
     },
     processEnv.SECRET,
-    { expriesIn: '7d' },
+    { expiresIn: '7d' },
   )
 
   success(res, 'success', { token }, 201)

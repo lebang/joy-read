@@ -13,4 +13,5 @@
   defineOptions({
     name: 'Admin',
   })
+  console.log('admin page 16')
 </script>

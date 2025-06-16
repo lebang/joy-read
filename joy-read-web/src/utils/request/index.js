@@ -44,7 +44,8 @@ const responseFailed = (error) => {
     console.log('请求取消', error.message)
   }
   const { response } = error
-  if (response.status === 401) {
+  console.log('response:', response);
+  if (response?.status === 401) {
     emiter.emit('router:login')
   }
   return Promise.reject(error)
