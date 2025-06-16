@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
+import devtoolsJosn from 'vite-plugin-devtools-json'
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -24,6 +25,10 @@ export default defineConfig({
     //   },
     // },
   },
+  build: {
+    target: ['es2015', 'chrome52'],
+    minify: 'terser',
+  },
   resolve: {
     alias: {
       '@src': pathResolve('src'),
@@ -38,8 +43,11 @@ export default defineConfig({
   plugins: [
     vue(),
     legacy({
-      targets: ['default', 'not IE 11'],
+      targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
+      modernPolyfills: true,
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
     }),
+    devtoolsJosn(),
   ],
   css: {
     preprocessorOptions: {
