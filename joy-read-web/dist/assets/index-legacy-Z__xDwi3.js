@@ -1,0 +1,1 @@
+System.register(["./index-legacy-C_mVUOOf.js"],(function(e,n){"use strict";var t,s;return{setters:[function(e){t=e.c,s=e.o}],execute:function(){var n={class:"aside-wrap"};e("default",Object.assign({name:"Aside"},{__name:"index",setup:function(e){return function(e,i){return s(),t("div",n," aside ")}}}))}}}));

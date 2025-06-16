@@ -30,7 +30,7 @@ service.interceptors.request.use(beforeRequest, (error) => {
 const responseSuccess = (response) => {
   loading.value = false
 
-  console.log('response:', response);
+  console.log('response:', response)
   const { data } = response
   if (data?.code === 201 && data?.data?.token) {
     localStorage.setItem('token', data?.data?.token)
@@ -54,8 +54,8 @@ service.interceptors.response.use(responseSuccess, responseFailed)
 
 const request = {
   async get(url, params = {}) {
-    const [fetcher, cancel] = await withCancelToken(() => service.get(url, { params }));
-    return await fetcher();
+    const [fetcher, cancel] = await withCancelToken(() => service.get(url, { params }))
+    return await fetcher()
   },
   post(url, data) {
     return service.post(url, data)

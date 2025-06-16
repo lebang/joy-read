@@ -5,7 +5,7 @@ export const userLogin = (data) => {
 }
 
 export const getUser = ({ id }) => {
-  return request.get(`/users/${id}`);
+  return request.get(`/users/${id}`)
 }
 
 export const getUsers = ({ id }) => {

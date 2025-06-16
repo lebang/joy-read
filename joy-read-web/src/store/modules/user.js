@@ -15,15 +15,14 @@ export const useUserStore = defineStore('user', () => {
 
   const loginIn = async (login) => {
     const res = await userLogin(login)
-    const { user } = await getUser({ id: res.userId})
+    const { user } = await getUser({ id: res.userId })
     console.log('user:', user)
     setUserInfo(user)
-    return true;
+    return true
   }
 
   return {
     userInfo,
-    loginIn
+    loginIn,
   }
-
 })

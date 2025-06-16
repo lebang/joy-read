@@ -27,9 +27,9 @@ const router = createRouter({
   routes,
 })
 
-const emitOnRoutes = ['login', 'admin'];
+const emitOnRoutes = ['login', 'admin']
 
-emitOnRoutes.forEach(name => {
+emitOnRoutes.forEach((name) => {
   emiter.on(`router:${name}`, () => {
     router.push({
       name,
