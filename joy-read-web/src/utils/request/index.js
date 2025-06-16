@@ -53,9 +53,9 @@ const responseFailed = (error) => {
 service.interceptors.response.use(responseSuccess, responseFailed)
 
 const request = {
-  async get(url, params = {}) {
-    const [fetcher, cancel] = await withCancelToken(() => service.get(url, { params }))
-    return await fetcher()
+  get(url, params = {}) {
+    const [fetcher, cancel] = withCancelToken(() => service.get(url, { params }))
+    return fetcher()
   },
   post(url, data) {
     return service.post(url, data)
