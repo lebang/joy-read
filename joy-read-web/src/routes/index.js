@@ -3,24 +3,27 @@ import { emiter } from '@utils/emiter'
 
 console.log('cli env:', import.meta.env)
 
-const pagesContext = require.context('@views', true, /\/page\.js$/);
-const pages = {};
+// const pagesContext = require.context('@views', true, /\/page\.js$/);
+// const pages = {};
 
-pagesContext.keys().forEach((key) => {
-  const page = pagesContext(key);
-  pages[key] = page.default; // Assuming each module exports default
-});
+// pagesContext.keys().forEach((key) => {
+//   const page = pagesContext(key);
+//   pages[key] = page.default; // Assuming each module exports default
+// });
 
-console.log('pages:', pages);
+// console.log('pages:', pages);
 
-const compsContext = require.context('@views', true, /\/index\.vue$/);
-const comps = {};
+// const compsContext = require.context('@views', true, /\/index\.vue$/);
+// const comps = {};
 
-compsContext.keys().forEach((key) => {
-  comps[key] = () => compsContext(key);
-});
+// compsContext.keys().forEach((key) => {
+//   comps[key] = () => compsContext(key);
+// });
 
-console.log('comps:', comps);
+// console.log('comps:', comps);
+
+// console.log('require.context:', require?.context)
+// console.log('import.meta.glob:', import.meta?.env?.MODE === 'vite')
 
 const routes = [
   {

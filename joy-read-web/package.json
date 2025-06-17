@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "cross-env vite --host --mode vite",
-    "build": "cross-env vite build --mode vite",
+    "dev": "cross-env vite --host",
+    "build": "cross-env vite build",
     "preview": "vite preview",
     "format": "prettier --write \"**/*.{js,json,md}\"",
-    "rs:dev": "cross-env rspack dev",
+    "rs:dev": "cross-env rspack serve",
     "rs:build": "cross-env rspack build"
   },
   "dependencies": {
