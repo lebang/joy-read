@@ -38,11 +38,11 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    legacy({
-      targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
-      modernPolyfills: true,
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
-    }),
+    // legacy({
+    //   targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
+    //   modernPolyfills: true,
+    //   additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
+    // }),
     devtoolsJosn(),
   ],
   css: {
