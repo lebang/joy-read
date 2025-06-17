@@ -9,6 +9,9 @@ export default (sequelize, DataTypes) => {
       models.User.hasMany(models.Course, { as: 'courses' })
     }
   }
+  
+  const dayjs = User.getDayjs();
+
   User.init(
     {
       email: {
@@ -97,6 +100,18 @@ export default (sequelize, DataTypes) => {
           isUrl: { msg: '图片地址不正确。' },
         },
       },
+      createdAt: {
+        type: DataTypes.DATE,
+        get() {
+          return dayjs(this.getDataValue('createdAt')).format('LLL')
+        }
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+        get() {
+          return dayjs(this.getDataValue('updatedAt')).format('LLL')
+        }
+      }
     },
     {
       sequelize,

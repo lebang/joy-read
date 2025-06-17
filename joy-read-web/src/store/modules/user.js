@@ -15,8 +15,9 @@ export const useUserStore = defineStore('user', () => {
 
   const loginIn = async (login) => {
     const res = await userLogin(login)
-    const { user } = await getUser({ id: res.userId })
-    console.log('user:', user)
+    const { user } = res;
+    // const { user } = await getUser({ id: res.userId })
+    console.log('user res:', res)
     setUserInfo(user)
     return true
   }

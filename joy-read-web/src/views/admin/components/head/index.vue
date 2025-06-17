@@ -1,11 +1,19 @@
+
+<script setup>
+  defineOptions({
+    name: 'Head',
+  })
+</script>
 <template>
   <div class="head-wrap">
-    head
+    <div class="left-wrap"></div>
+    <div class="main-wrap"></div>
+    <div class="right-wrap"></div>
   </div>
 </template>
 
-<script setup>
-defineOptions({
-  name: 'Head',
-})
-</script>
+<style>
+.head-wrap {
+
+}
+</style>
