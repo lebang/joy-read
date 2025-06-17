@@ -12,7 +12,6 @@
   </ElConfigProvider>
 </template>
 
-
 <style scoped>
 
 </style>

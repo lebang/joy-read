@@ -1,11 +1,14 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { defineConfig } from '@rspack/cli';
+import rspack from '@rspack/core';
 import { VueLoaderPlugin } from 'vue-loader';
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const pathResolve = (dir) => path.resolve(__dirname, dir)
+
+/** @type {import('@rspack/cli').Configuration} */
 
 export default defineConfig({
   entry: {
@@ -15,7 +18,15 @@ export default defineConfig({
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new VueLoaderPlugin()],
+  devServer: {
+    port: 3001
+  },
+  plugins: [
+    new VueLoaderPlugin(),     
+    new rspack.HtmlRspackPlugin({
+      template: './index.html',
+    }),
+  ],
   resolve: {
     alias: {
       '@src': pathResolve('src'),
@@ -26,6 +37,10 @@ export default defineConfig({
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
     },
+    extensions: ['.js', '.css', '.vue'],
+  },
+  experiments: {
+    css: true,
   },
   module: {
     rules: [
@@ -45,13 +60,6 @@ export default defineConfig({
         resolve: {
           fullySpecified: false,
         },
-      },
-      {
-        test: /\.css$/i,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
       },
       {
         test: /\.less$/,
