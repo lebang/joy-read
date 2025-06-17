@@ -1,1 +1,0 @@
-System.register([],(function(e,t){"use strict";return{execute:function(){e("default",Object.assign({name:"Register"},{__name:"index",setup:function(e){return function(e,t){return" register "}}}))}}}));

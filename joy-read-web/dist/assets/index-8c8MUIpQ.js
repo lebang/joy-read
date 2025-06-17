@@ -1,1 +1,0 @@
-import s from"./index-DRImyGLK.js";import n from"./index-Ck9E-NzC.js";import{c as o,a as t,b as a,o as r}from"./index-DVUiy5Nx.js";const c={class:"container"},p=Object.assign({name:"Admin"},{__name:"index",setup(i){return(m,e)=>(r(),o("div",c,[e[0]||(e[0]=t("div",{class:"main"},null,-1)),a(s),a(n)]))}});export{p as default};

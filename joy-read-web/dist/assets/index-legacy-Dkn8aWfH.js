@@ -1,1 +1,0 @@
-System.register(["./index-legacy-C_mVUOOf.js"],(function(e,n){"use strict";var t,r;return{setters:[function(e){t=e.c,r=e.o}],execute:function(){var n={class:"head-wrap"};e("default",Object.assign({name:"Head"},{__name:"index",setup:function(e){return function(e,a){return r(),t("div",n," head ")}}}))}}}));

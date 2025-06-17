@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { emiter } from '@utils/emiter'
 
+console.log('cli env:', import.meta.env)
+
 const pagesContext = require.context('@views', true, /\/page\.js$/);
 const pages = {};
 
