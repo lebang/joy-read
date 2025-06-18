@@ -40,6 +40,11 @@ const routes = [
     name: 'admin',
     component: () => import('@views/admin/index.vue')
   },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import('@views/register/index.vue')
+  },
 ]
 
 // const pages = import.meta.glob('@views/**/page.js', {

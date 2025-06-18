@@ -1,48 +1,3 @@
-<template>
-  <div class="layout">
-    <el-container>
-      <el-header></el-header>
-      <el-main>
-        <el-form
-          ref="loginForm"
-          class="login-form"
-          :model="loginFormData"
-          :rules="rules"
-          :validate-on-rule-change="false"
-          @keyup.enter="submitForm"
-        >
-          <el-form-item prop="login">
-            <el-input
-              v-model="loginFormData.login"
-              size="large"
-              placeholder="请输入用户名"
-              suffix-icon="user"
-            />
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              v-model="loginFormData.password"
-              show-password
-              size="large"
-              type="password"
-              placeholder="请输入密码"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              size="large"
-              @click="submitForm"
-              >登 录</el-button
-            >
-          </el-form-item>
-        </el-form>
-      </el-main>
-      <el-footer></el-footer>
-    </el-container>
-
-  </div>
-</template>
 <script setup>
   // import HelloWorld from '@components/HelloWorld.vue'
   import { reactive, ref } from 'vue'
@@ -105,6 +60,51 @@
   }
 
 </script>
+<template>
+  <div class="layout">
+    <el-container>
+      <el-header></el-header>
+      <el-main>
+        <el-form
+          ref="loginForm"
+          class="login-form"
+          :model="loginFormData"
+          :rules="rules"
+          :validate-on-rule-change="false"
+          @keyup.enter="submitForm"
+        >
+          <el-form-item prop="login">
+            <el-input
+              v-model="loginFormData.login"
+              size="large"
+              placeholder="请输入用户名"
+              suffix-icon="user"
+            />
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+              v-model="loginFormData.password"
+              show-password
+              size="large"
+              type="password"
+              placeholder="请输入密码"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              type="primary"
+              size="large"
+              @click="submitForm"
+              >登 录</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </el-main>
+      <el-footer></el-footer>
+    </el-container>
+
+  </div>
+</template>
 
 <style lang="less" scoped>
   .login-form {

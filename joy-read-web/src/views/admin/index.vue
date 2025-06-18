@@ -1,55 +1,18 @@
 <script setup>
-  import Aside from '@views/admin/components/aside/index.vue'
-  import '@assets/bootstrap/bootstrap.css'
+  import Sidebar from '@views/admin/components/sidebar/index.vue'
+  import Header from '@views/admin/components/header/index.vue'
   defineOptions({
     name: 'Admin',
   })
 </script>
 <template>
-  <nav class="navbar navbar-expand navbar-light fixed-top">
-    <div class="container-fluid" >
-      <a class="navbar-brand" href="#">导航</a>
-    
-      <div class="navbar-nav-scroll">
-        <ul class="navbar-nav bd-navbar-nav flex-row">
-          <li class="nav-item">
-            <a class="nav-link" href="#">链接</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">链接</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">链接</a>
-          </li>    
-        </ul>
-      </div>  
-      <ul class="navbar-nav ml-md-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#">链接</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">链接</a>
-        </li>
-      </ul>
-    </div>
+  <nav class="navbar navbar-expand navbar-light shadow-sm fixed-top g-nav">
+    <Header></Header>
   </nav>
-  <div class="container-fluid" style="margin-top:60px">
+  <div class="container-fluid g-main">
     <div class="row">
-      <div class="col-sm-3">
-        <ul class="nav nav-pills flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">激活状态</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">链接</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">链接</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">禁用</a>
-          </li>
-        </ul>
+      <div class="col-sm-3 bd-sidebar">
+        <Sidebar></Sidebar>
       </div>
       <div class="col-sm-9"></div>
     </div>
@@ -57,5 +20,20 @@
 </template>
 
 <style lang="less">
-
+.g-nav {
+  border-bottom:1px solid #f3f3f3;
+  background: #fff;
+}
+.g-main {
+  margin-top: 58px;
+}
+.bd-sidebar {
+  position: fixed;
+  top: 58px;
+  bottom: 0;
+  left: 0;
+  width: 260px;
+  background-color: #f8f9fa !important;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
 </style>

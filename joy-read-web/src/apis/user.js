@@ -23,3 +23,7 @@ export const updateUser = (data) => {
 export const deleteUser = (id) => {
   return request.delete(`/users/${id}`)
 }
+
+export const getCaptcha = () => {
+  return request.get(`/captcha`, {});
+}
