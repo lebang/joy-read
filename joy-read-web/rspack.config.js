@@ -19,7 +19,10 @@ export default defineConfig({
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    port: 3001
+    port: 3001,
+    client: {
+      overlay: false,
+    }
   },
   plugins: [
     new VueLoaderPlugin(),     
@@ -36,6 +39,8 @@ export default defineConfig({
       '@utils': pathResolve('src/utils'),
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
+      '@assets': pathResolve('src/assets'),
+      '@directives': pathResolve('src/directives'),
     },
     extensions: ['.js', '.css', '.vue'],
   },

@@ -28,6 +28,7 @@ export function initGlobalTips(app) {
   Object.keys(globalTips).forEach((key) => {
     app.config.globalProperties[`$${key}`] = globalTips[key]
     emiter.on(`tips:${key}`, (message) => {
+      console.log('key:', key, 'message;', message);
       globalTips[key](message)
     })
   })

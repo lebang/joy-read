@@ -16,8 +16,8 @@ function isTextOverflowing(element) {
 /**
  * 创建tooltip，这里采用element-plus的tooltip组件
  * 使用案例：
- * <span v-text-tootip:auto>xxxxxxx</span> tooltip 自定判断文本是否溢出，溢出了鼠标悬浮才会展示tooltip
- * <span v-text-tootip>xxxxxxx</span> tooltip 直接悬浮展示tooltip
+ * <span v-tootip:auto>xxxxxxx</span> tooltip 自定判断文本是否溢出，溢出了鼠标悬浮才会展示tooltip
+ * <span v-tootip>xxxxxxx</span> tooltip 直接悬浮展示tooltip
  * @param el
  * @param binding
  */
@@ -70,7 +70,6 @@ export default (el, binding) => {
   el.style.textOverflow = 'ellipsis'
 
   // 创建tooltip
-  console.log('binding:', binding);
   createTooltip(el, binding)
 }
 

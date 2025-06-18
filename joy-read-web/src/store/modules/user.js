@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { userLogin, getUser, registerData } from '@apis/user'
+import { userLogin, getUser, postRegister, getCaptcha } from '@apis/user'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref({
@@ -23,16 +23,22 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const register = async (data) => {
-    const res = await registerData(data);
+    const res = await postRegister(data);
     console.log('res: 27', res);
     const { user } = res
     setUserInfo(user)
     return true
   }
 
+  const fetchCaptcha = async (callback) => {
+    const res = await getCaptcha();
+    callback && callback(res)
+  }
+
   return {
     userInfo,
     loginIn,
-    register
+    register,
+    fetchCaptcha
   }
 })

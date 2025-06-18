@@ -28,6 +28,6 @@ export const getCaptcha = () => {
   return request.get(`/captcha`, {})
 }
 
-export const registerData = (data) => {
+export const postRegister = (data) => {
   return request.post(`/register`, data)
 }

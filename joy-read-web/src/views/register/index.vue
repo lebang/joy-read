@@ -1,6 +1,5 @@
 <script setup>
   import { ref, reactive } from 'vue'
-  import { getCaptcha } from '@apis/user'
   import { useUserStore } from '@store/index'
   import { emiter } from '@utils/emiter'
 
@@ -47,13 +46,13 @@
     })
   }
 
-  const fetchCaptcha = async () => {
-    const res = await getCaptcha();
-    console.log('captcha:', res);
-    registerFormData.captchaKey = res.captchaKey
-    captchaData.value = res.captchaData
+  const fetchCaptcha = () => {
+    userStore.fetchCaptcha((res) => {
+      registerFormData.captchaKey = res.captchaKey
+      captchaData.value = res.captchaData
+    })
   }
-  fetchCaptcha()
+  fetchCaptcha();
 </script>
 <template>
   <div class="container">
@@ -98,9 +97,8 @@
             placeholder="请输入验证码"
           />
         </el-col>
-        <el-col :span="2">
+        <el-col :span="4">
           <div v-html="captchaData" @click="fetchCaptcha" v-tooltip="'点击刷新验证码'"></div>
-          <!-- <div v-html="captchaData" @click="fetchCaptcha" v-tooltip="{content: '点击刷新验证码', placement: 'right'}"></div> -->
         </el-col>
       </el-form-item>
       <el-form-item>

@@ -8,7 +8,7 @@ import router from '@routes/index'
 import { store } from '@store/index'
 import 'dayjs/locale/zh-cn'
 import { initGlobalTips } from '@src/setup/global-tips'
-import TooltipDirective from '@directives/tooltip/index'
+import TooltipDirective from '@directives/tooltip/index.jsx'
 
 const app = createApp(App)
 initGlobalTips(app)
