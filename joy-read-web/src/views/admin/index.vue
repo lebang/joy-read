@@ -6,14 +6,12 @@
   })
 </script>
 <template>
-  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <nav class="navbar navbar-expand navbar-light fixed-top">
     <div class="container-fluid" >
       <a class="navbar-brand" href="#">导航</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
+    
+      <div class="navbar-nav-scroll">
+        <ul class="navbar-nav bd-navbar-nav flex-row">
           <li class="nav-item">
             <a class="nav-link" href="#">链接</a>
           </li>
@@ -25,9 +23,17 @@
           </li>    
         </ul>
       </div>  
+      <ul class="navbar-nav ml-md-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">链接</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">链接</a>
+        </li>
+      </ul>
     </div>
   </nav>
-  <div class="container-fluid" style="margin-top:30px">
+  <div class="container-fluid" style="margin-top:60px">
     <div class="row">
       <div class="col-sm-3">
         <ul class="nav nav-pills flex-column">
@@ -41,7 +47,7 @@
             <a class="nav-link" href="#">链接</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#">禁用</a>
+            <a class="nav-link" href="#">禁用</a>
           </li>
         </ul>
       </div>
