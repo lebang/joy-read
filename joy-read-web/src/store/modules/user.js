@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { userLogin, getUser } from '@apis/user'
+import { userLogin, getUser, registerData } from '@apis/user'
 
 export const useUserStore = defineStore('user', () => {
   const userInfo = ref({
@@ -22,8 +22,17 @@ export const useUserStore = defineStore('user', () => {
     return true
   }
 
+  const register = async (data) => {
+    const res = await registerData(data);
+    console.log('res: 27', res);
+    const { user } = res
+    setUserInfo(user)
+    return true
+  }
+
   return {
     userInfo,
     loginIn,
+    register
   }
 })

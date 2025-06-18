@@ -1,6 +1,9 @@
 <script setup>
   import { ref, reactive } from 'vue'
   import { getCaptcha } from '@apis/user'
+  import { useUserStore } from '@store/index'
+  import { emiter } from '@utils/emiter'
+
   defineOptions({
     name: 'Register',
   })
@@ -11,26 +14,46 @@
     email:'xx@yy.com',
     password: '123456',
     captchaKey: '',
+    captchaText: ''
   })
+  const captchaData = ref('');
 
-  const captcha = reactive({
-    captchaKey: '',
-    captchaData: ''
+  const checkUsername = (rule, value, callback) => {
+    console.log('check:', rule, value, )
+    if (!value.length) {
+      return callback(new Error('请输入正确的用户名'))
+    } else {
+      callback()
+    }
+  }
+
+  const rules = reactive({
+    username: [{ validator: checkUsername, trigger: 'blur' }],
+    email: [{ validator: checkUsername, trigger: 'blur' }],
+    password: [{ validator: checkUsername, trigger: 'blur' }],
   })
-  const rules = reactive({})
+  const userStore = useUserStore()
 
   const submitForm = async () => {
-
+    await registerForm.value.validate(async (v) => {
+      if (!v) {
+        // 未通过前端静态验证
+        console.log('login: ', v)
+        return false
+      }
+      const flag = await userStore.register(registerFormData)
+      if(!flag) return
+      emiter.emit('router:admin')
+    })
   }
 
   const fetchCaptcha = async () => {
     const res = await getCaptcha();
     console.log('captcha:', res);
-    captcha.captchaKey = res.captchaKey
-    captcha.captchaData = res.captchaData
+    registerFormData.captchaKey = res.captchaKey
+    captchaData.value = res.captchaData
   }
   fetchCaptcha()
-  console.log('captcha:', captcha);
 </script>
 <template>
   <div class="container">
@@ -70,15 +93,14 @@
       <el-form-item prop="captchaKey">
         <el-col :span="20">
           <el-input
-            v-model="registerFormData.captchaKey"
-            show-password
+            v-model="registerFormData.captchaText"
             size="large"
-            type="text"
             placeholder="请输入验证码"
           />
         </el-col>
         <el-col :span="2">
-          <div v-html="captcha.captchaData" @click="fetchCaptcha" title="点击刷新验证码"></div>
+          <div v-html="captchaData" @click="fetchCaptcha" v-tooltip="'点击刷新验证码'"></div>
+          <!-- <div v-html="captchaData" @click="fetchCaptcha" v-tooltip="{content: '点击刷新验证码', placement: 'right'}"></div> -->
         </el-col>
       </el-form-item>
       <el-form-item>

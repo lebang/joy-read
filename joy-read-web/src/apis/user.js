@@ -25,5 +25,9 @@ export const deleteUser = (id) => {
 }
 
 export const getCaptcha = () => {
-  return request.get(`/captcha`, {});
+  return request.get(`/captcha`, {})
+}
+
+export const registerData = (data) => {
+  return request.post(`/register`, data)
 }

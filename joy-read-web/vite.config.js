@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import devtoolsJosn from 'vite-plugin-devtools-json'
 
 import path from 'path'
@@ -35,10 +36,12 @@ export default defineConfig({
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
       '@assets': pathResolve('src/assets'),
+      '@directives': pathResolve('src/directives'),
     },
   },
   plugins: [
     vue(),
+    vueJsx(),
     // legacy({
     //   targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
     //   modernPolyfills: true,

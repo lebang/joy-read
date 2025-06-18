@@ -40,12 +40,17 @@ const responseSuccess = (response) => {
 
 const responseFailed = (error) => {
   loading.value = false
+  console.log('res err:', error)
   if (axios.isCancel(error)) {
     console.log('请求取消', error.message)
   }
-  const { response } = error
-  if (response.status === 401) {
+  const { status, data } = error?.response || {}
+  if (status === 401) {
     emiter.emit('router:login')
+  }
+  if (status === 400) {
+    const msg = Array.isArray(data.errors) ? data.errors.join('') : data?.message
+    emiter.emit('tips:error', msg || 'error')
   }
   return Promise.reject(error)
 }

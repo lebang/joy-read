@@ -17,10 +17,10 @@ router.get('/', async (req, res) => {
   const captcha = svgCaptcha.create({
     size: 4,                    // 验证码长度
     ignoreChars: '0O1Il9quv',   // 验证码字符中排除 0O1Il9quv
-    noise: 3,                   // 干扰线条数量
+    noise: 2,                   // 干扰线条数量
     color: true,                // 是否有颜色，
     width: 100,                 // 宽
-    height: 40                  // 高
+    height: 38                  // 高
   })
 
   const captchaKey = `captcha:${uuidv4()}`

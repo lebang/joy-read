@@ -32,12 +32,6 @@
   const rules = reactive({
     login: [{ validator: checkUsername, trigger: 'blur' }],
     password: [{ validator: checkPassword, trigger: 'blur' }],
-    captcha: [
-      {
-        message: '验证码格式不正确',
-        trigger: 'blur'
-      }
-    ]
   })
 
   const userStore = useUserStore()

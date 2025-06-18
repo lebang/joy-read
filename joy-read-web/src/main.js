@@ -8,10 +8,11 @@ import router from '@routes/index'
 import { store } from '@store/index'
 import 'dayjs/locale/zh-cn'
 import { initGlobalTips } from '@src/setup/global-tips'
+import TooltipDirective from '@directives/tooltip/index'
 
 const app = createApp(App)
 initGlobalTips(app)
-
+app.directive('tooltip', TooltipDirective)
 app.use(ElementPlus).use(store).use(router).mount('#app')
 
 export default app
