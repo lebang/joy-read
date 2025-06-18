@@ -34,6 +34,7 @@ export default defineConfig({
       '@utils': pathResolve('src/utils'),
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
+      '@assets': pathResolve('src/assets'),
     },
   },
   plugins: [
