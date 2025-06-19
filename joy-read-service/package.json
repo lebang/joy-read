@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon ./bin/www",
     "format": "prettier --write \"**/*.{js,json,md}\"",
+    "debug": "node --inspect-brk=3000 ./bin/www",
     "sequlize-cli": "./node_modules/.bin/sequelize-cli"
+
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

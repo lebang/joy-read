@@ -14,8 +14,11 @@ import apiUsersRouter from '../routes/api/users.js'
 import apiCoursesRouter from '../routes/api/courses.js'
 import apiChaptersRouter from '../routes/api/chapters.js'
 
+import indexRouter from '../routes/index.js'
+
 const router = express.Router()
 
+router.use('/web', indexRouter)
 router.use('/api/index', indexRouter)
 router.use('/api/register', registerRouter)
 router.use('/api/captcha', captchaRouter)
