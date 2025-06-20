@@ -6,6 +6,7 @@ import {
   Tools,
   InfoFilled,
 } from '@element-plus/icons-vue'
+import CollapseControl from './CollapseControl.vue'
 
 defineOptions({
   name: 'Sidebar',
@@ -50,10 +51,10 @@ const menuDatas = [{
       <template #title>{{ menu.text }}</template>
     </el-menu-item>
 
-    <el-radio-group v-model="isCollapse" class="cop-wrap">
-      <el-radio v-if="isCollapse" :value="false"><el-icon><ArrowRight /></el-icon></el-radio>
-      <el-radio v-if="!isCollapse" :value="true"><el-icon><ArrowLeft /></el-icon></el-radio>
-    </el-radio-group>
+    <CollapseControl 
+      :isCollapse="isCollapse" 
+      @update:isCollapse="val => isCollapse = val"
+    />
   </el-menu>
 </template>
 
