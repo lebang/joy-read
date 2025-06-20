@@ -7,11 +7,13 @@ import 'element-plus/dist/index.css'
 import router from '@routes/index'
 import { store } from '@store/index'
 import 'dayjs/locale/zh-cn'
-import { initGlobalTips } from '@src/setup/global-tips'
+import { registerELIcons, initGlobalTips } from '@src/setup/index'
 import TooltipDirective from '@directives/tooltip/index.jsx'
 
 const app = createApp(App)
+
 initGlobalTips(app)
+registerELIcons(app)
 app.directive('tooltip', TooltipDirective)
 app.use(ElementPlus).use(store).use(router).mount('#app')
 

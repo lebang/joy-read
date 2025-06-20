@@ -32,8 +32,6 @@
   top: 58px;
   bottom: 0;
   left: 0;
-  width: 260px;
-  background-color: #f8f9fa !important;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  padding: 0px;
 }
 </style>
