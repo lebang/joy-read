@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
+  Grid,
+  UserFilled,
+  Tools,
+  InfoFilled,
 } from '@element-plus/icons-vue'
+
 defineOptions({
   name: 'Sidebar',
 })
@@ -18,6 +19,21 @@ const handleOpen = (key, keyPath) => {
 const handleClose = (key, keyPath) => {
   console.log(key, keyPath)
 }
+
+const menuDatas = [{
+  icon: Grid,
+  text: '仪表盘'
+}, {
+  icon: UserFilled,
+  text: '管理员'
+}, {
+  icon: Tools,
+  text: '系统工具'
+}, {
+  icon: InfoFilled,
+  text: '关于我们'
+}]
+
 </script>
 <template>
   <el-menu
@@ -27,32 +43,13 @@ const handleClose = (key, keyPath) => {
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-sub-menu index="1">
-      <template #title>
-        <el-icon><Location /></el-icon>
-        <span>Navigator One</span>
-      </template>
-      <el-menu-item-group>
-        <template #title><span>Group One</span></template>
-        <el-menu-item index="1-1">item one</el-menu-item>
-        <el-menu-item index="1-2">item two</el-menu-item>
-      </el-menu-item-group>
-      <el-menu-item-group title="Group Two">
-        <el-menu-item index="1-3">item three</el-menu-item>
-      </el-menu-item-group>
-    </el-sub-menu>
-    <el-menu-item index="2">
-      <el-icon><IconMenu /></el-icon>
-      <template #title>Navigator Two</template>
+    <el-menu-item v-for="(menu,index) in menuDatas" :index="index+''">
+      <el-icon>
+        <component :is="menu.icon" />
+      </el-icon>
+      <template #title>{{ menu.text }}</template>
     </el-menu-item>
-    <el-menu-item index="3">
-      <el-icon><Document /></el-icon>
-      <template #title>Navigator Three</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><Setting /></el-icon>
-      <template #title>Navigator Four</template>
-    </el-menu-item>
+
     <el-radio-group v-model="isCollapse" class="cop-wrap">
       <el-radio v-if="isCollapse" :value="false"><el-icon><ArrowRight /></el-icon></el-radio>
       <el-radio v-if="!isCollapse" :value="true"><el-icon><ArrowLeft /></el-icon></el-radio>
