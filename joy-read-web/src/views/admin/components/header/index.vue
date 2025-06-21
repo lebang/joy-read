@@ -1,4 +1,5 @@
 <script setup>
+import logo from '@assets/vue.svg'
 defineOptions({
   name: 'Header'
 })
@@ -7,7 +8,7 @@ defineOptions({
 <template>
   <div class="container-fluid" >
     <a class="navbar-brand" href="javascript:;">
-      <img src="@assets/vue.svg" class="logo" />
+      <img :src="logo" class="logo" />
       <span>Joy Read</span>
     </a>
   

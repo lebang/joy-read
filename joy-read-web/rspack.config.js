@@ -25,9 +25,10 @@ export default defineConfig({
     }
   },
   plugins: [
-    new VueLoaderPlugin(),     
+    new VueLoaderPlugin(),  
     new rspack.HtmlRspackPlugin({
-      template: './index.html',
+      template: './default.html',
+      title: 'Joy Read',
     }),
   ],
   resolve: {
@@ -48,6 +49,12 @@ export default defineConfig({
     css: true,
   },
   module: {
+    parser: {
+      javascript: {
+        exportsPresence: 'auto',
+        url: 'relative',
+      },
+    },
     rules: [
       {
         test: /\.vue$/,
@@ -70,6 +77,13 @@ export default defineConfig({
         test: /\.less$/,
         loader: 'less-loader',
         type: 'css',
+      },
+      {
+        test: /\.svg$/,
+        loader: 'rspack-svg-loader/vue',
+        options: {
+          svgoConfig: {}
+        }
       },
     ],
   },

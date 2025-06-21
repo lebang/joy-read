@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  Grid,
-  UserFilled,
-  Tools,
-  InfoFilled,
+  Grid as IconGrid,
+  UserFilled as IconUserFilled,
+  Tools as IconTools,
+  InfoFilled as IconInfoFilled,
+  List as IconList,
+  Management as IconManagement
 } from '@element-plus/icons-vue'
 import CollapseControl from './CollapseControl.vue'
 
@@ -22,16 +24,22 @@ const handleClose = (key, keyPath) => {
 }
 
 const menuDatas = [{
-  icon: Grid,
+  icon: IconGrid,
   text: '仪表盘'
 }, {
-  icon: UserFilled,
-  text: '管理员'
+  icon: IconUserFilled,
+  text: '用户管理'
 }, {
-  icon: Tools,
+  icon: IconList,
+  text: '文章管理'
+},{
+  icon: IconManagement,
+  text: '课程管理'
+},{
+  icon: IconTools,
   text: '系统工具'
 }, {
-  icon: InfoFilled,
+  icon: IconInfoFilled,
   text: '关于我们'
 }]
 
@@ -44,7 +52,7 @@ const menuDatas = [{
     @open="handleOpen"
     @close="handleClose"
   >
-    <el-menu-item v-for="(menu,index) in menuDatas" :index="index+''">
+    <el-menu-item v-for="(menu,index) in menuDatas" :index="index+''" :key="index">
       <el-icon>
         <component :is="menu.icon" />
       </el-icon>
@@ -52,8 +60,7 @@ const menuDatas = [{
     </el-menu-item>
 
     <CollapseControl 
-      :isCollapse="isCollapse" 
-      @update:isCollapse="val => isCollapse = val"
+      v-model:isCollapse="isCollapse"
     />
   </el-menu>
 </template>
