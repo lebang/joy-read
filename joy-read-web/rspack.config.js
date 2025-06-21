@@ -41,6 +41,7 @@ export default defineConfig({
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
       '@assets': pathResolve('src/assets'),
+      '@setup': pathResolve('src/setup'),
       '@directives': pathResolve('src/directives'),
     },
     extensions: ['.js', '.css', '.vue'],

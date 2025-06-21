@@ -41,4 +41,6 @@ export const useUserStore = defineStore('user', () => {
     register,
     fetchCaptcha
   }
+}, {
+  persist: true,
 })

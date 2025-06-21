@@ -9,12 +9,14 @@ import { store } from '@store/index'
 import 'dayjs/locale/zh-cn'
 import { registerELIcons, initGlobalTips } from '@src/setup/index'
 import TooltipDirective from '@directives/tooltip/index.jsx'
+import { ClickOutside } from 'element-plus'
 
 const app = createApp(App)
 
 initGlobalTips(app)
 registerELIcons(app)
 app.directive('tooltip', TooltipDirective)
+app.directive('click-outside', ClickOutside)
 app.use(ElementPlus).use(store).use(router).mount('#app')
 
 export default app

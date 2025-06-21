@@ -29,9 +29,13 @@
 }
 .bd-sidebar {
   position: fixed;
-  top: 58px;
+  top: 68px;
   bottom: 0;
   left: 0;
   padding: 0px;
+
+  .sidebar-menu {
+    padding-top: 10px;
+  }
 }
 </style>
