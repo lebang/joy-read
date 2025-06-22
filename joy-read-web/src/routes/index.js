@@ -26,22 +26,22 @@ import { emiter } from '@utils/emiter'
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@views/login/index.vue')
+    component: () => import('@views/login/index.vue'),
   },
   {
     path: '/admin',
     name: 'admin',
-    component: () => import('@views/admin/index.vue')
+    component: () => import('@views/admin/index.vue'),
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@views/register/index.vue')
+    component: () => import('@views/register/index.vue'),
   },
 ]
 

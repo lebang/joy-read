@@ -8,4 +8,3 @@ const registerELIcons = (app) => {
 }
 
 export { registerELIcons, initGlobalTips }
-

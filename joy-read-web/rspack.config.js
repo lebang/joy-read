@@ -1,8 +1,8 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { defineConfig } from '@rspack/cli';
-import rspack from '@rspack/core';
-import { VueLoaderPlugin } from 'vue-loader';
+import { defineConfig } from '@rspack/cli'
+import rspack from '@rspack/core'
+import { VueLoaderPlugin } from 'vue-loader'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -22,10 +22,10 @@ export default defineConfig({
     port: 3001,
     client: {
       overlay: false,
-    }
+    },
   },
   plugins: [
-    new VueLoaderPlugin(),  
+    new VueLoaderPlugin(),
     new rspack.HtmlRspackPlugin({
       template: './default.html',
       title: 'Joy Read',
@@ -59,14 +59,14 @@ export default defineConfig({
     rules: [
       {
         test: /\.vue$/,
-        loader: "vue-loader",
+        loader: 'vue-loader',
         options: {
           experimentalInlineMatchResource: true,
         },
       },
       {
         test: /\.m?js/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
       },
       {
         test: /\.m?js/,
@@ -83,8 +83,8 @@ export default defineConfig({
         test: /\.svg$/,
         loader: 'rspack-svg-loader/vue',
         options: {
-          svgoConfig: {}
-        }
+          svgoConfig: {},
+        },
       },
     ],
   },

@@ -44,7 +44,7 @@ const responseFailed = (error) => {
   if (axios.isCancel(error)) {
     console.log('请求取消', error.message)
   }
-  if(!error?.response) {
+  if (!error?.response) {
     emiter.emit('tips:error', error.message)
   }
   const { status, data } = error?.response || {}

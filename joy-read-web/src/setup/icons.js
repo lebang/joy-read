@@ -4,7 +4,7 @@ import {
   Tools as IconTools,
   InfoFilled as IconInfoFilled,
   List as IconList,
-  Management as IconManagement
+  Management as IconManagement,
 } from '@element-plus/icons-vue'
 
 export { IconGrid, IconUserFilled, IconTools, IconInfoFilled, IconList, IconManagement }
