@@ -62,7 +62,7 @@ service.interceptors.response.use(responseSuccess, responseFailed)
 
 const request = {
   get(url, params = {}) {
-    const [fetcher, cancel] = withCancelToken(() => service.get(url, { params }))
+    const [fetcher, cancel] = withCancelToken(() => service.get(url, params ))
     return fetcher()
   },
   post(url, data) {

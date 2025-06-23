@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-import { IconGrid, IconUserFilled, IconTools, IconInfoFilled, IconList, IconManagement } from '@src/setup/icons.js'
 import CollapseControl from './CollapseControl.vue'
 
 defineOptions({
@@ -9,6 +8,21 @@ defineOptions({
 
 const isCollapse = ref(false)
 
+const props = defineProps({
+  menuDatas: {
+    type: Array,
+    required: true
+  },
+  navigateTo: {
+    type: Function,
+    required: true
+  },
+  activeIndex: {
+    type: String,
+    default: '1'
+  }
+})
+
 const handleOpen = (key, keyPath) => {
   console.log(key, keyPath)
 }
@@ -16,30 +30,10 @@ const handleClose = (key, keyPath) => {
   console.log(key, keyPath)
 }
 
-const menuDatas = [{
-  icon: IconGrid,
-  text: '仪表盘'
-}, {
-  icon: IconUserFilled,
-  text: '用户管理'
-}, {
-  icon: IconList,
-  text: '文章管理'
-}, {
-  icon: IconManagement,
-  text: '课程管理'
-}, {
-  icon: IconTools,
-  text: '系统工具'
-}, {
-  icon: IconInfoFilled,
-  text: '关于我们'
-}]
-
 </script>
 <template>
-  <el-menu default-active="1" class="sidebar-menu" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
-    <el-menu-item v-for="(menu, index) in menuDatas" :index="index + ''" :key="index">
+  <el-menu :default-active="props.activeIndex" class="sidebar-menu" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
+    <el-menu-item v-for="(menu, index) in props.menuDatas" :index="index + ''" :key="index" @click="props.navigateTo(menu.routeName)">
       <el-icon>
         <component :is="menu.icon" />
       </el-icon>

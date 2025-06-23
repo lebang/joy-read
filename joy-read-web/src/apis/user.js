@@ -8,8 +8,8 @@ export const getUser = ({ id }) => {
   return request.get(`/users/${id}`)
 }
 
-export const getUsers = ({ id }) => {
-  return request.get(`/users/${id}`)
+export const getUsers = ({  }) => {
+  return request.get(`/users/`)
 }
 
 export const createUser = (data) => {
