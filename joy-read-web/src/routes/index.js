@@ -44,6 +44,11 @@ const routes = [
         component: () => import('@views/admin/article/index.vue'),
       },
       {
+        path: '/admin/articles/:id',
+        name: 'admin-articles-detail',
+        component: () => import('@views/admin/article/detail.vue'),
+      },
+      {
         path: '/admin/courses',
         name: 'admin-courses',
         component: () => import('@views/admin/course/index.vue')
@@ -75,8 +80,7 @@ const routes = [
 //     meta,
 //   }
 // })
-
-console.log('routes:', routes)
+// console.log('routes:', routes)
 
 const router = createRouter({
   history: createWebHashHistory(),

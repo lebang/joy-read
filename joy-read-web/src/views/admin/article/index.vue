@@ -1,23 +1,21 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getArticles } from '@apis/article'
+import { useRouter } from 'vue-router'
 defineOptions({
   name: 'Article'
 })
+
+const router = useRouter()
 
 const tableData = ref([])
 const currentPage = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
 
-const handleClick = () => {
-  console.log('click')
-}
-
 const fetchData = async () => {
   try {
     const res = await getArticles({ currentPage: currentPage.value, pageSize: pageSize.value })
-    console.log('res 22:', res)
     const { rows, pagination } = res
     tableData.value = rows || []
     total.value = pagination.total || 0
@@ -26,14 +24,11 @@ const fetchData = async () => {
   }
 }
 
-
-// 页码改变时触发
 const handleCurrentChange = (val) => {
   currentPage.value = val
   fetchData()
 }
 
-// 每页显示条数改变时触发
 const handleSizeChange = (val) => {
   pageSize.value = val
   currentPage.value = 1
@@ -44,6 +39,16 @@ onMounted(() => {
   fetchData()
 })
 
+const onDetail = () => {
+  console.log('click')
+}
+
+const onEdit = (id) => {
+  router.push({
+    name: 'admin-articles-detail',
+    params: { id }
+  })
+}
 
 </script>
 
@@ -53,11 +58,11 @@ onMounted(() => {
     <el-table-column prop="title" label="标题" />
     <el-table-column prop="content" label="内容" />
     <el-table-column fixed="right" label="Operations" min-width="120">
-      <template #default>
-        <el-button link type="primary" size="small" @click="handleClick">
+      <template #default="scope">
+        <el-button link type="primary" size="small" @click="onDetail">
           Detail
         </el-button>
-        <el-button link type="primary" size="small">Edit</el-button>
+        <el-button link type="primary" size="small" @click="onEdit(scope.row.id)">Edit</el-button>
       </template>
     </el-table-column>
   </el-table>

@@ -35,8 +35,10 @@ const router = useRouter();
 
 const activeIndex = computed(() => {
   const currentRouteName = router.currentRoute.value.name
-  console.log('currentRouteName:', currentRouteName)
-  const menuItem = menuDatas.find(menu => menu.routeName === currentRouteName)
+  // console.log('currentRouteName:', currentRouteName)
+  const menuItem = menuDatas.find(menu => {
+    return currentRouteName.startsWith(menu.routeName)
+  })
   return menuItem ? menuDatas.indexOf(menuItem).toString() : '0'
 })
 

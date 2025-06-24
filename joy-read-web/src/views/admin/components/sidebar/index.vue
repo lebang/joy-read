@@ -23,16 +23,9 @@ const props = defineProps({
   }
 })
 
-const handleOpen = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-const handleClose = (key, keyPath) => {
-  console.log(key, keyPath)
-}
-
 </script>
 <template>
-  <el-menu :default-active="props.activeIndex" class="sidebar-menu" :collapse="isCollapse" @open="handleOpen" @close="handleClose">
+  <el-menu :default-active="props.activeIndex" class="sidebar-menu" :collapse="isCollapse">
     <el-menu-item v-for="(menu, index) in props.menuDatas" :index="index + ''" :key="index" @click="props.navigateTo(menu.routeName)">
       <el-icon>
         <component :is="menu.icon" />
