@@ -12,7 +12,7 @@
     "rs:build": "cross-env rspack build"
   },
   "dependencies": {
-    "@opentiny/fluent-editor": "^3.25.4",
+    "@opentiny/vue-fluent-editor": "^3.24.0",
     "@vueuse/core": "^13.3.0",
     "axios": "^1.10.0",
     "core-js": "^3.43.0",
