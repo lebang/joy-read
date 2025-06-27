@@ -4,8 +4,7 @@ import FluentEditor from '@opentiny/vue-fluent-editor'
 
 const props = defineProps({
   modelValue: {
-    type: String,
-    default: ''
+    type: Object,
   },
   placeholder: {
     type: String,
@@ -13,7 +12,7 @@ const props = defineProps({
   },
   height: {
     type: [String, Number],
-    default: '300px'
+    default: '300'
   }
 })
 console.log('props.modelValue:', props.modelValue)

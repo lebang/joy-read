@@ -14,6 +14,37 @@ export default defineConfig({
   entry: {
     main: path.resolve(__dirname, 'src/main.js'),
   },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        common: {
+          name: 'chunk-common', // 打包后的文件名
+          chunks: 'initial', // 
+          minChunks: 2,
+          maxInitialRequests: 5,
+          minSize: 0,
+          priority: 1,
+          reuseExistingChunk: true
+        },
+        vendors: {
+          name: 'chunk-vendors',
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'initial',
+          priority: 2,
+          reuseExistingChunk: true,
+          enforce: true
+        },
+        elementPlus: {
+          name: 'chunk-element-plus',
+          test: /[\\/]node_modules[\\/]element-plus[\\/]/,
+          chunks: 'initial',
+          priority: 3,
+          reuseExistingChunk: true,
+          enforce: true
+        }
+      }
+    }
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),

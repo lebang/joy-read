@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import Editor from '@components/editor/index.vue'
 
 const route = useRoute()
 const articleId = route.params.id
@@ -91,12 +92,13 @@ const submitArticle = async () => {
       </el-form-item>
       
       <el-form-item label="文章内容">
-        <el-input
+        <!-- <el-input
           v-model="articleContent"
           type="textarea"
           :rows="4"
           placeholder="请输入文章内容"
-        />
+        /> -->
+        <Editor v-model="articleContent"></Editor>
       </el-form-item>
       
       <el-form-item>
