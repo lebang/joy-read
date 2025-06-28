@@ -16,25 +16,25 @@ export const useUserStore = defineStore(
     }
 
     const loginIn = async (login) => {
-      const res = await userLogin(login)
-      const { user } = res
-      // const { user } = await getUser({ id: res.userId })
-      console.log('user res:', res)
+      const { response, loading }= await userLogin(login)
+      const { user } = response
+      // const { user } = await getUser({ id: response.userId })
+      console.log('user response:', response)
       setUserInfo(user)
       return true
     }
 
     const register = async (data) => {
-      const res = await postRegister(data)
-      console.log('res: 27', res)
-      const { user } = res
+      const { response, loading } = await postRegister(data)
+      console.log('res: 27', response)
+      const { user } = response
       setUserInfo(user)
       return true
     }
 
     const fetchCaptcha = async (callback) => {
-      const res = await getCaptcha()
-      callback && callback(res)
+      const { response } = await getCaptcha()
+      callback && callback(response)
     }
 
     return {

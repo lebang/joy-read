@@ -12,7 +12,8 @@
     "rs:build": "cross-env rspack build"
   },
   "dependencies": {
-    "@opentiny/vue-fluent-editor": "^3.24.0",
+    "@element-plus/icons-vue": "^2.3.1",
+    "@opentiny/fluent-editor": "^3.25.4",
     "@vueuse/core": "^13.3.0",
     "axios": "^1.10.0",
     "core-js": "^3.43.0",
@@ -34,7 +35,7 @@
     "@babel/preset-env": "^7.27.2",
     "@rspack/cli": "^1.4.1",
     "@rspack/core": "^1.4.1",
-    "@vitejs/plugin-legacy": "^6.1.1",
+    "@vitejs/plugin-legacy": "^7.0.0",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vitejs/plugin-vue-jsx": "^4.2.0",
     "cross-env": "^7.0.3",

@@ -14,14 +14,10 @@ const pageSize = ref(10)
 const total = ref(0)
 
 const fetchData = async () => {
-  try {
-    const res = await getArticles({ currentPage: currentPage.value, pageSize: pageSize.value })
-    const { rows, pagination } = res
-    tableData.value = rows || []
-    total.value = pagination.total || 0
-  } catch (error) {
-    console.error('获取文章数据失败:', error)
-  }
+  const { response, loading } = await getArticles({ currentPage: currentPage.value, pageSize: pageSize.value })
+  const { rows, pagination } = response
+  tableData.value = rows || []
+  total.value = pagination.total || 0
 }
 
 const handleCurrentChange = (val) => {

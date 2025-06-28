@@ -1,52 +1,56 @@
 <script setup>
-import { ref, watch } from 'vue'
-import FluentEditor from '@opentiny/vue-fluent-editor'
+import { ref, watch, onMounted } from 'vue'
+import FluentEditor from '@opentiny/fluent-editor'
+import '@opentiny/fluent-editor/style.css';
 
 const props = defineProps({
   modelValue: {
-    type: Object,
-  },
-  placeholder: {
     type: String,
-    default: '请输入内容...'
+    default: ''
   },
-  height: {
-    type: [String, Number],
-    default: '300'
+  theme: {
+    type: String,
+    default: 'snow'
+  },
+  onChange: {
+    type: Function,
+    default: () => {}
   }
 })
-console.log('props.modelValue:', props.modelValue)
-const emit = defineEmits(['update:modelValue', 'change'])
 
-// 内部内容状态
-const editorContent = ref(props.modelValue || '')
+// 定义组件的事件
+const emits = defineEmits(['update:modelValue', 'onChange'])
 
-// 监听外部传入的modelValue变化
+const editorRef = ref()
+let editor = null;
+onMounted(() => {
+  editor = new FluentEditor(editorRef.value, {
+    theme: 'snow',
+  });
+
+  // 初始化编辑器内容
+  editor.root.innerHTML = props.modelValue
+
+  // 监听编辑器内容变化
+  editor.on('text-change', () => {
+    const content = editor.root.innerHTML
+    emits('update:modelValue', content)
+    emits('onChange', content, editor)
+  })
+})
+
+// 监听 props.modelValue 的变化，同步到编辑器
 watch(() => props.modelValue, (newValue) => {
-  console.log('Editor - modelValue changed:', newValue)
-  if (newValue !== editorContent.value) {
-    editorContent.value = newValue || ''
+  if (editor && editor.root.innerHTML !== newValue) {
+    editor.root.innerHTML = newValue
   }
-}, { immediate: true })
+})
 
-// 处理编辑器内容变化
-const handleChange = (value) => {
-  console.log('Editor - content changed:', value)
-  editorContent.value = value
-  emit('update:modelValue', value)
-  emit('change', value)
-}
 </script>
 
 <template>
-  <div class="joy-editor-container" :style="{ height: typeof height === 'number' ? `${height}px` : height }">
-    <FluentEditor
-      v-model="editorContent"
-      :placeholder="placeholder"
-      @change="handleChange"
-      :data-type="false" 
-      :data-upgrade="false"
-    />
+  <div class="joy-editor-container">
+    <div id="editor" ref="editorRef" />
   </div>
 </template>
 
@@ -56,11 +60,7 @@ const handleChange = (value) => {
   min-height: 200px;
 }
 
-.joy-editor-container .tiny-fluent-editor {
-  height: 100%;
-}
-
-.joy-editor-container .ck-editor__editable {
-  min-height: calc(100% - 40px);
+.joy-editor-container .ql-container {
+  min-height: 400px;
 }
 </style>
