@@ -26,6 +26,35 @@ let editor = null;
 onMounted(() => {
   editor = new FluentEditor(editorRef.value, {
     theme: 'snow',
+    modules: {
+      'toolbar': [
+        [
+          { header: [1, 2, 3, 4, 5, 6, false] },
+          { font: ['songti', 'yahei', 'kaiti', 'heiti', 'lishu', 'mono'] },
+          { size: ['12px', '14px', '16px', '18px', '20px', '24px', '32px', '36px', '48px'] },
+          { lineheight: ['1', '1.2', '1.5', '1.75', '2', '3', '4', '5'] },
+        ],
+        ['bold', 'italic', 'strike', 'underline'],
+        ['link', 'image'],
+        // [{ color: [] }, { background: [] }],
+        ['better-table'],
+      ],
+      'counter': true,
+      'better-table': true,
+      'i18n': {
+          lang: 'zh-CN',
+          langText: {
+            'header': '段落格式',
+            'normal': '正文',
+            'h1': '标题1',
+            'h2': '标题2',
+            'h3': '标题3',
+            'h4': '标题4',
+            'h5': '标题5',
+            'h6': '标题6',
+          }
+      },
+    }
   });
 
   // 初始化编辑器内容
