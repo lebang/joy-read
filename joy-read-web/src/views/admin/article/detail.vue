@@ -1,10 +1,11 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import Editor from '@components/editor/index.vue'
 import { getArticle, updateArticle } from '@apis/article.js'
 
 const route = useRoute()
+const router = useRouter()
 const articleId = route.params.id
 const isLoading = ref(false)
 const isSaving = ref(false)
@@ -50,18 +51,32 @@ onMounted(async () => {
 
 // 提交文章
 const submitArticle = async () => {
-  await articleForm.value.validate(async (v) => {
-    if (!v) {
-      console.log('login: ', v)
-      return false
+  try {
+    isSaving.value = true
+    const valid = await articleForm.value.validate()
+    if (!valid) return
+
+    const { error } = await updateArticle(articleData)
+    if (error) {
+      return
     }
-    const { response } = await updateArticle(articleData)
-    console.log('resposne:', response);
-  })
+
+    // 保存成功后返回列表页
+    router.push({ name: 'admin-articles' })
+  } catch (err) {
+    console.error('保存失败:', err)
+  } finally {
+    isSaving.value = false
+  }
+}
+
+// 返回列表
+const handleBack = () => {
+  router.push({ name: 'admin-articles' })
 }
 
 const onEditorChange = (content, editor) => {
-  console.log('content:', content)
+  // console.log('content:', content)
   console.log('editor:', editor)
 }
 </script>
@@ -93,6 +108,7 @@ const onEditorChange = (content, editor) => {
         <el-button type="primary" @click="submitArticle" :loading="isSaving">
           {{ isSaving ? '保存中...' : '保存文章' }}
         </el-button>
+        <el-button @click="handleBack" style="margin-left: 10px;">返回列表</el-button>
       </el-form-item>
     </el-form>
   </div>

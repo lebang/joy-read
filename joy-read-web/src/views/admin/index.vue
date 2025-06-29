@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import Sidebar from '@views/admin/components/sidebar/index.vue'
 import Header from '@views/admin/components/header/index.vue'
+import Breadcrumb from '@src/components/breadcrumb/index.vue'
 import { IconGrid, IconUserFilled, IconTools, IconInfoFilled, IconList, IconManagement } from '@src/setup/icons.js'
 
 defineOptions({
@@ -35,7 +36,6 @@ const router = useRouter();
 
 const activeIndex = computed(() => {
   const currentRouteName = router.currentRoute.value.name
-  // console.log('currentRouteName:', currentRouteName)
   const menuItem = menuDatas.find(menu => {
     return currentRouteName.startsWith(menu.routeName)
   })
@@ -56,6 +56,9 @@ const navigateTo = (routeName) => {
         <Sidebar :menuDatas="menuDatas" :activeIndex="activeIndex" :navigateTo="navigateTo"></Sidebar>
       </div>
       <div class="bd-main">
+        <div class="breadcrumb-container">
+          <Breadcrumb />
+        </div>
         <router-view> </router-view>
       </div>
     </div>
@@ -92,5 +95,13 @@ const navigateTo = (routeName) => {
 .bd-main {
   padding: 20px;
   flex: 1;
+  
+  .breadcrumb-container {
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  }
 }
 </style>
