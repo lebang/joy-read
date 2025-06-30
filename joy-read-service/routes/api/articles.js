@@ -41,12 +41,19 @@ const filterBody = (req) => {
  */
 router.get('/', async (req, res) => {
   const { currentPage, pageSize, offset } = getPagination(req)
-  const { title } = req.query
+  const { title, deleted } = req.query
   const condition = {
     where: {},
     order: [['id', 'DESC']],
     limit: pageSize,
     offset,
+  }
+
+  if(deleted === 'true') { //查询回收站数据
+    condition.paranoid = false
+    condition.where.deletedAt = {
+      [Op.not]: null
+    }
   }
 
   if (title) {
@@ -106,6 +113,39 @@ router.delete('/:id', async (req, res) => {
   const article = await getArticle(req)
   await article.destroy()
   success(res, '删除成功', { article })
+})
+
+/**
+ * POST delete
+ * 批量删除
+ * id: id | [id, id]
+ */
+router.post('/delete', async (req, res) => {
+  const { id } = req.body
+  await Article.destroy({ where: { id } })
+  success(res, '已删除到回收站')
+})
+
+/**
+ * post force delete
+ * 批量彻底删除
+ * id: id | [id, id]
+ */
+router.post('/force_delete', async (req, res) => {
+  const { id } = req.body
+  await Article.destroy({ where: { id }, force: true })
+  success(res, '已彻底删除')
+})
+
+/**
+ * POST restore
+ * 批量恢复
+ * id: id | [id, id]
+ */
+router.post('/restore', async (req, res) => {
+  const { id } = req.body
+  await Article.restore({ where: { id } })
+  success(res, '已恢复')
 })
 
 export default router

@@ -1,7 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { getArticles } from '@apis/article'
+import { getArticles, deleteArticle } from '@apis/article'
 import { useRouter } from 'vue-router'
+import DeleteConfirm from '@components/delete-confirm/index.vue'
+
 defineOptions({
   name: 'Article'
 })
@@ -46,6 +48,12 @@ const onEdit = (id) => {
   })
 }
 
+const onDelete = async(id) => {
+  const { response, error } = await deleteArticle(id) 
+  console.log('response:', response)
+  fetchData();
+}
+
 </script>
 
 <template>
@@ -59,6 +67,8 @@ const onEdit = (id) => {
           Detail
         </el-button>
         <el-button link type="primary" size="small" @click="onEdit(scope.row.id)">Edit</el-button>
+        
+       <DeleteConfirm @delete="onDelete(scope.row.id)"></DeleteConfirm>
       </template>
     </el-table-column>
   </el-table>
