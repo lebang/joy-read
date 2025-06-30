@@ -7,16 +7,10 @@
 </template>
 
 <script setup>
-const props = defineProps({
-  id: {
-    type: [String, Number],
-    required: true
-  }
-})
 
 const emit = defineEmits(['delete'])
 
 const handleDelete = async () => {
-  emit('delete', props.id)
+  emit('delete')
 }
 </script>

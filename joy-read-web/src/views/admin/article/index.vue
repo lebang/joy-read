@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onBeforeMount } from 'vue'
 import { getArticles, deleteArticle } from '@apis/article'
 import { useRouter } from 'vue-router'
 import DeleteConfirm from '@components/delete-confirm/index.vue'
@@ -33,7 +33,7 @@ const handleSizeChange = (val) => {
   fetchData()
 }
 
-onMounted(() => {
+onBeforeMount(() => {
   fetchData()
 })
 
@@ -57,11 +57,11 @@ const onDelete = async(id) => {
 </script>
 
 <template>
-    <el-table :data="tableData" style="width: 100%">
+  <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="id" label="id" />
     <el-table-column prop="title" label="标题" />
     <el-table-column prop="content" label="内容" />
-    <el-table-column fixed="right" label="Operations" min-width="120">
+    <el-table-column label="Operations" min-width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="onDetail">
           Detail

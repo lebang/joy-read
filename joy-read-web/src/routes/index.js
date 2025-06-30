@@ -64,6 +64,14 @@ const routes = [
         meta: {
           title: '课程列表'
         }
+      },
+      {
+        path: '/admin/courses/:id',
+        name: 'admin-courses-detail',
+        component: () => import('@views/admin/course/detail.vue'),
+        meta: {
+          title: '课程详情'
+        }
       }
     ]
   },
