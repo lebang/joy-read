@@ -1,6 +1,7 @@
 import { MeiliSearch } from 'meilisearch'
+import processEnv from './process-env'
 
 const searchClient = new MeiliSearch({
-  host: 'http://localhost:7700',
-  apiKey: 'SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk',
+  host: processEnv.MEILISEARCH_HOST,
+  apiKey: processEnv.MEILISEARCH_API_KEY,
 })
