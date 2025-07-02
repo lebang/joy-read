@@ -3,10 +3,23 @@
     "username": "root",
     "password": "123456",
     "database": "joy_read_basis",
-    "host": "127.0.0.1",
     "dialect": "mysql",
     "timezone": "+08:00",
-    "logQueryParameters": true
+    "logQueryParameters": true,
+    "replication": {
+      "write": {
+        "host": "127.0.0.1",
+        "username": "root",
+        "password": "123456"
+      },
+      "read": [
+        {
+          "host": "127.0.0.1",
+          "username": "root",
+          "password": "123456"
+        }
+      ]
+    }
   },
   "test": {
     "username": "root",
@@ -20,8 +33,21 @@
     "username": "root",
     "password": null,
     "database": "joy_read_basis",
-    "host": "127.0.0.1",
     "dialect": "mysql",
-    "timezone": "+08:00"
+    "timezone": "+08:00",
+    "replication": {
+      "write": {
+        "host": "your-primary-db-host",
+        "username": "your-db-user",
+        "password": "your-db-password"
+      },
+      "read": [
+        {
+          "host": "your-read-replica-1-host",
+          "username": "your-db-user",
+          "password": "your-db-password"
+        }
+      ]
+    }
   }
 }
