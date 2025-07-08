@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import devtoolsJosn from 'vite-plugin-devtools-json'
 import Sonda from 'sonda/vite';
 import comlink from 'vite-plugin-comlink';
+import removeConsole from "vite-plugin-remove-console";
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -62,8 +63,20 @@ export default defineConfig({
       additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
     }),
     devtoolsJosn(),
-    Sonda(),
+    // Sonda(),
     comlink(),
+    removeConsole({
+      // includes: ["log", "warn", "info"],
+      externalValue: ["这个不删", "noRemove"],
+      // Completely customize the statements that need to be removed, which will overwrite `includes`
+      custom: [
+        "debugger",
+        "console.log()",
+        // "console.warn()",
+        // "console.error()",
+        // "console.info()",
+      ]
+    })
   ],
   worker: {
     plugins: [

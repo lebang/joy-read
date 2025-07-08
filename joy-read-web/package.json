@@ -50,6 +50,7 @@
     "vite": "^7.0.0",
     "vite-plugin-comlink": "^5.1.0",
     "vite-plugin-devtools-json": "^0.2.0",
+    "vite-plugin-remove-console": "^2.2.0",
     "vue-loader": "^17.4.2"
   }
 }
