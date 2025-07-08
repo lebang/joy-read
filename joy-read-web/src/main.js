@@ -11,6 +11,10 @@ import { registerELIcons, initGlobalTips } from '@src/setup/index'
 import TooltipDirective from '@directives/tooltip/index.jsx'
 import { ClickOutside } from 'element-plus'
 
+import webWorker from '@src/setup/web-workers/main.js'
+
+webWorker();
+
 const app = createApp(App)
 
 initGlobalTips(app)

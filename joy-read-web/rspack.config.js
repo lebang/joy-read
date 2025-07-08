@@ -117,6 +117,15 @@ export default defineConfig({
           svgoConfig: {},
         },
       },
+      {
+        test: /\.worker\.(js|ts)/i,
+        use: [{
+          loader: 'comlink-loader',
+          options: {
+            singleton: true,
+          }
+        }]
+      }
     ],
   },
 })

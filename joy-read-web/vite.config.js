@@ -4,6 +4,7 @@ import legacy from '@vitejs/plugin-legacy'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import devtoolsJosn from 'vite-plugin-devtools-json'
 import Sonda from 'sonda/vite';
+import comlink from 'vite-plugin-comlink';
 
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -62,7 +63,13 @@ export default defineConfig({
     }),
     devtoolsJosn(),
     Sonda(),
+    comlink(),
   ],
+  worker: {
+    plugins: [
+      comlink(),
+    ],
+  },
   css: {
     preprocessorOptions: {
       less: {
