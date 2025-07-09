@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "cross-env vite --host",
     "build": "cross-env vite build",
     "preview": "vite preview",
@@ -52,5 +53,8 @@
     "vite-plugin-devtools-json": "^0.2.0",
     "vite-plugin-remove-console": "^2.2.0",
     "vue-loader": "^17.4.2"
+  },
+  "engines": {
+    "node": "22.16.0"
   }
 }

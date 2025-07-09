@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeMount, defineOptions } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { getCourses, deleteCourse } from '@apis/course'
 import { useRouter } from 'vue-router'
 import DeleteConfirm from '@components/delete-confirm/index.vue'
@@ -53,8 +53,22 @@ const onDelete = async(id) => {
 <template>
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="id" label="id" />
-    <el-table-column prop="title" label="标题" />
-    <el-table-column prop="content" label="内容" />
+    <el-table-column prop="name" label="标题" />
+    <el-table-column label="分类" >
+      <template #default="scope">
+        <span v-default="scope.row?.category?.name"></span>
+      </template>
+    </el-table-column>
+    <el-table-column label="作者" >
+      <template #default="scope">
+        <span v-default="scope.row?.user?.username"></span>
+      </template>
+    </el-table-column>
+    <el-table-column label="内容" >
+      <template #default="scope">
+        <span v-default="scope.row?.content"></span>
+      </template>
+    </el-table-column>
     <el-table-column label="Operations" min-width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="onEdit(scope.row.id)">Edit</el-button>

@@ -6,9 +6,8 @@ import { getArticle, updateArticle } from '@apis/article.js'
 
 const route = useRoute()
 const router = useRouter()
-const articleId = route.params.id
+const { id: articleId } = route.params
 const isLoading = ref(false)
-const isSaving = ref(false)
 const articleForm = ref(null)
 const articleData = reactive({
   id: 'new',
@@ -52,7 +51,7 @@ onMounted(async () => {
 // 提交文章
 const submitArticle = async () => {
   try {
-    isSaving.value = true
+    isLoading.value = true
     const valid = await articleForm.value.validate()
     if (!valid) return
 
@@ -66,7 +65,7 @@ const submitArticle = async () => {
   } catch (err) {
     console.error('保存失败:', err)
   } finally {
-    isSaving.value = false
+    isLoading.value = false
   }
 }
 
@@ -105,8 +104,8 @@ const onEditorChange = (content, editor) => {
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="submitArticle" :loading="isSaving">
-          {{ isSaving ? '保存中...' : '保存文章' }}
+        <el-button type="primary" @click="submitArticle" :loading="isLoading">
+          {{ isLoading ? '保存中...' : '保存文章' }}
         </el-button>
         <el-button @click="handleBack" style="margin-left: 10px;">返回列表</el-button>
       </el-form-item>
