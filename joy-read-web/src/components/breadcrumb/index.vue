@@ -15,25 +15,24 @@ const breadcrumbs = computed(() => {
   if (!route.name) return []
 
   const nameSegments = route.name.toString().split('-')
-  const result = []
-
-  // 使用reduce代替for循环和currentName变量
-  nameSegments.reduce((prevName, segment, index) => {
-    const currentName = prevName ? `${prevName}-${segment}` : segment
+  const result = nameSegments.reduce((acc, segment, index) => {
+    const currentName = acc.length > 0 ? `${acc[acc.length - 1].name}-${segment}` : segment
     const matchedRoute = allRoutes.find(r => r.name === currentName)
 
     if (matchedRoute) {
+      const { title=false } = matchedRoute?.meta || {}
       const isLast = index === nameSegments.length - 1
-      result.push({
-        text: matchedRoute.meta?.title || segment,
+      const hasParams = matchedRoute?.path?.includes('/:')
+      acc.push({
+        text: title || segment,
         name: currentName,
-        params: { ...route.params },
+        params: hasParams ? route.params : {},
         disabled: isLast
       })
     }
 
-    return currentName
-  }, '')
+    return acc
+  }, [])
 
   return result
 })

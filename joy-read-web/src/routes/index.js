@@ -62,7 +62,7 @@ const routes = [
         name: 'admin-courses',
         component: () => import('@views/admin/course/index.vue'),
         meta: {
-          title: '课程列表'
+          title: '课程列表',
         }
       },
       {

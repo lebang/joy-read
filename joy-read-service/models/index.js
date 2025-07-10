@@ -5,7 +5,7 @@ import Sequelize from 'sequelize'
 import processEnv from '../utils/process-env.js'
 
 const __filename = fileURLToPath(import.meta.url)
-// const basename = path.basename(__filename) // 当前文件名
+// const __basename = path.basename(__filename) // 当前文件名
 const env = processEnv.NODE_ENV || 'development'
 const configPath = path.join(path.dirname(__filename), '../config/config.json')
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
