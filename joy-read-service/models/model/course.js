@@ -4,8 +4,8 @@ import { BaseModel } from '../base-model.js'
 export default (sequelize, DataTypes) => {
   class Course extends BaseModel {
     static associate(models) {
-      models.Course.belongsTo(models.Category, { as: 'category' })
-      models.Course.belongsTo(models.User, { as: 'user' })
+      models.Course.belongsTo(models.Category, { foreignKey:'categoryId', as: 'category' })
+      models.Course.belongsTo(models.User, { foreignKey:'userId', as: 'user' })
       models.Course.hasMany(models.Chapter, { as: 'chapters' })
     }
   }
