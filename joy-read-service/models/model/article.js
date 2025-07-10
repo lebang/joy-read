@@ -67,7 +67,7 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      paranoid: true,
+      paranoid: true, // 启用软删除 deletedAt字段
       modelName: 'Article',
     },
   )
