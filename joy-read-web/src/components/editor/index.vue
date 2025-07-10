@@ -83,13 +83,15 @@ watch(() => props.modelValue, (newValue) => {
   </div>
 </template>
 
-<style>
+<style lang="less">
 .joy-editor-container {
   width: 100%;
   min-height: 200px;
 }
 
 .joy-editor-container .ql-container {
-  min-height: 400px;
+  .ql-editor {
+    min-height: 300px;
+  }
 }
 </style>

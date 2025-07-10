@@ -15,6 +15,7 @@ const { NotFound, BadRequest } = createHttpError
  */
 const getCondition = () => {
   return {
+    distinct: true,
     attributes: { exclude: ['CategoryId', 'UserId'] },
     include: [
       {
@@ -26,8 +27,17 @@ const getCondition = () => {
         model: User,
         as: 'user',
         attributes: ['id', 'username', 'avatar'],
-      },
+      }, 
+      // {
+      //   model: Chapter,
+      //   as: 'chapters',
+      //   attributes: ['id', 'title', 'rank', 'createdAt'],
+      // }
     ],
+    // order: [
+    //   [ { model: Chapter, as : 'chapters' }, 'rank', 'ASC']
+    //   [ { model: Chapter, as : 'chapters' }, 'id', 'DESC']
+    // ]
   }
 }
 
@@ -37,13 +47,30 @@ const getCondition = () => {
 const getCourse = async (req) => {
   const { id } = req?.params || ''
 
-  const condition = getCondition()
+  // const condition = getCondition()
+  const condition = {
+    attributes: { exclude: ['CategoryId', 'UserId'] },
+  }
 
   const course = await Course.findByPk(id, condition)
   if (!course) {
     throw new NotFound(`ID:${id}未找到`)
   }
-  return course
+
+  const category = await course.getCategory({
+    attributes: ['id', 'name'],
+  })
+
+  const user = await course.getUser({
+    attributes: ['id', 'username', 'avatar'],
+  })
+
+  const chapters = await course.getChapters({
+    attributes: ['id', 'title', 'rank', 'createdAt'],
+    order: [['rank', 'ASC'], ['id', 'DESC']],
+  })
+
+  return { course, category, user, chapters }
 }
 
 /**
@@ -133,8 +160,8 @@ router.get('/', async (req, res) => {
  * GET /api/courses/:id
  */
 router.get('/:id', async (req, res) => {
-  const course = await getCourse(req)
-  success(res, '查询成功', { course })
+  const data = await getCourse(req)
+  success(res, '查询成功', { data })
 })
 
 /**
