@@ -5,7 +5,10 @@ import { BaseModel } from '../base-model.js'
 export default (sequelize, DataTypes) => {
   class Article extends BaseModel {
     static associate(models) {
-      // define association here
+      // An article is approved by a user (the admin/editor)
+      Article.belongsTo(models.User, {
+        as: 'user'
+      });
     }
   }
   Article.init(
@@ -27,6 +30,37 @@ export default (sequelize, DataTypes) => {
         },
       },
       content: DataTypes.TEXT,
+      status: {
+        type: DataTypes.ENUM('draft', 'pending_review', 'approved', 'rejected'),
+        allowNull: false,
+        defaultValue: 'draft'
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          notNull: { msg: '用户ID必须填写。' },
+          notEmpty: { msg: '用户ID不能为空。' },
+          async isPresent(value) {
+            const user = await sequelize.models.User.findByPk(value)
+            if (!user) {
+              throw new Error(`ID为：${value} 的用户不存在。`)
+            }
+          },
+        },
+      },
+      approvedBy: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      approvedAt: {
+        type: DataTypes.DATE,
+        allowNull: true
+      },
+      rejectionReason: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
       deletedAt: {
         type: DataTypes.DATE
       }

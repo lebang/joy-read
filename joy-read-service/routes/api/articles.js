@@ -90,6 +90,7 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
   const body = filterBody(req)
+  body.userId = req.user.id
 
   const article = await Article.create(body)
   success(res, '创建成功', { article }, 201)
@@ -101,6 +102,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   const body = filterBody(req)
   const article = await getArticle(req)
+  body.userId = req.user.id
 
   await article.update(body)
   success(res, '更新成功', { article })

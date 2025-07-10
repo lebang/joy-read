@@ -180,7 +180,7 @@ router.post('/', async (req, res) => {
  */
 router.put('/:id', async (req, res) => {
   const body = filterBody(req)
-  const course = await getCourse(req)
+  const { course } = await getCourse(req)
 
   await course.update(body)
   success(res, '更新成功', { course })
