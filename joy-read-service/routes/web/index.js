@@ -8,7 +8,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
   // 推荐课程
   const recommendedCourses = await Course.findAll({
-    attributes: { exclude: ['CategoryId', 'UserId', 'content'] },
+    attributes: { exclude: ['categoryId', 'userId', 'content'] },
     include: [
       {
         model: Category,
@@ -28,7 +28,7 @@ router.get('/', async (req, res) => {
 
   // 人气课程
   const likesCourses = await Course.findAll({
-    attributes: { exclude: ['CategoryId', 'UserId', 'content'] },
+    attributes: { exclude: ['categoryId', 'userId', 'content'] },
     order: [
       ['likesCount', 'desc'],
       ['id', 'desc'],

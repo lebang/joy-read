@@ -6,7 +6,7 @@ import getPagination from '../../utils/pagination.js'
 import { success } from '../../utils/responses.js'
 
 const router = express.Router()
-const { Article } = db
+const { Article, User } = db
 const { NotFound } = createHttpError
 
 /**
@@ -43,13 +43,26 @@ router.get('/', async (req, res) => {
   const { currentPage, pageSize, offset } = getPagination(req)
   const { title, deleted } = req.query
   const condition = {
+    attributes: { exclude: ['userId', 'approvedBy', 'deletedAt'] },
+    include: [
+      {
+        model: User,
+        as: 'user',
+        attributes: ['id', 'username', 'avatar'],
+      },
+      {
+        model: User,
+        as: 'approver',
+        attributes: ['id', 'username', 'avatar'],
+      },
+    ],
     where: {},
     order: [['id', 'DESC']],
     limit: pageSize,
     offset,
   }
 
-  if(deleted === 'true') { //查询回收站数据
+  if (deleted === 'true') {
     condition.paranoid = false
     condition.where.deletedAt = {
       [Op.not]: null
@@ -61,6 +74,7 @@ router.get('/', async (req, res) => {
       [Op.like]: `%${title}`,
     }
   }
+
 
   const { rows, count: total } = await Article.findAndCountAll(condition)
 

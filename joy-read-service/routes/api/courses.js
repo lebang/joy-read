@@ -16,7 +16,7 @@ const { NotFound, BadRequest } = createHttpError
 const getCondition = () => {
   return {
     distinct: true,
-    attributes: { exclude: ['CategoryId', 'UserId'] },
+    attributes: { exclude: ['categoryId', 'userId'] },
     include: [
       {
         model: Category,
@@ -49,7 +49,7 @@ const getCourse = async (req) => {
 
   // const condition = getCondition()
   const condition = {
-    attributes: { exclude: ['CategoryId', 'UserId'] },
+    attributes: { exclude: ['categoryId', 'userId'] },
   }
 
   const course = await Course.findByPk(id, condition)
