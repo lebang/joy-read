@@ -3,13 +3,13 @@ import { fileURLToPath } from 'url'
 import { defineConfig } from '@rspack/cli'
 import rspack from '@rspack/core'
 import { VueLoaderPlugin } from 'vue-loader'
+import { devtools } from 'vue'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const pathResolve = (dir) => path.resolve(__dirname, dir)
 
 /** @type {import('@rspack/cli').Configuration} */
-
 export default defineConfig({
   entry: {
     main: path.resolve(__dirname, 'src/main.js'),
@@ -46,20 +46,34 @@ export default defineConfig({
     }
   },
   output: {
-    filename: '[name].js',
+    clean: true,
+    // clean:{
+    //   keep: 'ignored/dir', // keep these assets under 'dist/ignored/dir'.
+    // },
+    filename: 'js/[name].[contenthash].js',
+    chunkFilename: 'js/[name].[contenthash].js',
+    cssFilename: 'css/[name].[contenthash].css',
+    cssChunkFilename: 'css/[name].[contenthash].css',
+    assetModuleFilename: 'asset/[name].[contenthash].[ext]',
     path: path.resolve(__dirname, 'dist'),
   },
+  devtool: false,
   devServer: {
     port: 3001,
     client: {
       overlay: false,
     },
+    hot: false,
   },
   plugins: [
     new VueLoaderPlugin(),
     new rspack.HtmlRspackPlugin({
       template: './default.html',
       title: 'Joy Read',
+    }),
+    new rspack.DefinePlugin({
+      __VUE_OPTIONS_API__: JSON.stringify(true),
+      __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
     }),
   ],
   resolve: {
@@ -98,9 +112,6 @@ export default defineConfig({
       {
         test: /\.m?js/,
         type: 'javascript/auto',
-      },
-      {
-        test: /\.m?js/,
         resolve: {
           fullySpecified: false,
         },
