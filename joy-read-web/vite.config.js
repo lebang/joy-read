@@ -23,7 +23,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vue-libs': ['vue', 'vue-router', 'pinia', 'axios', 'lodash-es', '@element-plus/icons-vue'],
+          'vue-libs': ['vue', 'vue-router', 'pinia', 'pinia-plugin-persistedstate', 'axios', 'lodash-es', '@element-plus/icons-vue'],
           'element-plus': ['element-plus'],
           'fluent-editor': ['quill', '@opentiny/fluent-editor']
         }
