@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { emiter } from '@utils/emiter'
+import { admin as adminRoutes } from './admin.js'
 
 // const pagesContext = require.context('@views', true, /\/page\.js$/);
 // const pages = {};
@@ -18,67 +19,23 @@ import { emiter } from '@utils/emiter'
 //   comps[key] = () => compsContext(key);
 // });
 
-// console.log('comps:', comps);
-
 // console.log('require.context:', require?.context)
 // console.log('import.meta.glob:', import.meta?.env?.MODE === 'vite')
 
 const routes = [
   {
     path: '/',
-    redirect: '/login',
+    redirect: '/login'
   },
   {
     path: '/login',
     name: 'login',
-    component: () => import('@views/login/index.vue'),
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    component: () => import('@views/admin/index.vue'),
-    meta: {
-      title: '管理后台'
-    },
-    children: [
-      {
-        path: '/admin/articles',
-        name: 'admin-articles',
-        component: () => import('@views/admin/article/index.vue'),
-        meta: {
-          title: '文章列表'
-        }
-      },
-      {
-        path: '/admin/articles/:id',
-        name: 'admin-articles-detail',
-        component: () => import('@views/admin/article/detail.vue'),
-        meta: {
-          title: '文章详情'
-        }
-      },
-      {
-        path: '/admin/courses',
-        name: 'admin-courses',
-        component: () => import('@views/admin/course/index.vue'),
-        meta: {
-          title: '课程列表',
-        }
-      },
-      {
-        path: '/admin/courses/:id',
-        name: 'admin-courses-detail',
-        component: () => import('@views/admin/course/detail.vue'),
-        meta: {
-          title: '课程详情'
-        }
-      }
-    ]
+    component: () => import('@views/login/index.vue')
   },
   {
     path: '/register',
     name: 'register',
-    component: () => import('@views/register/index.vue'),
+    component: () => import('@views/register/index.vue')
   },
 ]
 
@@ -104,7 +61,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: routes.concat(adminRoutes),
 })
 
 const emitOnRoutes = ['login', 'admin']
@@ -112,7 +69,7 @@ const emitOnRoutes = ['login', 'admin']
 emitOnRoutes.forEach((name) => {
   emiter.on(`router:${name}`, () => {
     router.push({
-      name,
+      name
     })
   })
 })

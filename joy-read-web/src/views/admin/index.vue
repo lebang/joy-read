@@ -15,7 +15,8 @@ const menuDatas = [{
   text: '仪表盘'
 }, {
   icon: IconUserFilled,
-  text: '用户管理'
+  text: '用户管理',
+  routeName: 'admin-users'
 }, {
   icon: IconList,
   text: '文章管理',
