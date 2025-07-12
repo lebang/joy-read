@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
 /** @type {import('sequelize-cli').Migration} */
 export default {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add altering commands here.
      *
@@ -12,17 +12,17 @@ export default {
     await queryInterface.addColumn('Articles', 'userId', {
       type: Sequelize.INTEGER.UNSIGNED,
       allowNull: false,
-      onDelete: 'SET NULL'
-    });
+      onDelete: 'SET NULL',
+    })
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add reverting commands here.
      *
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.removeColumn('Articles', 'userId');
-  }
-};
+    await queryInterface.removeColumn('Articles', 'userId')
+  },
+}

@@ -5,8 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { success } from '../utils/responses.js'
 import { setKey } from '../utils/redis.js'
 
-const router = express.Router();
-
+const router = express.Router()
 
 /**
  * 获取验证码
@@ -15,12 +14,12 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   const captcha = svgCaptcha.create({
-    size: 4,                    // 验证码长度
-    ignoreChars: '0O1Il9quv',   // 验证码字符中排除 0O1Il9quv
-    noise: 2,                   // 干扰线条数量
-    color: true,                // 是否有颜色，
-    width: 100,                 // 宽
-    height: 38                  // 高
+    size: 4, // 验证码长度
+    ignoreChars: '0O1Il9quv', // 验证码字符中排除 0O1Il9quv
+    noise: 2, // 干扰线条数量
+    color: true, // 是否有颜色，
+    width: 100, // 宽
+    height: 38, // 高
   })
 
   const captchaKey = `captcha:${uuidv4()}`

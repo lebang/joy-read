@@ -9,8 +9,8 @@ export default (sequelize, DataTypes) => {
       models.User.hasMany(models.Course, { as: 'courses' })
     }
   }
-  
-  const dayjs = User.getDayjs();
+
+  const dayjs = User.getDayjs()
 
   User.init(
     {
@@ -104,14 +104,14 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         get() {
           return dayjs(this.getDataValue('createdAt')).format('LLL')
-        }
+        },
       },
       updatedAt: {
         type: DataTypes.DATE,
         get() {
           return dayjs(this.getDataValue('updatedAt')).format('LLL')
-        }
-      }
+        },
+      },
     },
     {
       sequelize,

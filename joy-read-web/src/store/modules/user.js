@@ -16,7 +16,7 @@ export const useUserStore = defineStore(
     }
 
     const loginIn = async (login) => {
-      const { response, loading }= await userLogin(login)
+      const { response, loading } = await userLogin(login)
       const { user } = response
       // const { user } = await getUser({ id: response.userId })
       console.log('user response:', response)

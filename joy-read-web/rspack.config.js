@@ -19,12 +19,12 @@ export default defineConfig({
       cacheGroups: {
         common: {
           name: 'chunk-common', // 打包后的文件名
-          chunks: 'initial', // 
+          chunks: 'initial', //
           minChunks: 2,
           maxInitialRequests: 5,
           minSize: 0,
           priority: 1,
-          reuseExistingChunk: true
+          reuseExistingChunk: true,
         },
         vendors: {
           name: 'chunk-vendors',
@@ -32,7 +32,7 @@ export default defineConfig({
           chunks: 'initial',
           priority: 2,
           reuseExistingChunk: true,
-          enforce: true
+          enforce: true,
         },
         elementPlus: {
           name: 'chunk-element-plus',
@@ -40,10 +40,10 @@ export default defineConfig({
           chunks: 'initial',
           priority: 3,
           reuseExistingChunk: true,
-          enforce: true
-        }
-      }
-    }
+          enforce: true,
+        },
+      },
+    },
   },
   output: {
     clean: true,
@@ -130,13 +130,15 @@ export default defineConfig({
       },
       {
         test: /\.worker\.(js|ts)/i,
-        use: [{
-          loader: 'comlink-loader',
-          options: {
-            singleton: true,
-          }
-        }]
-      }
+        use: [
+          {
+            loader: 'comlink-loader',
+            options: {
+              singleton: true,
+            },
+          },
+        ],
+      },
     ],
   },
 })

@@ -23,17 +23,25 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vue-libs': ['vue', 'vue-router', 'pinia', 'pinia-plugin-persistedstate', 'axios', 'lodash-es', '@element-plus/icons-vue'],
+          'vue-libs': [
+            'vue',
+            'vue-router',
+            'pinia',
+            'pinia-plugin-persistedstate',
+            'axios',
+            'lodash-es',
+            '@element-plus/icons-vue',
+          ],
           'element-plus': ['element-plus'],
-          'fluent-editor': ['quill', '@opentiny/fluent-editor']
-        }
-      }
-    }
+          'fluent-editor': ['quill', '@opentiny/fluent-editor'],
+        },
+      },
+    },
   },
   server: {
     host: '',
     port: '3001',
-    strictPort: false
+    strictPort: false,
     // proxy: {
     //   '/api': {
     //     target: 'http://127.0.0.1:3000',
@@ -52,8 +60,8 @@ export default defineConfig({
       '@apis': pathResolve('src/apis'),
       '@store': pathResolve('src/store'),
       '@assets': pathResolve('src/assets'),
-      '@directives': pathResolve('src/directives')
-    }
+      '@directives': pathResolve('src/directives'),
+    },
   },
   plugins: [
     vitePluginTool(),
@@ -62,7 +70,7 @@ export default defineConfig({
     legacy({
       targets: ['ie >= 11', 'chrome 52', 'Android 4.1', 'iOS 7.1'],
       modernPolyfills: true,
-      additionalLegacyPolyfills: ['regenerator-runtime/runtime']
+      additionalLegacyPolyfills: ['regenerator-runtime/runtime'],
     }),
     devtoolsJosn(),
     // Sonda(),
@@ -73,23 +81,21 @@ export default defineConfig({
       // Completely customize the statements that need to be removed, which will overwrite `includes`
       custom: [
         'debugger',
-        'console.log()'
+        'console.log()',
         // "console.warn()",
         // "console.error()",
         // "console.info()",
-      ]
-    })
+      ],
+    }),
   ],
   worker: {
-    plugins: [
-      comlink()
-    ]
+    plugins: [comlink()],
   },
   css: {
     preprocessorOptions: {
       less: {
-        javascriptEnabled: true
-      }
-    }
-  }
+        javascriptEnabled: true,
+      },
+    },
+  },
 })

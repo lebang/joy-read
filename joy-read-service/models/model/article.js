@@ -7,13 +7,13 @@ export default (sequelize, DataTypes) => {
     static associate(models) {
       Article.belongsTo(models.User, {
         foreignKey: 'userId',
-        as: 'user'
-      });
+        as: 'user',
+      })
 
       Article.belongsTo(models.User, {
         foreignKey: 'approvedBy',
-        as: 'approver'
-      });
+        as: 'approver',
+      })
     }
   }
   Article.init(
@@ -38,7 +38,7 @@ export default (sequelize, DataTypes) => {
       status: {
         type: DataTypes.ENUM('draft', 'pending_review', 'approved', 'rejected'),
         allowNull: false,
-        defaultValue: 'draft'
+        defaultValue: 'draft',
       },
       userId: {
         type: DataTypes.INTEGER,
@@ -59,20 +59,20 @@ export default (sequelize, DataTypes) => {
         allowNull: true,
         references: {
           model: 'Users',
-          key: 'id'
-        }
+          key: 'id',
+        },
       },
       approvedAt: {
         type: DataTypes.DATE,
-        allowNull: true
+        allowNull: true,
       },
       rejectionReason: {
         type: DataTypes.TEXT,
-        allowNull: true
+        allowNull: true,
       },
       deletedAt: {
-        type: DataTypes.DATE
-      }
+        type: DataTypes.DATE,
+      },
     },
     {
       sequelize,

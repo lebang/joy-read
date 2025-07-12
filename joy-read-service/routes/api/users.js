@@ -50,6 +50,7 @@ const filterBody = (req) => {
 router.get('/', async (req, res) => {
   const { currentPage, pageSize, offset } = getPagination(req)
   const condition = {
+    attributes: { exclude: ['password'] },
     where: {},
     order: [['id', 'DESC']],
     limit: pageSize,
@@ -57,8 +58,15 @@ router.get('/', async (req, res) => {
   }
 
   const validFields = ['email', 'username', 'role']
-  const whereConditions = {}
-  const { query } = req
+  const { query, user: currentUser } = req
+  const whereConditions = {
+    id: {
+      [Op.ne]: currentUser.id,
+    },
+    role: {
+      [Op.lte]: currentUser.role,
+    },
+  }
 
   validFields.forEach((field) => {
     if (query[field]) {

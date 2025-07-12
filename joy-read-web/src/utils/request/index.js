@@ -77,13 +77,13 @@ function withCancelToken(fetcher) {
 async function requestWrapper(method, url, data = {}) {
   const fetcher = () => service[method](url, data)
 
-  const [promise, cancel] = withCancelToken(fetcher);
+  const [promise, cancel] = withCancelToken(fetcher)
   try {
     loading.value = true
-    const response = await promise();
-    return { error: null, response, loading, cancel };
+    const response = await promise()
+    return { error: null, response, loading, cancel }
   } catch (error) {
-    return { error, response: null, loading, cancel };
+    return { error, response: null, loading, cancel }
   } finally {
     loading.value = false
   }
@@ -91,16 +91,16 @@ async function requestWrapper(method, url, data = {}) {
 
 const request = {
   get(url, data) {
-    return requestWrapper('get', url, data);
+    return requestWrapper('get', url, data)
   },
   post(url, data) {
-    return requestWrapper('post', url, data);
+    return requestWrapper('post', url, data)
   },
   put(url, data) {
-    return requestWrapper('put', url, data);
+    return requestWrapper('put', url, data)
   },
   delete(url) {
-    return requestWrapper('delete', url);
+    return requestWrapper('delete', url)
   },
 }
 

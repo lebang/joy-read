@@ -14,7 +14,7 @@ import { ClickOutside } from 'element-plus'
 
 import webWorker from '@src/setup/web-workers/main.js'
 
-webWorker();
+webWorker()
 
 const app = createApp(App)
 

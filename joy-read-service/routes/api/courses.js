@@ -27,17 +27,18 @@ const getCondition = () => {
         model: User,
         as: 'user',
         attributes: ['id', 'username', 'avatar'],
-      }, 
+      },
       {
         model: Chapter,
         as: 'chapters',
         attributes: ['id', 'title', 'rank', 'createdAt'],
-      }
+      },
     ],
     order: [
-      [ { model: Chapter, as : 'chapters' }, 'rank', 'ASC']
-      [ { model: Chapter, as : 'chapters' }, 'id', 'DESC']
-    ]
+      [{ model: Chapter, as: 'chapters' }, 'rank', 'ASC'][
+        ({ model: Chapter, as: 'chapters' }, 'id', 'DESC')
+      ],
+    ],
   }
 }
 
@@ -67,7 +68,10 @@ const getCourse = async (req) => {
 
   const chapters = await course.getChapters({
     attributes: ['id', 'title', 'rank', 'createdAt'],
-    order: [['rank', 'ASC'], ['id', 'DESC']],
+    order: [
+      ['rank', 'ASC'],
+      ['id', 'DESC'],
+    ],
   })
 
   return { course, category, user, chapters }

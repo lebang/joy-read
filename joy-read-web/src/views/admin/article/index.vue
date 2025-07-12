@@ -61,13 +61,9 @@ const onDelete = async(id) => {
     <el-table-column fixed prop="id" label="id" />
     <el-table-column prop="title" label="标题" />
     <el-table-column prop="content" label="内容" />
-    <el-table-column label="Operations" min-width="120">
+    <el-table-column label="操作" min-width="120">
       <template #default="scope">
-        <el-button link type="primary" size="small" @click="onDetail">
-          Detail
-        </el-button>
         <el-button link type="primary" size="small" @click="onEdit(scope.row.id)">Edit</el-button>
-        
        <DeleteConfirm @delete="onDelete(scope.row.id)"></DeleteConfirm>
       </template>
     </el-table-column>

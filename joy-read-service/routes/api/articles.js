@@ -65,7 +65,7 @@ router.get('/', async (req, res) => {
   if (deleted === 'true') {
     condition.paranoid = false
     condition.where.deletedAt = {
-      [Op.not]: null
+      [Op.not]: null,
     }
   }
 
@@ -74,7 +74,6 @@ router.get('/', async (req, res) => {
       [Op.like]: `%${title}`,
     }
   }
-
 
   const { rows, count: total } = await Article.findAndCountAll(condition)
 

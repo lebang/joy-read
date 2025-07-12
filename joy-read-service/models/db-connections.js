@@ -1,7 +1,7 @@
-const { Sequelize } = require('sequelize');
-const config = require('../config/config.json');
+const { Sequelize } = require('sequelize')
+const config = require('../config/config.json')
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || 'development'
 
 // =================================================================
 // IMPORTANT: This is a template for vertical sharding.
@@ -40,20 +40,20 @@ Example `config.json` structure for this to work:
 
 */
 
-const db = {};
+const db = {}
 
 // Get configs for the current environment
-const envConfig = config[env];
+const envConfig = config[env]
 
 if (envConfig.user_db) {
   db.userSequelize = new Sequelize(
     envConfig.user_db.database,
     envConfig.user_db.username,
     envConfig.user_db.password,
-    envConfig.user_db
-  );
+    envConfig.user_db,
+  )
 } else {
-  console.warn('Warning: `user_db` configuration is missing in config.json');
+  console.warn('Warning: `user_db` configuration is missing in config.json')
 }
 
 if (envConfig.content_db) {
@@ -61,12 +61,12 @@ if (envConfig.content_db) {
     envConfig.content_db.database,
     envConfig.content_db.username,
     envConfig.content_db.password,
-    envConfig.content_db
-  );
+    envConfig.content_db,
+  )
 } else {
-  console.warn('Warning: `content_db` configuration is missing in config.json');
+  console.warn('Warning: `content_db` configuration is missing in config.json')
 }
 
 // You can add more Sequelize instances here for other databases
 
-export default db;
+export default db

@@ -6,7 +6,6 @@ import localizedFormat from 'dayjs/plugin/localizedFormat.js'
 import 'dayjs/locale/zh-cn.js'
 
 class BaseModel extends Model {
- 
   constructor(values, options) {
     super(values, options)
   }
@@ -14,7 +13,7 @@ class BaseModel extends Model {
   static getDayjs() {
     dayjs.locale('zh-cn')
     dayjs.extend(localizedFormat)
-    return dayjs;
+    return dayjs
   }
 }
 
