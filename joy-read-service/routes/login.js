@@ -28,7 +28,8 @@ router.post('/', async (req, res) => {
 
   const passwordValid = bcrypt.compareSync(password, user.password)
   if (!passwordValid) throw new Unauthorized('error password')
-  delete user.dataValues.password
+  const userJson = user.toJSON()
+  delete userJson.password
 
   const userId = user.id
   const token = jwt.sign(
@@ -40,7 +41,7 @@ router.post('/', async (req, res) => {
   )
 
   // res.set('token', token)
-  success(res, 'success', { token, user }, 201)
+  success(res, 'success', { token, user: userJson }, 201)
 })
 
 export default router
