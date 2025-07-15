@@ -32,7 +32,10 @@ const files = fs.readdirSync(modelPath).filter((file) => {
 })
 
 for (const file of files) {
-  const model = (await import(`./${modelDir}/${file}`)).default(sequelize, Sequelize.DataTypes)
+  const model = (await import(/* @vite-ignore */ `./${modelDir}/${file}`)).default(
+    sequelize,
+    Sequelize.DataTypes,
+  )
   db[model.name] = model
 }
 
