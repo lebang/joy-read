@@ -9,7 +9,7 @@
     "debug": "node --inspect-brk=3000 ./bin/www",
     "sequlize-cli": "./node_modules/.bin/sequelize-cli",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:vitest": "vitest run"
+    "vitest": "vitest run"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",

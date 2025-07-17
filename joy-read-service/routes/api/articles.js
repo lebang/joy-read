@@ -71,7 +71,7 @@ router.get('/', async (req, res) => {
 
   if (title) {
     condition.where.title = {
-      [Op.like]: `%${title}`,
+      [Op.like]: `%${title}%`,
     }
   }
 
