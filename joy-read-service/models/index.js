@@ -3,12 +3,25 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import Sequelize from 'sequelize'
 import processEnv from '../utils/process-env.js'
+import asyncLocalStorage from '../utils/context.js'
 
 const __filename = fileURLToPath(import.meta.url)
 // const __basename = path.basename(__filename) // 当前文件名
 const env = processEnv.NODE_ENV || 'development'
 const configPath = path.join(path.dirname(__filename), '../config/config.json')
 const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
+
+// add global logging
+if(config?.logQueryParameters) {
+  config.logging = (sql) => {
+    const cleanSql = sql.replace('Executing (default): ', '');
+    const store = asyncLocalStorage.getStore()
+    if (store && store.res && Array.isArray(store.res.querySql)) {
+      store.res.querySql.push(cleanSql)
+    }
+    console.log(sql)
+  }
+}
 
 const db = {}
 const excludeFiles = ['index.js', 'base-model.js']

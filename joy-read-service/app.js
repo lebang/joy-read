@@ -7,6 +7,7 @@ import logger from 'morgan'
 import 'dotenv/config'
 import createError from 'http-errors'
 import errorHandler from './middlewares/error-handler.js'
+import contextMiddleware from './middlewares/context.js'
 import routes from './config/routes.js'
 
 const app = express()
@@ -34,6 +35,9 @@ app.use(cookieParser())
 // app.use(cors())
 app.use(cors(corsOptions))
 app.use(express.static(path.join(__dirname, 'public')))
+
+// context
+app.use(contextMiddleware)
 
 // routes
 app.use(routes)

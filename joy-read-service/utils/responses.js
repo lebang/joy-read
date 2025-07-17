@@ -10,6 +10,7 @@ function success(res, message, data = {}, code = 200) {
     code,
     message,
     data,
+    querySql: res.querySql,
   })
 }
 
