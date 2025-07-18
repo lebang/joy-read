@@ -47,6 +47,9 @@ importers:
       mysql2:
         specifier: ^3.14.1
         version: 3.14.1
+      node-device-detector:
+        specifier: ^2.2.2
+        version: 2.2.2
       qs:
         specifier: ^6.14.0
         version: 6.14.0
@@ -1940,6 +1943,10 @@ packages:
   negotiator@1.0.0:
     resolution: {integrity: sha512-8Ofs/AUQh8MaEcrlq5xOX0CQ9ypTF5dl78mjlMNfOK08fzpgTHQRQPBxcPlEtIw0yRpws+Zo/3r+5WRby7u3Gg==}
     engines: {node: '>= 0.6'}
+
+  node-device-detector@2.2.2:
+    resolution: {integrity: sha512-+rhvdCcpo7nmZiXQwfcU18gTK7IKkYd2GzmmdfohsjBHLYfOdA5SngfXjplmKjWD92g8J97m5FSlqAFpzGLydw==}
+    engines: {node: '>= 10.x', npm: '>= 6.x'}
 
   node-int64@0.4.0:
     resolution: {integrity: sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw==}
@@ -4666,6 +4673,8 @@ snapshots:
   natural-compare@1.4.0: {}
 
   negotiator@1.0.0: {}
+
+  node-device-detector@2.2.2: {}
 
   node-int64@0.4.0: {}
 
