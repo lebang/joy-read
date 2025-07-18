@@ -16,10 +16,14 @@ if(config?.logQueryParameters) {
   config.logging = (sql) => {
     const cleanSql = sql.replace('Executing (default): ', '');
     const store = asyncLocalStorage.getStore()
-    if (store && store.res && Array.isArray(store.res.querySql)) {
-      store.res.querySql.push(cleanSql)
+    if (store) {
+      if (store.res && Array.isArray(store.res.querySql)) {
+        store.res.querySql.push(cleanSql)
+      }
+      console.log(`[${store.res.traceId}]`, cleanSql)
+    } else {
+      console.log('sql', sql);
     }
-    console.log(sql)
   }
 }
 
