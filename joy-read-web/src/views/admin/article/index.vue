@@ -60,7 +60,11 @@ const onDelete = async(id) => {
   <el-table :data="tableData" style="width: 100%">
     <el-table-column fixed prop="id" label="id" />
     <el-table-column prop="title" label="标题" />
-    <el-table-column prop="content" label="内容" />
+    <el-table-column label="内容">
+      <template #default="scope">
+        <div class="content" v-html="scope.row?.content"></div>
+      </template>
+    </el-table-column>
     <el-table-column label="操作" min-width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="onEdit(scope.row.id)">Edit</el-button>
@@ -78,3 +82,9 @@ const onDelete = async(id) => {
     :total="total"
   />
 </template>
+
+<style lang="less" scoped>
+.content {
+  height: 30px;
+}
+</style>
