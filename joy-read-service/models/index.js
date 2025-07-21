@@ -29,8 +29,8 @@ if(config?.logQueryParameters) {
 
 const db = {}
 const excludeFiles = ['index.js', 'base-model.js']
-const modelDir = 'model'
-const modelPath = path.join(path.dirname(__filename), modelDir)
+const entitiesDir = 'entities'
+const modelPath = path.join(path.dirname(__filename), entitiesDir)
 
 let sequelize
 if (config.use_env_variable) {
@@ -49,7 +49,7 @@ const files = fs.readdirSync(modelPath).filter((file) => {
 })
 
 for (const file of files) {
-  const model = (await import(/* @vite-ignore */ `./${modelDir}/${file}`)).default(
+  const model = (await import(/* @vite-ignore */ `./${entitiesDir}/${file}`)).default(
     sequelize,
     Sequelize.DataTypes,
   )
