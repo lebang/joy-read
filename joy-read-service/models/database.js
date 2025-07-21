@@ -10,7 +10,7 @@ const env = processEnv.NODE_ENV || 'development'
 const configPath = path.join(path.dirname(__filename), '../config/config.json')
 const allConfigs = JSON.parse(fs.readFileSync(configPath, 'utf8'))                               
 const mainConfig = allConfigs[env]                                                               
-const logConfig = allConfigs[`${env}_log`]
+const logConfig = allConfigs[`${env}-log`]
 
 const createSequelizeInstance = (dbConfig) => {
   if(!dbConfig) return;
@@ -42,5 +42,6 @@ const logSequelize = createSequelizeInstance(logConfig)
 export {
   sequelize,
   logSequelize,
-  Sequelize
+  Sequelize,
+  logConfig
 }

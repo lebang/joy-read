@@ -1,5 +1,6 @@
 import createHttpError from 'http-errors'
 import processEnv from './process-env.js'
+import logger from './logger.js'
 
 /**
  *
@@ -47,6 +48,7 @@ function failure(res, err) {
     errors = err.message
   }
 
+  logger.error(err)
   res.status(statusCode).json({
     status: false,
     code: statusCode,

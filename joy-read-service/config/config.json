@@ -21,7 +21,7 @@
       ]
     }
   },
-  "development_log": {
+  "development-log": {
     "username": "root",
     "password": "123456",
     "database": "joy_read_log",
@@ -37,7 +37,7 @@
     "dialect": "mysql",
     "timezone": "+08:00"
   },
-  "test_log": {
+  "test-log": {
     "username": "root",
     "password": null,
     "database": "joy_read_log",
@@ -66,7 +66,7 @@
       ]
     }
   },
-  "production_log": {
+  "production-log": {
     "username": "your-log-db-user",
     "password": "your-log-db-password",
     "database": "joy_read_log",
