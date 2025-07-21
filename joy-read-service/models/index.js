@@ -1,45 +1,15 @@
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import Sequelize from 'sequelize'
-import processEnv from '../utils/process-env.js'
-import asyncLocalStorage from '../utils/context.js'
-
-const __filename = fileURLToPath(import.meta.url)
-// const __basename = path.basename(__filename) // 当前文件名
-const env = processEnv.NODE_ENV || 'development'
-const configPath = path.join(path.dirname(__filename), '../config/config.json')
-const config = JSON.parse(fs.readFileSync(configPath, 'utf8'))[env]
-
-// add global logging
-if(config?.logQueryParameters) {
-  config.logging = (sql) => {
-    const cleanSql = sql.replace('Executing (default): ', '');
-    const store = asyncLocalStorage.getStore()
-    if (store) {
-      if (store.res && Array.isArray(store.res.querySql)) {
-        store.res.querySql.push(cleanSql)
-      }
-      console.log(`[${store.res.traceId}]`, cleanSql)
-    } else {
-      console.log('sql', sql);
-    }
-  }
-}
+import { sequelize, Sequelize } from './database.js'
 
 const db = {}
-const excludeFiles = ['index.js', 'base-model.js']
+const __filename = fileURLToPath(import.meta.url)
+const excludeFiles = ['index.js', 'base-model.js', 'database.js']
 const entitiesDir = 'entities'
-const modelPath = path.join(path.dirname(__filename), entitiesDir)
+const entitiesPath = path.join(path.dirname(__filename), entitiesDir)
 
-let sequelize
-if (config.use_env_variable) {
-  sequelize = new Sequelize(processEnv[config.use_env_variable], config)
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config)
-}
-
-const files = fs.readdirSync(modelPath).filter((file) => {
+const files = fs.readdirSync(entitiesPath).filter((file) => {
   return (
     file.indexOf('.') !== 0 &&
     file.slice(-3) === '.js' &&
