@@ -1,6 +1,7 @@
 'use strict'
 
 import { BaseModel } from '../base-model.js'
+import { articlesIndex } from '../../utils/meilisearch.js'
 
 export default (sequelize, DataTypes) => {
   class Article extends BaseModel {
@@ -75,6 +76,27 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
+      hooks: {
+        afterCreate: async (article) => {
+          await articlesIndex.addDocuments([{
+            id: article.id,
+            title: article.title,
+            content: article.content,
+            updatedAt: article.updatedAt,
+          }])
+        },
+        afterUpdate: async (article) => {
+          await articlesIndex.updateDocuments([{
+            id: article.id,
+            title: article.title,
+            content: article.content,
+            updatedAt: article.updatedAt,
+          }])
+        },
+        afterDestroy: async (article) => {
+          await articlesIndex.deleteDocuments(article.id)
+        },
+      },
       sequelize,
       paranoid: true, // 启用软删除 deletedAt字段
       modelName: 'Article',
