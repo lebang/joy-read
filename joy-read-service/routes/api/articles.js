@@ -4,6 +4,7 @@ import createHttpError from 'http-errors'
 import db from '../../models/index.js'
 import getPagination from '../../utils/pagination.js'
 import { success } from '../../utils/responses.js'
+import { articlesIndex } from '../../utils/meilisearch.js';
 
 const router = express.Router()
 const { Article, User } = db
@@ -86,6 +87,24 @@ router.get('/', async (req, res) => {
       currentPage,
       pageSize,
     },
+  })
+})
+
+router.get('/search', async (req, res) => { 
+  const { pageSize, offset, currentPage } = getPagination(req)
+  const { title } = req.query
+  const option = {
+    // 关键词高亮
+    attributesToHighlight: ['*'],
+    offset: offset,
+    limit: pageSize,
+  };
+
+  const data = await articlesIndex.search(title, option);
+  const message = '查询成功。'
+
+  success(res, message, {
+    ...data
   })
 })
 
