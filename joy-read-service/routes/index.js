@@ -1,3 +1,4 @@
+
 import express from 'express'
 import DeviceDetector from "node-device-detector";
 import DeviceHelper from "node-device-detector/helper.js";
@@ -33,5 +34,6 @@ router.get('/search', async (req, res) => {
   res.send('ok, success')
 
 })
+
 
 export default router

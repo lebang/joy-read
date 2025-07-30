@@ -23,6 +23,9 @@ const corsOptions = {
   credentials: true,
 }
 
+// set favicon
+app.get('/favicon.ico', (req, res) => res.status(204));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
