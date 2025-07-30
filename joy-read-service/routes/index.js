@@ -4,6 +4,7 @@ import DeviceDetector from "node-device-detector";
 import DeviceHelper from "node-device-detector/helper.js";
 import db from '../models/index.js'
 import { articlesIndex } from '../utils/meilisearch.js';
+import os from 'os';
 
 const { Article, User } = db
 
