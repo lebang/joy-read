@@ -1,30 +1,30 @@
 
 import express from 'express'
-import DeviceDetector from "node-device-detector";
-import DeviceHelper from "node-device-detector/helper.js";
+// import DeviceDetector from "node-device-detector";
+// import DeviceHelper from "node-device-detector/helper.js";
 import db from '../models/index.js'
 import { articlesIndex } from '../utils/meilisearch.js';
-import os from 'os';
+// import os from 'os';
 
-const { Article, User } = db
+// const { Article, User } = db
 
 const router = express.Router()
-const deviceDetector = new DeviceDetector()
+// const deviceDetector = new DeviceDetector()
 
 router.get('/', (req, res) => {
-  const userAgent = req.headers['user-agent'];
-  console.log('userAgent:', userAgent);
+  // const userAgent = req.headers['user-agent'];
+  // console.log('userAgent:', userAgent);
 
-  const device = deviceDetector.detect(userAgent);
-  const deviceType = DeviceHelper.getDeviceType(device);
-  const clientType = DeviceHelper.getClientType(device);
-  const ret = {
-    device,
-    deviceType,
-    clientType,
-  }
+  // const device = deviceDetector.detect(userAgent);
+  // const deviceType = DeviceHelper.getDeviceType(device);
+  // const clientType = DeviceHelper.getClientType(device);
+  // const ret = {
+  //   device,
+  //   deviceType,
+  //   clientType,
+  // }
   
-  res.send(ret)
+  res.send('hello world')
 })
 
 router.get('/search', async (req, res) => { 
