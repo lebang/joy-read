@@ -1,6 +1,5 @@
 import express from 'express'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import 'dotenv/config'
@@ -8,9 +7,10 @@ import createError from 'http-errors'
 import errorHandler from './middlewares/error-handler.js'
 import contextMiddleware from './middlewares/context.js'
 import routes from './config/routes.js'
+import { getDriname } from './utils/path-helper.js'
 
 const app = express()
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __dirname = getDriname(import.meta.url)
 
 const corsOptions = {
   origin: [
