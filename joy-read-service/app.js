@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'node:path'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
+import compression from 'compression'
 import 'dotenv/config'
 import createError from 'http-errors'
 import errorHandler from './middlewares/error-handler.js'
@@ -30,6 +31,7 @@ app.get('/favicon.ico', (req, res) => res.status(204));
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
+app.use(compression())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
