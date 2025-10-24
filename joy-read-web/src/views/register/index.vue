@@ -51,7 +51,7 @@
       registerFormData.captchaKey = res.captchaKey
       captchaData.value = res.captchaData
     })
-  }
+  } 
   fetchCaptcha();
 </script>
 <template>
