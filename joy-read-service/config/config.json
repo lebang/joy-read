@@ -8,13 +8,13 @@
     "logQueryParameters": true,
     "replication": {
       "write": {
-        "host": "127.0.0.1",
+        "host": "mysql",
         "username": "root",
         "password": "123456"
       },
       "read": [
         {
-          "host": "127.0.0.1",
+          "host": "mysql",
           "username": "root",
           "password": "123456"
         }
@@ -25,7 +25,7 @@
     "username": "root",
     "password": "123456",
     "database": "joy_read_log",
-    "host": "127.0.0.1",
+    "host": "mysql",
     "dialect": "mysql",
     "timezone": "+08:00"
   },

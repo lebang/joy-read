@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: joy-read-backend
+    build:
+      context: ../joy-read-service
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../joy-read-service:/app
+      - /app/node_modules
+    environment:
+      - MEILISEARCH_HOST=http://meilisearch:7700
+      - MEILISEARCH_API_KEY=SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk
+    command: npm start
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+    depends_on:
+      - mysql
+      - redis
+      - meilisearch
+
+  frontend:
+    container_name: joy-read-frontend
+    build:
+      context: ../joy-read-web
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    volumes:
+      - ../joy-read-web:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+    command: npm run dev
+    networks:
+      - joy-read-net
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4.5
+    container_name: joy-read-mysql
+    command:
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=joy_read_basis
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4
+    container_name: joy-read-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.13
+    container_name: joy-read-meilisearch
+    environment:
+      - MEILI_ENV=development
+      - MEILI_MASTER_KEY=SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili-data:/meili_data
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+networks:
+  joy-read-net:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  redis-data:
+  meili-data:

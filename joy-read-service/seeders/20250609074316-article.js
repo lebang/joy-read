@@ -21,6 +21,7 @@ export default {
       const article = {
         title: `文章的标题 ${i}`,
         content: `文章的内容 ${i}`,
+        userId: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       }

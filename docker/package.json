@@ -1,0 +1,14 @@
+{
+  "name": "joy-read-docker-manager",
+  "version": "1.0.0",
+  "description": "Unified service manager for joy-read project",
+  "scripts": {
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "build": "docker-compose build",
+    "logs": "docker-compose logs -f",
+    "restart": "docker-compose down && docker-compose up -d"
+  },
+  "author": "Gemini",
+  "license": "ISC"
+}

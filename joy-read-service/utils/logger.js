@@ -21,7 +21,7 @@ const logger = winston.createLogger({
   ),
   defaultMeta: { service: "joy-read" },
   transports: [
-    new MySQLTransport(options),            // 将日志写入数据库
+    // new MySQLTransport(options),            // 将日志写入数据库
   ],
 });
 

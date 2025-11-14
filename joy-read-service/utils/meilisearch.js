@@ -15,12 +15,10 @@ try {
 }
 
 
-(async () => { 
-  await articlesIndex.updateSearchableAttributes(
-    ['title', 'content']
-  );
-
-  await articlesIndex.updateSortableAttributes(['updatedAt']);
+(async () => {
+  await articlesIndex.updateSettings({
+    searchableAttributes: ['title', 'content'],
+    sortableAttributes: ['updatedAt'],
+  });
 })();
-
 export { searchClient, articlesIndex }
