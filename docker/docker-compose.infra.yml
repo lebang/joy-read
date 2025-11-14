@@ -1,0 +1,54 @@
+version: '3.8'
+
+# 基础设施服务
+services:
+  mysql:
+    image: mysql:8.4.5
+    container_name: joy-read-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=joy_read_basis
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4
+    container_name: joy-read-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.13
+    container_name: joy-read-meilisearch
+    environment:
+      - MEILI_ENV=development
+      - MEILI_MASTER_KEY=SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili-data:/meili_data
+    networks:
+      - joy-read-net
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  redis-data:
+  meili-data:
+
+networks:
+  joy-read-net:
+    driver: bridge

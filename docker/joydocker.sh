@@ -2,6 +2,9 @@
 
 # 脚本应该在 docker-compose.yml 所在的目录中运行
 
+# 定义需要加载的 docker-compose 文件
+COMPOSE_CMD="docker-compose -f docker-compose.yml -f docker-compose.infra.yml"
+
 # 解析参数
 ACTION=$1
 SERVICE=$2
@@ -18,7 +21,7 @@ if [ "$ACTION" = "-h" ] || [ "$ACTION" = "--help" ] || [ -z "$ACTION" ]; then
     echo "  down              停止并移除所有容器、网络。"
     echo ""
     echo "Services:"
-    echo "  backend, frontend, mysql, redis, meilisearch"
+    echo "  backend, frontend, mysql, redis, meilisearch, nginx"
     exit 0
 fi
 
@@ -26,23 +29,23 @@ fi
 case "$ACTION" in
     start)
         echo "正在启动服务: ${SERVICE:-all}..."
-        docker-compose up -d --build $SERVICE
+        $COMPOSE_CMD up -d --build $SERVICE
         ;;
     stop)
         echo "正在停止服务: ${SERVICE:-all}..."
-        docker-compose stop $SERVICE
+        $COMPOSE_CMD stop $SERVICE
         ;;
     restart)
         echo "正在重启服务: ${SERVICE:-all}..."
-        docker-compose restart $SERVICE
+        $COMPOSE_CMD restart $SERVICE
         ;;
     logs)
         echo "正在查看日志: ${SERVICE:-all}..."
-        docker-compose logs -f $SERVICE
+        $COMPOSE_CMD logs -f $SERVICE
         ;;
     down)
         echo "正在停止并移除所有服务..."
-        docker-compose down
+        $COMPOSE_CMD down
         ;;
     *)
         echo "错误: 无效的操作 '$ACTION'"
