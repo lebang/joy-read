@@ -103,43 +103,29 @@ if (!action || action === '-h' || action === '--help') {
   showHelp();
   process.exit(0);
 }
+// 使用 map 来处理不同的命令
+const commandMap = new Map([
+  ['start', () => runCommand('docker-compose', [...COMPOSE_FILES, 'up', '-d', '--build', ...args])],
+  ['stop', () => runCommand('docker-compose', [...COMPOSE_FILES, 'stop', ...args])],
+  ['restart', () => runCommand('docker-compose', [...COMPOSE_FILES, 'restart', ...args])],
+  ['logs', () => runCommand('docker-compose', [...COMPOSE_FILES, 'logs', '-f', ...args])],
+  ['down', () => runCommand('docker-compose', [...COMPOSE_FILES, 'down', ...args])],
+  ['ps', () => runCommand('docker-compose', [...COMPOSE_FILES, 'ps'])],
+  ['migrate', () => runCommand('docker-compose', [...COMPOSE_FILES, 'exec', 'backend', 'npm', 'run', 'sequlize-cli', '--', 'db:migrate'])],
+  ['seed:user', () => runCommand('docker-compose', [...COMPOSE_FILES, 'exec', 'backend', 'npm', 'run', 'sequlize-cli', '--', 'db:seed', '--seed', '20250611141601-user.js'])],
+  ['db:reset', () => runDbReset()]
+]);
 
-// 使用 switch 来处理不同的命令
 (async () => {
-    switch (action) {
-        case 'start':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'up', '-d', '--build', ...args]);
-            break;
-        case 'stop':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'stop', ...args]);
-            break;
-        case 'restart':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'restart', ...args]);
-            break;
-        case 'logs':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'logs', '-f', ...args]);
-            break;
-        case 'down':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'down', ...args]);
-            break;
-        case 'ps':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'ps']);
-            break;
-        case 'migrate':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'exec', 'backend', 'npm', 'run', 'sequlize-cli', '--', 'db:migrate']);
-            break;
-        case 'seed:user':
-            await runCommand('docker-compose', [...COMPOSE_FILES, 'exec', 'backend', 'npm', 'run', 'sequlize-cli', '--', 'db:seed', '--seed', '20250611141601-user.js']);
-            break;
-        case 'db:reset':
-            await runDbReset();
-            break;
-        default:
-            console.error(`错误: 未知的操作 '${action}'`);
-            showHelp();
-            process.exit(1);
-    }
-})().catch(err => {
-    console.error("脚本执行时发生意外错误:", err);
+  const commandHandler = commandMap.get(action);
+  if (commandHandler) {
+    await commandHandler();
+  } else {
+    console.error(`错误: 未知的操作 '${action}'`);
+    showHelp();
     process.exit(1);
+  }
+})().catch(err => {
+  console.error("脚本执行时发生意外错误:", err);
+  process.exit(1);
 });
