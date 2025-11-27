@@ -41,7 +41,7 @@ router.post('/sign_in', async (req, res) => {
     {
       userId: user.id,
     },
-    processEnv.SECRET,
+    processEnv.JWT_SECRET,
     { expiresIn: '7d' },
   )
   success(res, 'success', { token })

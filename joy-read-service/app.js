@@ -42,6 +42,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 // context
 app.use(contextMiddleware)
 
+// health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() })
+})
+
 // routes
 app.use(routes)
 

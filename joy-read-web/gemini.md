@@ -10,9 +10,8 @@
 
 ### UI 与样式
 
-- **Ant Design Vue**: UI 组件库之一。
-- **Element Plus**: 另一个主要的 UI 组件库，在 `vite.config.js` 中被单独分包。
-- **Bootstrap**: 用于基础样式和布局。
+- **Element Plus**: 主要的 UI 组件库，在 `vite.config.js` 中被单独分包。
+- **Bootstrap CSS**: 使用本地的 Bootstrap CSS 文件用于基础样式和布局（非 npm 依赖）。
 - **Less**: 作为 CSS 预处理器。
 
 ### 构建与打包
@@ -30,9 +29,7 @@
 
 - **Axios**: 用于发起 HTTP 请求，与后端 API 交互。
 - **Day.js**: 轻量级的日期时间处理库。
-- **Lodash**: 提供了大量实用的工具函数。
-- **Marked**: 用于将 Markdown 文本转换为 HTML。
-- **Highlight.js**: 用于代码语法高亮。
+- **Lodash-ES**: 提供了大量实用的工具函数（ES 模块版本）。
 
 ### 其他特性
 

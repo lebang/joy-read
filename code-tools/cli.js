@@ -143,8 +143,8 @@ const commands = {
   'shell:mysql': execCmd('mysql', 'bash'),
   
   // 依赖管理
-  'install:backend': execCmd('backend', 'npm install'),
-  'install:frontend': execCmd('frontend', 'npm install')
+  'install:backend': execCmd('backend', 'pnpm install'),
+  'install:frontend': execCmd('frontend', 'pnpm install')
 };
 
 // ==================== 主函数 ====================

@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
     {
       userId,
     },
-    processEnv.SECRET,
+    processEnv.JWT_SECRET,
     { expiresIn: '7d' },
   )
 

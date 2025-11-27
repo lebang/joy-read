@@ -11,7 +11,7 @@ export default async (req, res, next) => {
   if (!token) {
     throw new Unauthorized('当前接口需要认证才能访问。')
   }
-  const decoded = jwt.verify(token, processEnv.SECRET)
+  const decoded = jwt.verify(token, processEnv.JWT_SECRET)
   const { userId } = decoded
 
   const user = await User.findByPk(userId)
