@@ -1,10 +1,17 @@
 {
   "name": "joy-read-docker-manager",
-  "version": "1.0.0",
-  "description": "Unified service manager for joy-read project",
+  "version": "2.0.0",
+  "description": "AI开发调试工具集 - Joy Read项目的Docker环境管理工具，提供服务编排、数据库管理、开发调试等功能",
+  "type": "module",
+  "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "joydocker": "node cli.js"
+    "codetool": "node cli.js"
   },
-  "author": "Gemini",
-  "license": "ISC"
+  "keywords": ["docker", "docker-compose", "development", "cli", "joy-read"],
+  "author": "Joy Read Team",
+  "license": "MIT",
+  "dependencies": {
+    "minimist": "^1.2.8",
+    "zx": "^8.2.4"
+  }
 }

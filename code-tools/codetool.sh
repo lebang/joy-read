@@ -11,11 +11,11 @@ SERVICE=$2
 
 # --- 帮助信息 ---
 if [ "$ACTION" = "-h" ] || [ "$ACTION" = "--help" ] || [ -z "$ACTION" ]; then
-    echo "用法: ./joydocker.sh <action> [service]"
+    echo "用法: ./codetool.sh <action> [service]"
     echo ""
     echo "Actions:"
-    echo "  start   [service]   启动指定服务 (如果未指定，则启动所有服务)。 例如: ./joydocker.sh start backend"
-    echo "  stop    [service]   停止指定服务 (如果未指定，则停止所有服务)。 例如: ./joydocker.sh stop frontend"
+    echo "  start   [service]   启动指定服务 (如果未指定，则启动所有服务)。 例如: ./codetool.sh start backend"
+    echo "  stop    [service]   停止指定服务 (如果未指定，则停止所有服务)。 例如: ./codetool.sh stop frontend"
     echo "  restart [service]   重启指定服务 (如果未指定，则重启所有服务)。"
     echo "  logs    [service]   查看指定服务的日志 (如果未指定，则查看所有服务)。"
     echo "  down              停止并移除所有容器、网络。"
@@ -49,7 +49,7 @@ case "$ACTION" in
         ;;
     *)
         echo "错误: 无效的操作 '$ACTION'"
-        echo "请运行 './joydocker.sh --help' 查看用法。"
+        echo "请运行 './codetool.sh --help' 查看用法。"
         exit 1
         ;;
 esac

@@ -9,8 +9,8 @@ services:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_general_ci
     environment:
-      - MYSQL_ROOT_PASSWORD=123456
-      - MYSQL_DATABASE=joy_read_basis
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-123456}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-joy_read_basis}
     ports:
       - "3306:3306"
     volumes:
@@ -18,6 +18,12 @@ services:
     networks:
       - joy-read-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$${MYSQL_ROOT_PASSWORD:-123456}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   redis:
     image: redis:7.4
@@ -29,13 +35,20 @@ services:
     networks:
       - joy-read-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
 
   meilisearch:
     image: getmeili/meilisearch:v1.13
     container_name: joy-read-meilisearch
     environment:
-      - MEILI_ENV=development
-      - MEILI_MASTER_KEY=SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk
+      - MEILI_ENV=${MEILI_ENV:-development}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk}
+      - MEILI_HTTP_ADDR=0.0.0.0:7700
     ports:
       - "7700:7700"
     volumes:
@@ -43,6 +56,12 @@ services:
     networks:
       - joy-read-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:7700/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
 volumes:
   mysql-data:

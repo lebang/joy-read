@@ -11,8 +11,10 @@ services:
       - ../joy-read-service:/app
       - /app/node_modules
     environment:
-      - MEILISEARCH_HOST=http://meilisearch:7700
-      - MEILISEARCH_API_KEY=SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk
+      - MEILISEARCH_HOST=${MEILISEARCH_HOST:-http://meilisearch:7700}
+      - MEILISEARCH_API_KEY=${MEILI_MASTER_KEY:-SvuHwKxo38ozc0extjpI-Fi-uzYl5MmTYyDMfkwmolk}
+      - NODE_ENV=${NODE_ENV:-development}
+      - JWT_SECRET=${JWT_SECRET:-your_jwt_secret_change_in_production}
     command: npm start
     networks:
       - joy-read-net
@@ -21,6 +23,12 @@ services:
       - mysql
       - redis
       - meilisearch
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   frontend:
     container_name: joy-read-frontend
@@ -31,19 +39,26 @@ services:
       - ../joy-read-web:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://localhost/api # API 地址指向 Nginx 网关
+      - VITE_API_URL=${VITE_API_URL:-http://localhost/api} # API 地址指向 Nginx 网关
+      - NODE_ENV=${NODE_ENV:-development}
     command: npm run dev
     networks:
       - joy-read-net
     restart: unless-stopped
     depends_on:
       - backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   nginx:
     image: nginx:alpine
     container_name: joy-read-nginx
     ports:
-      - "80:80" # 应用的唯一入口
+      - "${NGINX_PORT:-80}:80" # 应用的唯一入口
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # 挂载 nginx 配置
     depends_on:
@@ -52,6 +67,12 @@ services:
     networks:
       - joy-read-net
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 
 networks:
   joy-read-net:
