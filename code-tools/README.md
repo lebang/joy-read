@@ -110,6 +110,39 @@ pnpm run codetool -- install:frontend  # 安装前端依赖
 2. **API 请求**: `http://localhost/api/*` → Nginx → Backend (Express.js)
 3. **后端服务**: Backend → MySQL/Redis/MeiliSearch
 
+### 目录结构
+
+```
+code-tools/
+├── docker-compose.yml              # 🆕 应用服务配置（Backend/Frontend/Nginx）
+├── docker-compose.infra.yml        # 🆕 基础设施服务配置（MySQL/Redis/MeiliSearch）
+├── docker/                         # Docker 配置目录
+│   ├── dockerfiles/                # Dockerfile 文件
+│   │   ├── backend.Dockerfile      # Backend 构建配置
+│   │   └── frontend.Dockerfile     # Frontend 构建配置
+│   └── nginx/                      # Nginx 配置
+│       ├── nginx.conf              # Nginx 主配置
+│       └── mime.types              # MIME 类型配置
+├── src/                            # CLI 工具源码
+│   ├── cli.js                      # 主命令行工具
+│   ├── config/                     # 配置文件
+│   └── utils/                      # 工具函数
+├── mysql/                          # MySQL 数据目录（自动生成）
+├── redis/                          # Redis 数据目录（自动生成）
+├── meili/                          # Meilisearch 数据目录（自动生成）
+├── logs/                           # 日志目录（自动生成）
+├── .env.example                    # 环境变量模板
+├── .env                            # 环境变量配置（需创建）
+├── package.json                    # 项目配置
+└── README.md                       # 本文档
+```
+
+**说明**：
+- `docker-compose.yml` 和 `docker-compose.infra.yml` - Docker Compose 配置文件，位于 code-tools 根目录，路径简洁清晰
+- `docker/` - Docker 相关配置（Dockerfile、Nginx 配置等）
+- `src/` - CLI 工具代码，提供便捷的开发命令
+- 数据目录（mysql/redis/meili/logs）会在首次启动时自动创建
+
 ## 🔧 配置说明
 
 ### 环境变量
@@ -129,6 +162,8 @@ pnpm run codetool -- install:frontend  # 安装前端依赖
    - `MYSQL_ROOT_PASSWORD`: MySQL root 密码（生产环境必须修改）
    - `JWT_SECRET`: JWT 令牌密钥（至少 32 字符）
    - `MEILI_MASTER_KEY`: MeiliSearch 主密钥（至少 16 字符）
+
+
 
 ### 端口映射
 
@@ -264,6 +299,9 @@ pnpm run codetool -- logs -f backend
 - [Joy Read 项目文档](../README.md)
 - [后端服务文档](../joy-read-service/README.md)
 - [前端应用文档](../joy-read-web/README.md)
+- [Docker 优化文档](DOCKER_OPTIMIZATION.md)
+- [路径配置优化文档](docker/PATH_OPTIMIZATION.md)
+- [项目迁移文档](MIGRATION.md)
 - [Docker Compose 官方文档](https://docs.docker.com/compose/)
 
 ## 🤝 贡献指南

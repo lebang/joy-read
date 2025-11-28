@@ -12,19 +12,18 @@ let articlesIndex;
 // 初始化索引
 async function initializeIndex() {
   try {
-    articlesIndex = await searchClient.getIndex('articles');
-  } catch (error) {
-    articlesIndex = await searchClient.createIndex('articles');
-  }
-
-  // 配置索引设置
-  try {
+    // 获取索引对象（如果不存在会自动创建）
+    articlesIndex = searchClient.index('articles');
+    
+    // 配置索引设置
     await articlesIndex.updateSettings({
       searchableAttributes: ['title', 'content'],
       sortableAttributes: ['updatedAt'],
     });
+    
+    console.log('MeiliSearch index initialized successfully');
   } catch (error) {
-    console.error('Failed to update MeiliSearch settings:', error);
+    console.error('Failed to initialize MeiliSearch:', error);
   }
 }
 

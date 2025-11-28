@@ -17,6 +17,7 @@ export default async (req, res, next) => {
   const user = await User.findByPk(userId)
 
   if (!user) throw new Unauthorized('用户不存在')
+    console.log('user.role:', user.role, 'user.id:', user.id);
   if (user.role !== 100) throw new Unauthorized('用户无权限')
   req.user = user
   next()

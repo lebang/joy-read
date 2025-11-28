@@ -39,9 +39,17 @@ export default defineConfig({
     },
   },
   server: {
-    host: '',
+    host: '0.0.0.0', // 允许外部访问
     port: '3001',
     strictPort: false,
+    watch: {
+      usePolling: true, // Docker 环境下需要使用轮询模式
+      interval: 1000, // 轮询间隔（毫秒）
+    },
+    hmr: {
+      host: 'localhost', // HMR 主机地址
+      protocol: 'ws', // 使用 WebSocket 协议
+    },
     // proxy: {
     //   '/api': {
     //     target: 'http://127.0.0.1:3000',

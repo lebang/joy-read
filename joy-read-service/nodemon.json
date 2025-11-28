@@ -1,0 +1,16 @@
+{
+  "verbose": true,
+  "watch": [
+    "."
+  ],
+  "ignore": [
+    "node_modules",
+    "logs",
+    "*.log",
+    "*.test.js",
+    ".git"
+  ],
+  "ext": "js,json",
+  "legacyWatch": true,
+  "delay": 1000
+}

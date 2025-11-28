@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@9.0.0",
   "scripts": {
-    "codetool": "node cli.js"
+    "codetool": "node src/cli.js"
   },
   "keywords": ["docker", "docker-compose", "development", "cli", "joy-read"],
   "author": "Joy Read Team",

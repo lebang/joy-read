@@ -15,7 +15,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # 6. 声明 Vite 开发服务器的端口
-EXPOSE 5173
+EXPOSE 3001
 
 # 7. 定义容器启动时执行的默认命令
 # 'npm run dev' 会执行 'vite --host'，允许从外部访问
