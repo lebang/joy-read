@@ -2,7 +2,14 @@
 
 import 'zx/globals';
 import minimist from 'minimist';
-import { showHelp } from './utils/help-generator.js';
+import { logger, containerChecker, stepRunner, showHelp } from './utils/index.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// 获取项目根目录（code-tools的父目录）
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const PROJECT_ROOT = join(__dirname, '../..');
 
 // ==================== 配置常量 ====================
 const CONFIG = {
@@ -15,7 +22,8 @@ const CONFIG = {
     volume: 'code-tools_mysql-data'
   },
   seed: '20250611141601-user.js',
-  initDelay: 15000
+  initDelay: 15000,
+  njsPath: join(PROJECT_ROOT, 'code-tools/nginx/njs')
 };
 
 // 设置 zx 配置
@@ -55,30 +63,130 @@ const getTimestampFilename = () => {
 /** 数据库备份 */
 async function runDbBackup() {
   const filename = getTimestampFilename();
-  console.log(chalk.blue(`📦 备份数据库到: ${filename}`));
+  logger.title(`备份数据库到: ${filename}`, '📦');
   
   const { user, password, name, container } = CONFIG.db;
   await dbExec(`mysqldump -u${user} -p${password} ${name} > /tmp/${filename}`);
   await $`docker cp ${container}:/tmp/${filename} ./${filename}`;
   
-  console.log(chalk.green(`✅ 数据库备份成功: ${filename}`));
+  logger.success(`数据库备份成功: ${filename}`);
 }
 
 /** 数据库恢复 */
 async function runDbRestore() {
   if (!args[0]) {
-    console.error(chalk.red('❌ 请指定备份文件: npm run codetool -- db:restore <filename>'));
+    logger.error('请指定备份文件: npm run codetool -- db:restore <filename>');
     process.exit(1);
   }
   
   const filename = args[0];
-  console.log(chalk.blue(`📥 从 ${filename} 恢复数据库...`));
+  logger.title(`从 ${filename} 恢复数据库...`, '📥');
   
   const { user, password, name, container } = CONFIG.db;
   await $`docker cp ./${filename} ${container}:/tmp/${filename}`;
   await dbExec(`mysql -u${user} -p${password} ${name} < /tmp/${filename}`);
   
-  console.log(chalk.green('✅ 数据库恢复成功'));
+  logger.success('数据库恢复成功');
+}
+
+/** njs 热更新 */
+async function runNjsReload() {
+  logger.title('Joy Read - njs 热更新', '🔄');
+  
+  // 检查nginx容器是否运行
+  await containerChecker.check('joy-read-nginx', 'Nginx');
+  
+  // 显示当前njs脚本信息
+  logger.section('当前njs脚本');
+  try {
+    await $`ls -lh ${CONFIG.njsPath}`;
+  } catch (error) {
+    logger.warn('无法列出njs脚本目录');
+  }
+  logger.newline();
+  
+  // 执行热更新
+  logger.step('执行热更新');
+  logger.divider();
+  
+  try {
+    await $`docker exec joy-read-nginx nginx -s reload`;
+    logger
+      .success('热更新成功！')
+      .newline()
+      .tips([
+        '修改 code-tools/nginx/njs/*.js 后运行此命令',
+        '或手动执行: docker exec joy-read-nginx nginx -s reload',
+        '查看日志: docker logs -f joy-read-nginx'
+      ]);
+  } catch (error) {
+    logger
+      .error('热更新失败，请检查nginx配置')
+      .newline()
+      .info('查看错误日志：')
+      .gray('   docker logs joy-read-nginx');
+    process.exit(1);
+  }
+  
+  logger.done('热更新完成！');
+}
+
+/** njs 日志查看 */
+async function runNjsLogs() {
+  logger.title('Joy Read - njs 日志查看', '📋');
+  
+  // 检查nginx容器是否运行
+  await containerChecker.check('joy-read-nginx', 'Nginx');
+  
+  // 解析参数
+  const lines = args[0] || '20';
+  const follow = args.includes('-f') || args.includes('--follow');
+  
+  logger.section(`查看最近 ${lines} 条 njs 日志${follow ? ' (实时跟踪)' : ''}`);
+  logger.newline();
+  
+  try {
+    if (follow) {
+      // 实时跟踪日志
+      logger.info('按 Ctrl+C 退出实时跟踪');
+      logger.newline();
+      await $`docker logs -f joy-read-nginx 2>&1 | grep --line-buffered "\\[NJS\\]"`;
+    } else {
+      // 显示最近的日志
+      const result = await $`docker logs --tail ${lines} joy-read-nginx 2>&1`;
+      const njsLogs = result.stdout.split('\n').filter(line => line.includes('[NJS]'));
+      
+      if (njsLogs.length === 0) {
+        logger
+          .warn('未找到 [NJS] 日志')
+          .newline()
+          .gray('提示：发送一些请求后再查看日志')
+          .commands([
+            'curl http://localhost/',
+            'curl http://localhost/api/health'
+          ]);
+      } else {
+        njsLogs.forEach(log => {
+          logger.colorize(log, {
+            'frontend': 'cyan',
+            'backend': 'green'
+          });
+        });
+      }
+    }
+  } catch (error) {
+    if (error.exitCode !== 130) { // 130 是 Ctrl+C 的退出码
+      logger.error('查看日志失败');
+    }
+  }
+  
+  if (!follow) {
+    logger.options('更多选项', [
+      '实时跟踪: pnpm run codetool -- logs:njs -f',
+      '指定行数: pnpm run codetool -- logs:njs 50',
+      '所有日志: pnpm run codetool -- logs nginx'
+    ]);
+  }
 }
 
 /** 重置数据库 */
@@ -90,7 +198,7 @@ async function runDbReset() {
       try {
         await $`docker volume rm ${CONFIG.db.volume}`;
       } catch {
-        console.warn(chalk.yellow('数据卷已删除或不存在，继续...'));
+        logger.warn('数据卷已删除或不存在，继续...');
       }
     }],
     ['启动服务', () => dc`up -d mysql backend`],
@@ -99,14 +207,13 @@ async function runDbReset() {
     ['填充数据', () => backendExec`npm run sequlize-cli -- db:seed --seed ${CONFIG.seed}`]
   ];
   
-  console.log(chalk.yellow('🔄 开始重置数据库...\n'));
+  logger.title('开始重置数据库...', '🔄');
   
-  for (const [desc, fn] of steps) {
-    console.log(chalk.blue(`▶ ${desc}...`));
-    await fn();
-  }
+  await stepRunner.run(steps);
   
-  console.log(chalk.green('\n✅ 数据库重置完成！'));
+  logger
+    .newline()
+    .success('数据库重置完成！');
 }
 
 // ==================== 命令定义 ====================
@@ -144,7 +251,11 @@ const commands = {
   
   // 依赖管理
   'install:backend': execCmd('backend', 'pnpm install'),
-  'install:frontend': execCmd('frontend', 'pnpm install')
+  'install:frontend': execCmd('frontend', 'pnpm install'),
+  
+  // Nginx 管理
+  'reload:njs': runNjsReload,
+  'logs:njs': runNjsLogs
 };
 
 // ==================== 主函数 ====================
@@ -156,7 +267,9 @@ async function main() {
   
   const handler = commands[action];
   if (!handler) {
-    console.error(chalk.red(`\n❌ 未知命令: '${action}'`));
+    logger
+      .newline()
+      .error(`未知命令: '${action}'`);
     showHelp();
     process.exit(1);
   }
@@ -164,13 +277,16 @@ async function main() {
   try {
     await handler();
   } catch (error) {
-    console.error(chalk.red(`\n❌ 命令执行失败: ${error.message}`));
+    logger
+      .newline()
+      .error(`命令执行失败: ${error.message}`);
     process.exit(1);
   }
 }
 
 // 启动
 main().catch((error) => {
-  console.error(chalk.red('💥 脚本异常:'), error);
+  logger.error('💥 脚本异常:');
+  console.error(error);
   process.exit(1);
 });

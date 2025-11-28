@@ -43,6 +43,13 @@ export const HELP_CONFIG = {
         { name: 'install:backend', desc: '安装后端依赖' },
         { name: 'install:frontend', desc: '安装前端依赖' }
       ]
+    },
+    {
+      title: '🌐 Nginx 管理:',
+      commands: [
+        { name: 'reload:njs', desc: 'njs 脚本热更新 (无需重启)' },
+        { name: 'logs:njs [lines] [-f]', desc: '查看 njs 日志 (默认20行)' }
+      ]
     }
   ],
   options: [
@@ -53,7 +60,10 @@ export const HELP_CONFIG = {
     'pnpm run codetool start backend',
     'pnpm run codetool logs frontend',
     'pnpm run codetool db:backup',
-    'pnpm run codetool shell:backend'
+    'pnpm run codetool shell:backend',
+    'pnpm run codetool reload:njs',
+    'pnpm run codetool logs:njs 50',
+    'pnpm run codetool logs:njs -f'
   ],
   footer: '📚 文档: 查看 README.md 获取更多信息'
 };
