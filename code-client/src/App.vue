@@ -2,10 +2,10 @@
 import { useAppStore } from '@/stores'
 import AppSidebar from '@/components/layout/AppSidebar.vue'
 import AppHeader from '@/components/layout/AppHeader.vue'
-import Dashboard from '@/views/Dashboard.vue'
-import Containers from '@/views/Containers.vue'
-import Services from '@/views/Services.vue'
-import Settings from '@/views/Settings.vue'
+import Dashboard from '@/views/Dashboard/index.vue'
+import Containers from '@/views/Containers/index.vue'
+import Services from '@/views/Services/index.vue'
+import Settings from '@/views/Settings/index.vue'
 
 const appStore = useAppStore()
 </script>
