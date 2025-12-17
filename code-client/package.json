@@ -3,20 +3,30 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "scripts": {
+"scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "kill-port": "lsof -ti :1420 | xargs kill -9 2>/dev/null || echo 'Port 1420 is free'"
   },
   "dependencies": {
     "vue": "^3.5.13",
     "@tauri-apps/api": "^2",
-    "@tauri-apps/plugin-opener": "^2"
+    "@tauri-apps/plugin-opener": "^2",
+    "element-plus": "^2.9.1",
+    "@element-plus/icons-vue": "^2.3.1",
+    "pinia": "^2.3.0",
+    "axios": "^1.7.9"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "vite": "^6.0.3",
-    "@tauri-apps/cli": "^2"
+    "@tauri-apps/cli": "^2",
+    "unplugin-auto-import": "^0.18.6",
+    "unplugin-vue-components": "^0.27.5",
+    "sass": "^1.83.0"
   }
 }
