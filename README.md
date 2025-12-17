@@ -1,6 +1,6 @@
 # Joy Read Platform
 
-Joy Read 是一个在线阅读和学习平台，提供用户认证、内容管理、课程学习等功能。项目采用前后端分离架构，包含后端服务（joy-read-service）和前端应用（joy-read-web）两个主要部分。
+Joy Read 是一个在线阅读和学习平台，提供用户认证、内容管理、课程学习等功能。项目采用前后端分离架构，包含后端服务（joy-read-service）、前端应用（joy-read-web）、开发工具（code-tools）和桌面客户端（code-client）四个主要部分。
 
 ## 技术栈
 
@@ -19,6 +19,19 @@ Joy Read 是一个在线阅读和学习平台，提供用户认证、内容管�
 - Axios HTTP 客户端
 - Vite/Rspack 构建工具
 
+### 开发环境工具 (code-tools)
+- Docker + Docker Compose 容器编排
+- Nginx 反向代理 + njs 可编程转发
+- CLI 工具集（服务管理、数据库管理等）
+- 一键启动开发环境
+
+### 桌面客户端 (code-client)
+- Tauri 2.0 跨平台框架
+- Vue 3 + Vite 前端技术栈
+- 支持 Windows、macOS、Linux 桌面端
+- 支持 Android、iOS 移动端
+- 用于监控和管理 code-tools 的 Docker 容器状态、服务状态等
+
 ## 项目结构
 
 ```
@@ -26,22 +39,34 @@ joy-read/
 ├── joy-read-service/          # 后端服务
 │   ├── app.js                 # 应用入口
 │   ├── bin/                   # 启动脚本
-│   ├── config/               # 配置文件
-│   ├── models/               # 数据模型
-│   ├── routes/               # 路由控制器
-│   ├── middlewares/          # 中间件
-│   ├── utils/                # 工具函数
-│   └── docker-compose.yml    # Docker 编排配置
+│   ├── config/                # 配置文件
+│   ├── models/                # 数据模型
+│   ├── routes/                # 路由控制器
+│   ├── middlewares/           # 中间件
+│   ├── utils/                 # 工具函数
+│   └── docker-compose.yml     # Docker 编排配置
 │
-└── joy-read-web/             # 前端应用
-    ├── src/
-    │   ├── apis/            # API 接口
-    │   ├── components/      # 通用组件
-    │   ├── routes/          # 路由配置
-    │   ├── store/           # Pinia 状态管理
-    │   ├── views/           # 页面组件
-    │   └── utils/           # 工具函数
-    └── vite.config.js       # Vite 构建配置
+├── joy-read-web/              # 前端应用
+│   ├── src/
+│   │   ├── apis/              # API 接口
+│   │   ├── components/        # 通用组件
+│   │   ├── routes/            # 路由配置
+│   │   ├── store/             # Pinia 状态管理
+│   │   ├── views/             # 页面组件
+│   │   └── utils/             # 工具函数
+│   └── vite.config.js         # Vite 构建配置
+│
+├── code-tools/                # 开发环境工具
+│   ├── docker-compose.yml     # 应用服务配置
+│   ├── docker-compose.infra.yml # 基础设施服务配置
+│   ├── nginx/                 # Nginx 配置 + njs 脚本
+│   ├── src/                   # CLI 工具源码
+│   └── README.md              # 工具使用文档
+│
+└── code-client/               # 桌面/移动端客户端
+    ├── src/                   # Vue 3 前端代码
+    ├── src-tauri/             # Tauri Rust 后端代码
+    └── README.md              # 客户端文档
 ```
 
 ## 主要功能
