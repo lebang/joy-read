@@ -7,7 +7,7 @@
     "start": "nodemon ./bin/www",
     "format": "prettier --write \"**/*.{js,json,md}\"",
     "debug": "node --inspect-brk=3000 ./bin/www",
-    "sequlize-cli": "./node_modules/.bin/sequelize-cli",
+    "sequelize-cli": "./node_modules/.bin/sequelize-cli",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest",
     "vitest": "vitest run",
     "vitest:ui": "vitest --ui"

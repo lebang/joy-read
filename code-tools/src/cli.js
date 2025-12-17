@@ -203,8 +203,8 @@ async function runDbReset() {
     }],
     ['启动服务', () => dc`up -d mysql backend`],
     ['等待初始化', () => sleep(CONFIG.initDelay)],
-    ['执行迁移', () => backendExec`npm run sequlize-cli -- db:migrate`],
-    ['填充数据', () => backendExec`npm run sequlize-cli -- db:seed --seed ${CONFIG.seed}`]
+    ['执行迁移', () => backendExec`npm run sequelize-cli -- db:migrate`],
+    ['填充数据', () => dc`exec backend npm run sequelize-cli -- db:seed --seed ${CONFIG.seed}`]
   ];
   
   logger.title('开始重置数据库...', '🔄');
@@ -234,8 +234,8 @@ const commands = {
   ps: () => dc`ps --format "table {{.Name}}\t{{.Ports}}\t{{.Image}}\t{{.Service}}\t{{.Status}}"`,
   
   // 数据库管理
-  migrate: () => backendExec`npm run sequlize-cli -- db:migrate`,
-  'seed:user': () => backendExec`npm run sequlize-cli -- db:seed --seed ${CONFIG.seed}`,
+  migrate: () => backendExec`npm run sequelize-cli -- db:migrate`,
+  'seed:user': () => dc`exec backend npm run sequelize-cli -- db:seed --seed ${CONFIG.seed}`,
   'db:reset': runDbReset,
   'db:backup': runDbBackup,
   'db:restore': runDbRestore,

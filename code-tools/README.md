@@ -58,42 +58,42 @@ pnpm run codetool -- start
 ### 服务管理
 
 ```bash
-pnpm run codetool -- start [service]   # 启动服务（默认：所有服务）
-pnpm run codetool -- stop [service]    # 停止服务
-pnpm run codetool -- restart [service] # 重启服务
-pnpm run codetool -- down              # 停止并删除所有容器
-pnpm run codetool -- ps                # 查看运行状态
-pnpm run codetool -- logs [service]    # 查看实时日志
+pnpm codetool -- start [service]   # 启动服务（默认：所有服务）
+pnpm codetool -- stop [service]    # 停止服务
+pnpm codetool -- restart [service] # 重启服务
+pnpm codetool -- down              # 停止并删除所有容器
+pnpm codetool -- ps                # 查看运行状态
+pnpm codetool -- logs [service]    # 查看实时日志
 ```
 
 ### 数据库管理
 
 ```bash
-pnpm run codetool -- migrate           # 运行数据库迁移
-pnpm run codetool -- seed:user         # 填充用户测试数据
-pnpm run codetool -- db:reset          # 重置数据库（⚠️ 危险操作）
-pnpm run codetool -- db:backup         # 备份数据库
-pnpm run codetool -- db:restore <file> # 从备份恢复数据库
-pnpm run codetool -- db:console        # 进入 MySQL 控制台
+pnpm codetool -- migrate           # 运行数据库迁移
+pnpm codetool -- seed:user         # 填充用户测试数据
+pnpm codetool -- db:reset          # 重置数据库（⚠️ 危险操作）
+pnpm codetool -- db:backup         # 备份数据库
+pnpm codetool -- db:restore <file> # 从备份恢复数据库
+pnpm codetool -- db:console        # 进入 MySQL 控制台
 ```
 
 ### Nginx 管理
 
 ```bash
-pnpm run codetool -- reload:njs        # 热更新 njs 脚本（无需重启）
-pnpm run codetool -- logs:njs [lines]  # 查看 njs 日志（默认20行）
+pnpm codetool -- reload:njs        # 热更新 njs 脚本（无需重启）
+pnpm codetool -- logs:njs [lines]  # 查看 njs 日志（默认20行）
 ```
 
 ### 开发调试
 
 ```bash
 # Shell 访问
-pnpm run codetool -- shell:backend     # 进入后端容器 Shell
-pnpm run codetool -- shell:frontend    # 进入前端容器 Shell
+pnpm codetool -- shell:backend     # 进入后端容器 Shell
+pnpm codetool -- shell:frontend    # 进入前端容器 Shell
 
 # 依赖管理
-pnpm run codetool -- install:backend   # 安装后端依赖
-pnpm run codetool -- install:frontend  # 安装前端依赖
+pnpm codetool -- install:backend   # 安装后端依赖
+pnpm codetool -- install:frontend  # 安装前端依赖
 ```
 
 ### 服务列表
